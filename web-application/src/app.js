@@ -35,7 +35,7 @@ app.get('/', function(request, response){
     
   })
 })
-
+console.log("wow")
 console.log("hello")
 console.log("yalla")
 
