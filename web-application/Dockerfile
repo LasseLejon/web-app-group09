@@ -1,4 +1,4 @@
-FROM node:13.5.0
+FROM node:16.13.2
 
 EXPOSE 8080
 
@@ -8,6 +8,6 @@ COPY package*.json ./
 
 RUN npm install
 
-COPY app.js ./
+COPY src src
 
-CMD ["node", "app.js"]
+CMD npm run start
