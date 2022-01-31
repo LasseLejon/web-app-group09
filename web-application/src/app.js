@@ -22,7 +22,7 @@ app.set('views', path.join(__dirname, "views"))
 app.get('/', function(request, response){
   response.render('start.hbs')
 
-  dbConnection.query("SELECT * FROM humans", function(error, result){
+  dbConnection.query("SELECT * FROM humans", function(error, humans){
     if(error){
       console.log(error)
     }
