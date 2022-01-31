@@ -17,7 +17,7 @@ app.engine('hbs', expressHandlebars.engine({
     defaultLayout: 'main.hbs'
 }))
 
-app.set('views', path.join(__dirname, "views"))
+app.set('views', path.join(__dirname, "/presentation-layer/views"))
 
 app.get('/', function(request, response){
   response.render('start.hbs')
@@ -37,7 +37,7 @@ app.get('/', function(request, response){
 })
 console.log("wow")
 console.log("hello")
-console.log("asdasdasddsa")
+console.log(__dirname)
 
 app.listen(8080, function(){
   console.log("Web application listening on port 8080.")

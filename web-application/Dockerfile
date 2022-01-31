@@ -2,7 +2,7 @@ FROM node:16.13.2
 
 EXPOSE 8080
 
-WORKDIR /web-application
+WORKDIR /web-application/presentation-layer
 
 COPY package*.json ./
 
