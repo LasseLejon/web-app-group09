@@ -17,7 +17,7 @@ app.engine('hbs', expressHandlebars.engine({
     defaultLayout: 'main.hbs'
 }))
 
-app.set('views', path.join(__dirname, "/presentation-layer/views"))
+app.set('views', path.join(__dirname, "views"))
 
 app.get('/', function(request, response){
   response.render('start.hbs')
