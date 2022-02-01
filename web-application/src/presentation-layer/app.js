@@ -1,9 +1,9 @@
 const express = require('express')
 const expressHandlebars = require('express-handlebars')
 const path = require('path')
+const bodyParser = require('body-parser');
 const accountRouter = require('./routers/account-router')
 const variousRouter = require('./routers/various-router')
-const bodyParser = require('body-parser');
 
 const app = express()
 
@@ -21,8 +21,6 @@ app.engine('hbs', expressHandlebars.engine({
 	defaultLayout: 'main',
 	layoutsDir: path.join(__dirname, 'layouts')
 }))
-
-
 
 
 app.use('/', variousRouter)
