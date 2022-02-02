@@ -1,9 +1,17 @@
 const express = require('express')
+const scannerManager = require('../../business-logic-layer/scanner-manager')
 
 const router = express.Router()
 
 router.get("/", function(request, response){
-	response.render("scanner.hbs")
+    scannerManager.getAllScanners(function(errors, scanners){
+        const model = {
+            errors: errors,
+            scanners: scanners
+        }
+        response.render("scanner.hbs", model)
+    })
+	
 })
 
 router.get('/delete', function(request, response){
@@ -16,6 +24,21 @@ router.get('/update', function(request, response){
 
 router.get('/create', function(request, response){
     response.render('create-scanner.hbs')
+})
+
+router.post('/create', function(request, response){
+    const scannerNumber = request.body.scannerNumber
+    const scanner = {
+        scannerNumber: scannerNumber
+    }
+    scannerManager.createScanner(scanner, function(errors, id){
+        const model = {
+            errors: errors,
+            id: id
+        }
+    })
+
+    response.redirect('/scanner')
 })
 
 

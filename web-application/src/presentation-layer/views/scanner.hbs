@@ -1,12 +1,61 @@
 <h1>Scanner</h1>
-<h2>
-    List of scanners here from db, maybe you can see if one is active or not in the list
-</h2>
 <a href="/scanner/create">Create new scanner</a>
-<ul>
-    <li>
-        scanner #1 <a href="/scanner/update">Update scanner</a>
-        <a href="/scanner/delete">Delete scanner</a>
-    </li>
-</ul>
+{{#if errors.length}}
+    <p>Got error</p>
+    <ul>
+        {{#each errors}}
+            <li>{{this}}</li>
+        {{/each}}
+    </ul>
+{{else}}
+    {{#if scanners.length}}
+        <table border="solid">
+            <thead>
+                <tr>
+                    <th>Scanner id</th>
+                    <th>Scanner Number</th>
+                    <th>In use</th>
+                    <th>Update</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            {{#each scanners}}
+                <tr>
+                    <td>{{this.scannerId}}</td>
+                    <td>{{this.scannerNumber}}</td>
+                    <td>yes</td>
+                    <td><a href="/scanner/update">Update scanner</a></td>
+                    <td><a href="/scanner/delete">Delete scanner</a></td>
+            {{/each}}
+        </table>
+    {{else}}
+        <p>No scanners in db</p>
+    {{/if}}
+{{/if}}
+
+    
+
+{{!-- <div class="content">
+<h1>All accounts</h1>
+{{#if errors.length}}
+	<p>Oh no, something went wrong:</p>
+	<ul>
+		{{#each errors}}
+			<li>{{this}}</li>
+		{{/each}}
+	</ul>
+{{else}}
+	
+	{{#if accounts.length}}
+		<ul>
+			{{#each accounts}}
+				<li><a href="/accounts/{{username}}">{{username}}</a></li>
+			{{/each}}
+		</ul>
+	{{else}}
+		<p>No accounts exist yet.</p>
+	{{/if}}
+	
+{{/if}}
+</div> --}}
     
