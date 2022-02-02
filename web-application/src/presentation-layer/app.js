@@ -4,6 +4,7 @@ const path = require('path')
 const bodyParser = require('body-parser');
 const accountRouter = require('./routers/account-router')
 const variousRouter = require('./routers/various-router')
+const scannerRouter = require('./routers/scanner-router')
 
 const app = express()
 
@@ -25,6 +26,7 @@ app.engine('hbs', expressHandlebars.engine({
 
 app.use('/', variousRouter)
 app.use('/accounts', accountRouter)
+app.use('/scanner', scannerRouter)
 
 
 app.listen(8080, function(){
