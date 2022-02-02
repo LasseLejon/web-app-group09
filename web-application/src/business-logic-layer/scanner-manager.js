@@ -1,10 +1,16 @@
 const scannerRepository = require('../data-access-layer/scanner-repository')
+const scannerValidator = require('./scanner-validator')
 
 exports.getAllScanners = function(callback){
     scannerRepository.getAllScanners(callback)
 }
 
 exports.createScanner = function(scanner, callback){
+	const errors = scannerValidator.getErrorsNewScanner(scanner)
+	if(errors.length > 0){
+		callback(errors, null)
+		return
+	}
 	scannerRepository.createScanner(scanner, callback)
 }
 

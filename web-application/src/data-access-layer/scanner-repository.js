@@ -19,7 +19,9 @@ exports.createScanner = function(scanner, callback){
     const values = [scanner.scannerNumber]
 
     db.query(query, values, function(error, result){
-        if(error){
+        if(error.code == 'ER_DUP_ENTRY'){
+            callback(['scannerNumberAlreadyInDatabase'], null)
+        }else if(error){
             callback(['databaseError'], null)
         }else{
             callback([],result.insertId)

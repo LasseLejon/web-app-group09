@@ -32,13 +32,16 @@ router.post('/create', function(request, response){
         scannerNumber: scannerNumber
     }
     scannerManager.createScanner(scanner, function(errors, id){
-        const model = {
-            errors: errors,
-            id: id
+        if(errors.length > 0){
+            const model = {
+                errors: errors,
+                id: id
+            }
+            response.render('create-scanner.hbs', model)
+        }else{
+            response.redirect('/scanner')
         }
     })
-
-    response.redirect('/scanner')
 })
 
 

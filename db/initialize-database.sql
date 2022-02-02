@@ -7,7 +7,8 @@ CREATE TABLE Accounts(
 
 CREATE TABLE Scanners(
     scannerId INT AUTO_INCREMENT PRIMARY KEY,
-    scannerNumber INT NOT NULL
+    scannerNumber INT NOT NULL,
+    CONSTRAINT scannerNumberUnique UNIQUE (scannerNumber)
 );
 
 CREATE TABLE ScannerBorrowSession(
