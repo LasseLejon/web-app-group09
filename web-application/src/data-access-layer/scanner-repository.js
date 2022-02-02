@@ -14,15 +14,47 @@ exports.getAllScanners = function(callback){
 
 }
 
+exports.getScannerById = function(id, callback){
+    const query = 'SELECT * FROM Scanners WHERE scannerId = ? LIMIT 1'
+    const values = [id]
+
+    db.query(query, values, function(error, scanner){
+        if(error){
+            callback(['databaseError'], null)
+        }else{
+            callback([], scanner)
+        }
+    })
+}
+
 exports.createScanner = function(scanner, callback){
     const query = 'INSERT INTO Scanners (scannerNumber) VALUES (?)'
     const values = [scanner.scannerNumber]
 
     db.query(query, values, function(error, result){
-        if(error.code == 'ER_DUP_ENTRY'){
-            callback(['scannerNumberAlreadyInDatabase'], null)
-        }else if(error){
-            callback(['databaseError'], null)
+        if(error){
+            if(error.code == 'ER_DUP_ENTRY'){
+                callback(['scannerNumberAlreadyInDatabase'], null)
+            }else{
+                callback(['databaseError'], null)
+            }
+        }else{
+            callback([],result.insertId)
+        }
+    })
+}
+
+exports.updateScannerById = function(scanner, callback){
+    const query = 'UPDATE Scanners SET scannerNumber = ? WHERE scannerId = ?'
+    const values = [scanner.scannerNumber, scanner.scannerId]
+
+    db.query(query, values, function(error, result){
+        if(error){
+            if(error.code == 'ER_DUP_ENTRY'){
+                callback(['scannerNumberAlreadyInDatabase'], null)
+            }else{
+                callback(['databaseError'], null)
+            }
         }else{
             callback([],result.insertId)
         }

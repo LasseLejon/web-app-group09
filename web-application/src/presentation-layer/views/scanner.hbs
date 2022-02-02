@@ -21,11 +21,11 @@
             </thead>
             {{#each scanners}}
                 <tr>
-                    <td>{{this.scannerId}}</td>
-                    <td>{{this.scannerNumber}}</td>
+                    <td>{{scannerId}}</td>
+                    <td>{{scannerNumber}}</td>
                     <td>yes</td>
-                    <td><a href="/scanner/update">Update scanner</a></td>
-                    <td><a href="/scanner/delete">Delete scanner</a></td>
+                    <td><a href="/scanner/update/{{scannerId}}">Update scanner</a></td>
+                    <td><a href="/scanner/delete/{{scannerId}}">Delete scanner</a></td>
             {{/each}}
         </table>
     {{else}}
