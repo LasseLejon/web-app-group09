@@ -1,16 +1,14 @@
 <h1>Update scanner</h1>
 {{#if scanner}}
-    {{#each scanner}}
-        <form action="/scanner/update/{{scannerId}}" method="post">
-            
-            <div>
-                Scanner Number<br>
-                <input type="text" name="scannerNumber" value="{{scannerNumber}}">
-            </div>
-            <div>
-                <button type="submit">Update</button>
-            </div>
-        {{/each}}
+    <form action="/scanner/update/{{scanner.scannerId}}" method="post">
+        
+        <div>
+            Scanner Number<br>
+            <input type="text" name="scannerNumber" value="{{scanner.scannerNumber}}">
+        </div>
+        <div>
+            <button type="submit">Update</button>
+        </div>
     </form>
 {{else}}
     <h2>Not Found</h2>

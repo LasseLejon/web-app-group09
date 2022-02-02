@@ -23,7 +23,7 @@ router.get('/update/:id', function(request, response){
     scannerManager.getScannerById(id, function(errors, scanner){
         const model = {
             errors: errors,
-            scanner: scanner
+            scanner: scanner[0]
         }
         
         response.render('update-scanner.hbs', model)
