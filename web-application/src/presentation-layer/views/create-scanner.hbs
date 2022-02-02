@@ -1,4 +1,13 @@
 <h1>Create scanner</h1>
+{{#if errors.length}}
+    <ul>
+        {{#each errors}}
+            <li>
+                {{this}}
+            </li>
+        {{/each}}
+    </ul>
+{{/if}}
 
 <form action="/scanner/create" method="post">
     <div>
