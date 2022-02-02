@@ -8,15 +8,11 @@ const router = express.Router()
 //router.use(csrfProtection)
 
 router.get("/create-new", function(request, response){
-//    const csrfToken = request.csrfToken() 
-//    const model = {
-//        csrfToken
-//    }
+
 	response.render("accounts-create-new.hbs")
 })
 
 router.post('/create-new', function(request,response){
-//    const csrfToken = request.csrfToken() 
     const username = request.body.name
     const password = request.body.pass
 
@@ -28,12 +24,9 @@ router.post('/create-new', function(request,response){
     accountManager.createAccount(account,function(errors,id){
         if(errors){
             const model = {
-             //   csrfToken,
+                username: username,
                 errors: errors,
                 id: id,
-            //    username,
-            //    password
-
             }
             response.render('accounts-create-new.hbs',model)
         }
@@ -44,15 +37,6 @@ router.post('/create-new', function(request,response){
 
     })
         
-  //  }
-  //  else{
-  //      const errors = ["Wrong username or password"]
-  //          const model = {
-  //              errors,
-  //              csrfToken
- //           }
- //       response.render('login.hbs',model)
- //   }
   })
 
 
