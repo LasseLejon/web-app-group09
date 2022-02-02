@@ -27,6 +27,10 @@ exports.updateScannerById = function(scanner, callback){
 	scannerRepository.updateScannerById(scanner, callback)
 }
 
+exports.deleteScannerById = function(scanner, callback){
+	scannerRepository.deleteScannerById(scanner, callback)
+}
+
 /* exports.getAllAccounts = function(callback){
 	accountRepository.getAllAccounts(callback)
 }

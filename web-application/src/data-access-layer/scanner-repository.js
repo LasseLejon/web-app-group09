@@ -61,6 +61,19 @@ exports.updateScannerById = function(scanner, callback){
     })
 }
 
+exports.deleteScannerById = function(scannerId, callback){
+    const query = 'DELETE FROM Scanners WHERE scannerId = ?'
+    const values = [scannerId]
+
+    db.query(query, values, function(error, result){
+        if(error){
+            callback(['databaseError'], null)
+        }else{
+            callback([])
+        }
+    })
+}
+
 /* exports.createAccount = function(account, callback){
 	
 	const query = `INSERT INTO accounts (username, password) VALUES (?, ?)`

@@ -30,6 +30,17 @@ router.get('/update/:id', function(request, response){
     })
 })
 
+router.get('/delete/:id', function(request, response){
+    const id = request.params.id
+    scannerManager.getScannerById(id, function(errors, scanner){
+        const model = {
+            errors: errors,
+            scanner: scanner[0]
+        }
+        response.render('delete-scanner.hbs', model)
+    })
+})
+
 router.get('/create', function(request, response){
     response.render('create-scanner.hbs')
 })
@@ -72,6 +83,20 @@ router.post('/update/:id', function(request, response){
             response.redirect('/scanner')
         }
         
+    })
+})
+router.post('/delete/:id', function(request, response){
+    const scannerId = request.params.id
+    scannerManager.deleteScannerById(scannerId, function(errors){
+        if(errors.length > 0){
+            const model = {
+                errors: errors,
+                id: id
+            }
+            response.render('delete-scanner.hbs', model)
+        }else{
+            response.redirect('/scanner')
+        }
     })
 })
 
