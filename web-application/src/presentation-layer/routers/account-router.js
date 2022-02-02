@@ -1,11 +1,62 @@
 const express = require('express')
 const accountManager = require('../../business-logic-layer/account-manager')
+const csrf = require('csurf')
+
+//const csrfProtection = csrf()
 
 const router = express.Router()
+//router.use(csrfProtection)
 
 router.get("/create-new", function(request, response){
+//    const csrfToken = request.csrfToken() 
+//    const model = {
+//        csrfToken
+//    }
 	response.render("accounts-create-new.hbs")
 })
+
+router.post('/create-new', function(request,response){
+//    const csrfToken = request.csrfToken() 
+    const username = request.body.name
+    const password = request.body.pass
+
+    const account = {
+        username: username,
+        password: password
+    }
+
+    accountManager.createAccount(account,function(errors,id){
+        if(errors){
+            const model = {
+             //   csrfToken,
+                errors: errors,
+                id: id,
+            //    username,
+            //    password
+
+            }
+            response.render('accounts-create-new.hbs',model)
+        }
+        else{
+            response.redirect('/create-new')
+        }
+
+
+    })
+        
+  //  }
+  //  else{
+  //      const errors = ["Wrong username or password"]
+  //          const model = {
+  //              errors,
+  //              csrfToken
+ //           }
+ //       response.render('login.hbs',model)
+ //   }
+  })
+
+
+
 
 router.get("/sign-in", function(request, response){
 	response.render("accounts-sign-in.hbs")
