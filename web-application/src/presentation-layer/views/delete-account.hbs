@@ -1,0 +1,20 @@
+<h1>Delete scanner</h1>
+{{#if account}}
+    <form action="/account/delete/{{account.accountId}}" method="post">
+        <p>Are you sure you wan't to delete scanner {{account.username}}</p>
+        <div>
+            <button type="submit">Delete</button>
+        </div>
+    </form>
+{{else}}
+    <p>Account does not exist</p>
+{{/if}}
+
+
+{{#if errors}}
+    <ul>
+        {{#each errors}}
+            <li>{{this}}</li>
+        {{/each}}
+    </ul>
+{{/if}}

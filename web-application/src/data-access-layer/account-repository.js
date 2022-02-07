@@ -7,7 +7,7 @@ const db = require('./database')
 */
 exports.getAllAccounts = function(callback){
 	
-	const query = `SELECT * FROM Accounts ORDER BY username`
+	const query = `SELECT * FROM Accounts`
 	const values = []
 	
 	db.query(query, values, function(error, accounts){
@@ -18,6 +18,19 @@ exports.getAllAccounts = function(callback){
 		}
 	})
 	
+}
+
+exports.getAccountById = function(id, callback){
+    const query = 'SELECT * FROM Accounts WHERE accountId = ? LIMIT 1'
+    const values = [id]
+
+    db.query(query, values, function(error, account){
+        if(error){
+            callback(['databaseError'], null)
+        }else{
+            callback([], account)
+        }
+    })
 }
 
 /*
@@ -75,6 +88,19 @@ exports.updateAccountById = function(account, callback){
             }
         }else{
             callback([],result.insertId)
+        }
+    })
+}
+
+exports.deleteScannerById = function(accountId, callback){
+    const query = 'DELETE FROM Accounts WHERE AccountId = ?'
+    const values = [accountId]
+
+    db.query(query, values, function(error, result){
+        if(error){
+            callback(['databaseError'], null)
+        }else{
+            callback([])
         }
     })
 }

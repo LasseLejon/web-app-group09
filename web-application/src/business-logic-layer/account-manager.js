@@ -4,6 +4,9 @@ const accountValidator = require('./account-validators')
 exports.getAllAccounts = function(callback){
 	accountRepository.getAllAccounts(callback)
 }
+exports.getAccountById = function(id, callback){
+	accountRepository.getAccountById(id, callback)
+}
 
 exports.createAccount = function(account, callback){
 	
@@ -30,4 +33,8 @@ exports.updateAccountById = function(account, callback){
 
 exports.getAccountByUsername = function(username, callback){
 	accountRepository.getAccountByUsername(username, callback)
+}
+
+exports.deleteAccountById = function(account, callback){
+	accountRepository.deleteScannerById(account, callback)
 }

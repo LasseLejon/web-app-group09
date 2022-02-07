@@ -9,14 +9,14 @@
 {{#if session.isLoggedIn}}
     <p>You are now logged in</p>
 {{else}}       
-    <form method="POST" action="/accounts/create" >
+    <form method="POST" action="/account/create" >
         <div>
             Username: <br>
-            <input type="text" name="name" value="{{username}}"placeholder="Username"><br>
+            <input type="text" name="username" value="{{username}}"placeholder="Username"><br>
         </div>
         <div>
             Password: <br>
-            <input type="password" name="pass"value="{{password}}" placeholder="Password"><br>
+            <input type="password" name="password"value="{{password}}" placeholder="Password"><br>
         </div>
         <div>      
             <input type="hidden" name="_csrf" value="{{csrfToken}}">
