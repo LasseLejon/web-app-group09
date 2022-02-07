@@ -1,0 +1,32 @@
+<h1>Accounts</h1>
+<a href="/account/create">Create new account</a>
+{{#if errors.length}}
+    <p>Got error</p>
+    <ul>
+        {{#each errors}}
+            <li>{{this}}</li>
+        {{/each}}
+    </ul>
+{{else}}
+    {{#if accounts.length}}
+        <table border="solid">
+            <thead>
+                <tr>
+                    <th>Account id</th>
+                    <th>Account username</th>
+                    <th>Update</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            {{#each accounts}}
+                <tr>
+                    <td>{{accountId}}</td>
+                    <td>{{username}}</td>
+                    <td><a href="/account/update/{{accountId}}">Update account</a></td>
+                    <td><a href="/account/delete/{{accountId}}">Delete account</a></td>
+            {{/each}}
+        </table>
+    {{else}}
+        <p>No accounts in db</p>
+    {{/if}}
+{{/if}}

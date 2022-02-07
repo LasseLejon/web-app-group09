@@ -19,6 +19,15 @@ exports.createAccount = function(account, callback){
 	
 }
 
+exports.updateAccountById = function(account, callback){
+	const errors = accountValidator.getErrorsNewAccount(account)
+	if(errors.length > 0){
+		callback(errors, null)
+		return
+	}
+	accountRepository.updateAccountById(account, callback)
+}
+
 exports.getAccountByUsername = function(username, callback){
 	accountRepository.getAccountByUsername(username, callback)
 }

@@ -1,0 +1,23 @@
+{{#if errors.length}}
+	<p>Couldn't create new because:</p>
+	<ul>
+		{{#each errors}}
+			<li>{{this}}</li>
+		{{/each}}
+	</ul>
+{{/if}}
+       
+    <form method="POST" action="/update/{{accounts.accountId}}" >
+        <div>
+            Username: <br>
+            <input type="text" name="name" value="{{username}}"placeholder="Username"><br>
+        </div>
+        <div>
+            Password: <br>
+            <input type="password" name="pass"value="{{password}}" placeholder="Password"><br>
+        </div>
+        <div>      
+            <input type="hidden" name="_csrf" value="{{csrfToken}}">
+        	<button type="submit">Create new</button>	
+        </div>   
+    </form>

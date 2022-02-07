@@ -9,7 +9,7 @@
 {{#if session.isLoggedIn}}
     <p>You are now logged in</p>
 {{else}}       
-    <form method="POST" action="/accounts/create-new" >
+    <form method="POST" action="/accounts/create" >
         <div>
             Username: <br>
             <input type="text" name="name" value="{{username}}"placeholder="Username"><br>
@@ -23,4 +23,5 @@
         	<button type="submit">Create new</button>	
         </div>   
     </form>
+    <
 {{/if}}

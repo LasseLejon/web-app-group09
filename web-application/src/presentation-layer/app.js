@@ -25,7 +25,7 @@ app.engine('hbs', expressHandlebars.engine({
 
 
 app.use('/', variousRouter)
-app.use('/accounts', accountRouter)
+app.use('/account', accountRouter)
 app.use('/scanner', scannerRouter)
 
 

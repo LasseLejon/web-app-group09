@@ -7,7 +7,7 @@ const db = require('./database')
 */
 exports.getAllAccounts = function(callback){
 	
-	const query = `SELECT * FROM accounts ORDER BY username`
+	const query = `SELECT * FROM Accounts ORDER BY username`
 	const values = []
 	
 	db.query(query, values, function(error, accounts){
@@ -60,4 +60,21 @@ exports.createAccount = function(account, callback){
 		}
 	})
 	
+}
+
+exports.updateAccountById = function(account, callback){
+    const query = 'UPDATE Accounts SET username = ?, password = ? WHERE accountId = ?'
+    const values = [account.username, account.password, account.accountId]
+
+    db.query(query, values, function(error, result){
+        if(error){
+            if(error.code == 'ER_DUP_ENTRY'){
+                callback(['AccountAlreadyInDatabase'], null)
+            }else{
+                callback(['databaseError'], null)
+            }
+        }else{
+            callback([],result.insertId)
+        }
+    })
 }
