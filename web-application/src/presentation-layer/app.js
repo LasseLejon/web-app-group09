@@ -4,7 +4,7 @@ const path = require('path')
 const bodyParser = require('body-parser');
 const accountRouter = require('./routers/account-router')
 const variousRouter = require('./routers/various-router')
-const scannerRouter = require('./routers/scanner-router')
+const scannerRouter = require('./main')
 
 const app = express()
 
