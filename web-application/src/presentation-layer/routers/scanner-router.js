@@ -25,7 +25,7 @@ module.exports = function({scannerManager}){
         scannerManager.getScannerById(id, function(errors, scanner){
             const model = {
                 errors: errors,
-                scanner: scanner[0]
+                scanner: scanner
             }
             
             response.render('update-scanner.hbs', model)
@@ -37,7 +37,7 @@ module.exports = function({scannerManager}){
         scannerManager.getScannerById(id, function(errors, scanner){
             const model = {
                 errors: errors,
-                scanner: scanner[0]
+                scanner: scanner
             }
             response.render('delete-scanner.hbs', model)
         })
