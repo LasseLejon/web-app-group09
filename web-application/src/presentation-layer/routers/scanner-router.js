@@ -76,7 +76,7 @@ module.exports = function({scannerManager}){
             if(errors.length > 0){
                 const model = {
                     errors: errors,
-                    scanner: scanner,
+                    scanner: scanner[0],
                     id: id
                 }
                 response.render('update-scanner.hbs', model)
@@ -92,7 +92,7 @@ module.exports = function({scannerManager}){
             if(errors.length > 0){
                 const model = {
                     errors: errors,
-                    id: id
+                    id: id[0]
                 }
                 response.render('delete-scanner.hbs', model)
             }else{
