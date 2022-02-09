@@ -49,10 +49,12 @@ router.get('/delete/:id', function(request, response){
 router.post('/create', function(request,response){
     const username = request.body.username
     const password = request.body.password
+    const isAdmin = request.body.admin
 
     const account = {
         username: username,
-        password: password
+        password: password,
+        isAdmin: isAdmin
     }
 
     accountManager.createAccount(account,function(errors,id){
@@ -76,11 +78,13 @@ router.post('/create', function(request,response){
   router.post('/update/:id', function(request, response){
     const username = request.body.username
     const password = request.body.password
+    const isAdmin = request.body.admin
     const accountId = request.params.id
     const account = {
         accountId: accountId,
         username: username,
-        password: password
+        password: password,
+        isAdmin: isAdmin
     }
     accountManager.updateAccountById(account, function(errors, id){
         if(errors.length > 0){

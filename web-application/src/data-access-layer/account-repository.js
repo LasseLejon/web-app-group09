@@ -61,8 +61,8 @@ exports.getAccountByUsername = function(username, callback){
 */
 exports.createAccount = function(account, callback){
 	
-	const query = `INSERT INTO Accounts (username, password) VALUES (?, ?)`
-	const values = [account.username, account.password]
+	const query = `INSERT INTO Accounts (username, password, isAdmin) VALUES (?, ?, ?)`
+	const values = [account.username, account.password, account.isAdmin]
 	
 	db.query(query, values, function(error, results){
 		if(error){

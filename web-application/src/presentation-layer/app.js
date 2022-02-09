@@ -5,6 +5,12 @@ const bodyParser = require('body-parser');
 const accountRouter = require('./routers/account-router')
 const variousRouter = require('./routers/various-router')
 const scannerRouter = require('./routers/scanner-router')
+const authRouter = require('./routers/auth-router')
+const session = require('express-session')
+const RedisStore = require("connect-redis")(session)
+const { createClient } = require("redis")
+const redisClient = createClient({ legacyMode: true, url: 'redis://redis:6379' })
+redisClient.connect().catch(console.error)
 
 const app = express()
 
@@ -14,6 +20,15 @@ app.use(bodyParser.urlencoded({extended:false}));
 app.use(express.urlencoded({
 	extended: false
 }))
+
+app.use(
+	session({
+	  store: new RedisStore({ client: redisClient }),
+	  saveUninitialized: false,
+	  secret: "keyboard cat12345",
+	  resave: false,
+	})
+  )
 
 app.set('views', path.join(__dirname, "views"))
 
@@ -27,6 +42,7 @@ app.engine('hbs', expressHandlebars.engine({
 app.use('/', variousRouter)
 app.use('/account', accountRouter)
 app.use('/scanner', scannerRouter)
+app.use('/auth', authRouter)
 
 
 app.listen(8080, function(){
