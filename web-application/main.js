@@ -14,7 +14,23 @@ container.register(
 	'scannerRouter',
 	awilix.asFunction(require('./routers/scanner-router.js'))
 )
+container.register(
+	'accountRepository',
+	awilix.asFunction(require('../data-access-layer/account-repository.js'))
+)
+container.register(
+	'accountManager',
+	awilix.asFunction(require('../business-logic-layer/account-manager.js'))
+)
+container.register(
+	'accountRouter',
+	awilix.asFunction(require('./routers/account-router.js'))
+)
 
 const scannerRouter = container.resolve('scannerRouter')
+const accountRouter = container.resolve('accountRouter')
 
-module.exports = scannerRouter
+module.exports = {
+	accountRouter,
+	scannerRouter
+} 
