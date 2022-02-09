@@ -13,7 +13,7 @@ exports.getErrorsNewAccount = function(account){
     }
     else if(account.username.length > MAX_USERNAME_LENGTH){
         errors.push("The username can maximum be "+MAX_USERNAME_LENGTH+" characters.")
-    }    
+    } 
 	return errors	
 }
 
