@@ -1,10 +1,9 @@
 const express = require('express')
 const expressHandlebars = require('express-handlebars')
 const path = require('path')
-const bodyParser = require('body-parser');
-//const accountRouter = require('./routers/account-router')
+const bodyParser = require('body-parser')
 const variousRouter = require('./routers/various-router')
-const routers = require('./main')
+const routers = require('../main.js')
 
 const scannerRouter = routers.scannerRouter
 const accountRouter = routers.accountRouter

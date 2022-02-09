@@ -79,7 +79,6 @@ module.exports = function({scannerManager}){
                     scanner: scanner,
                     id: id
                 }
-                console.log(model.scanner)
                 response.render('update-scanner.hbs', model)
             }else{
                 response.redirect('/scanner')
