@@ -1,40 +1,47 @@
-const accountRepository = require('../data-access-layer/account-repository')
+//const accountRepository = require('../data-access-layer/account-repository')
 const accountValidator = require('./account-validators')
 
-exports.getAllAccounts = function(callback){
-	accountRepository.getAllAccounts(callback)
-}
-exports.getAccountById = function(id, callback){
-	accountRepository.getAccountById(id, callback)
-}
+module.exports = function({accountRepository}){
+	return{
+		getAllAccounts: function(callback){
+			accountRepository.getAllAccounts(callback)
+		},
 
-exports.createAccount = function(account, callback){
-	
-	// Validate the account.
-	const errors = accountValidator.getErrorsNewAccount(account)
-	
-	if(0 < errors.length){
-		callback(errors, null)
-		return
+		getAccountById: function(id, callback){
+			accountRepository.getAccountById(id, callback)
+		},
+		
+		createAccount: function(account, callback){
+			
+			// Validate the account.
+			const errors = accountValidator.getErrorsNewAccount(account)
+			
+			if(0 < errors.length){
+				callback(errors, null)
+				return
+			}
+			
+			accountRepository.createAccount(account, callback)
+			
+		},
+		
+		updateAccountById: function(account, callback){
+			const errors = accountValidator.getErrorsNewAccount(account)
+			if(errors.length > 0){
+				callback(errors, null)
+				return
+			}
+			accountRepository.updateAccountById(account, callback)
+		},
+		
+		getAccountByUsername: function(username, callback){
+			accountRepository.getAccountByUsername(username, callback)
+		},
+		
+		deleteAccountById: function(account, callback){
+			accountRepository.deleteAccountById(account, callback)
+		}
+
 	}
-	
-	accountRepository.createAccount(account, callback)
-	
 }
 
-exports.updateAccountById = function(account, callback){
-	const errors = accountValidator.getErrorsNewAccount(account)
-	if(errors.length > 0){
-		callback(errors, null)
-		return
-	}
-	accountRepository.updateAccountById(account, callback)
-}
-
-exports.getAccountByUsername = function(username, callback){
-	accountRepository.getAccountByUsername(username, callback)
-}
-
-exports.deleteAccountById = function(account, callback){
-	accountRepository.deleteScannerById(account, callback)
-}

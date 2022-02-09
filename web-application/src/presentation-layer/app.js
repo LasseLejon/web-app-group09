@@ -1,16 +1,22 @@
 const express = require('express')
 const expressHandlebars = require('express-handlebars')
 const path = require('path')
-const bodyParser = require('body-parser');
-const accountRouter = require('./routers/account-router')
+const bodyParser = require('body-parser')
 const variousRouter = require('./routers/various-router')
-const scannerRouter = require('./routers/scanner-router')
+
+// const scannerRouter = require('./routers/scanner-router')
 const authRouter = require('./routers/auth-router')
 const session = require('express-session')
 const RedisStore = require("connect-redis")(session)
 const { createClient } = require("redis")
 const redisClient = createClient({ legacyMode: true, url: 'redis://redis:6379' })
 redisClient.connect().catch(console.error)
+
+const routers = require('../main.js')
+
+const scannerRouter = routers.scannerRouter
+const accountRouter = routers.accountRouter
+
 
 const app = express()
 
