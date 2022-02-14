@@ -1,5 +1,6 @@
 //const accountRepository = require('../data-access-layer/account-repository')
 const accountValidator = require('./account-validators')
+const bcrypt = require('bcryptjs');
 
 module.exports = function({accountRepository}){
 	return{
@@ -40,6 +41,14 @@ module.exports = function({accountRepository}){
 		
 		deleteAccountById: function(account, callback){
 			accountRepository.deleteAccountById(account, callback)
+		},
+
+		hashPassword: function(password){
+			const salt = bcrypt.genSaltSync(10);
+			const hash = bcrypt.hashSync(password, salt);
+
+			return hash
+
 		}
 
 	}

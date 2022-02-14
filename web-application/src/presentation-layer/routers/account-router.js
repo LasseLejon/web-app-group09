@@ -59,10 +59,12 @@ module.exports = function({accountManager}){
         const username = request.body.username
         const password = request.body.password
         const isAdmin = request.body.admin
+
+        const hashedPassword = accountManager.hashPassword(password)
     
         const account = {
             username: username,
-            password: password,
+            password: hashedPassword,
             isAdmin: isAdmin
         }
     
