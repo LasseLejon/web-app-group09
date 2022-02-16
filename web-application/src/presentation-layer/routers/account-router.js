@@ -19,6 +19,7 @@ module.exports = function({accountManager}){
                 errors: errors,
                 accounts: accounts
             }
+            request.session.isLoggedIn = false
             response.render("account.hbs", model)
         })
     })

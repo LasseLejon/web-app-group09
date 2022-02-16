@@ -1,17 +1,30 @@
+const bcrypt = require('bcryptjs');
+
 const MIN_USERNAME_LENGTH = 2
 const MAX_USERNAME_LENGTH = 10
 
 
-exports.getErrorsNewLogin = function(account,password){	
+
+function compareInputAndStoredPassword(inputPassword,storedPassword){
+
+   return bcrypt.compareSync(inputPassword, storedPassword)
+
+}
+
+
+exports.getErrorsNewLogin = function(account){	
     const errors = []
-    console.log("hej3",account.password)
-   
-    console.log(account.password, password.pass)
     
-    if(account.password != password.pass){
-        
-        console.log("hej2",password.pass)
-        errors.push("wrong password")
-    }   
+   
+    
+
+    if(account.username.length < MIN_USERNAME_LENGTH){
+        errors.push("The username needs to be at least "+MIN_USERNAME_LENGTH+" characters.")
+    }
+    else if(account.username.length > MAX_USERNAME_LENGTH){
+        errors.push("The username can maximum be "+MAX_USERNAME_LENGTH+" characters.")
+    } 
+    
+    
 	return errors	
 }

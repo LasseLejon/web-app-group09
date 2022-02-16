@@ -12,29 +12,33 @@ module.exports = function({authManager}){
 
     router.post('/', function(request,response){
         const username = request.body.name
-        const password = request.body.pass
+        const inputPassword = request.body.pass
         
 
         const account = {
             username: username,
-            password: password
+            password: inputPassword
         }
         
         authManager.getPasswordByUsername(username,account,function(errors,password){
-            if(errors){
+            console.log(errors.length)
+            console.log(inputPassword,password.pass, authManager.compareInputAndStoredPassword(inputPassword,password.pass))
+            
+            if(errors.length > 0 || !authManager.compareInputAndStoredPassword(inputPassword,password.pass)){
                 const model = {
                     username: username,
-                    password: password,
                     errors: errors
                 }
               
                 response.render('login.hbs',model)
             }
+            
             else{
                 request.session.isLoggedIn = true
-                request.session.daniel = 15
+                request.session.isAdmin = true
+              //  request.session.daniel = 15
                 
-                response.redirect('/account')
+                response.redirect('/login')
             }
 
 
