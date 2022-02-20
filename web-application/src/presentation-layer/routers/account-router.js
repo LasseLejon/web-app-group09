@@ -20,6 +20,7 @@ module.exports = function({accountManager}){
                 accounts: accounts
             }
             request.session.isLoggedIn = false
+            request.session.isAdmin = false
             response.render("account.hbs", model)
         })
     })
