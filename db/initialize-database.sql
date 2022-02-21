@@ -1,7 +1,8 @@
 CREATE TABLE Accounts(
     accountId INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(10) NOT NULL,
-    password VARCHAR(30) NOT NULL,
+    password VARCHAR(300) NOT NULL,
+    isAdmin VARCHAR(10) NOT NULL,
 	CONSTRAINT usernameUnique UNIQUE (username)
 );
 

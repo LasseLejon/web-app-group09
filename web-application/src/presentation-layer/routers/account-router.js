@@ -7,18 +7,27 @@ const express = require('express')
 //router.use(csrfProtection)
 
 
+
+
+
 module.exports = function({accountManager}){
     const router = express.Router()
     router.get("/", function(request, response){
         accountManager.getAllAccounts(function(errors, accounts){
+
             const model = {
                 errors: errors,
                 accounts: accounts
             }
+            request.session.isLoggedIn = false
+            request.session.isAdmin = false
             response.render("account.hbs", model)
         })
     })
         
+
+
+
     router.get("/create", function(request, response){
     
         response.render("create-account.hbs")
@@ -27,6 +36,7 @@ module.exports = function({accountManager}){
     router.get('/update/:id', function(request, response){
         const id = request.params.id
         accountManager.getAccountById(id, function(errors, account){
+
             const model = {
                 errors: errors,
                 account: account[0]
@@ -50,10 +60,14 @@ module.exports = function({accountManager}){
     router.post('/create', function(request,response){
         const username = request.body.username
         const password = request.body.password
+        const isAdmin = request.body.admin
+
+        const hashedPassword = accountManager.hashPassword(password)
     
         const account = {
             username: username,
-            password: password
+            password: hashedPassword,
+            isAdmin: isAdmin
         }
     
         accountManager.createAccount(account,function(errors,id){
@@ -153,4 +167,5 @@ module.exports = function({accountManager}){
     
     return router
 }
+    
 

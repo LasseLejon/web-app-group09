@@ -1,4 +1,5 @@
 <h1>Accounts</h1>
+
 <a href="/account/create">Create new account</a>
 {{#if errors.length}}
     <p>Got error</p>
@@ -14,6 +15,7 @@
                 <tr>
                     <th>Account id</th>
                     <th>Account username</th>
+                    <th>Is admin?</th>
                     <th>Update</th>
                     <th>Delete</th>
                 </tr>
@@ -22,6 +24,7 @@
                 <tr>
                     <td>{{accountId}}</td>
                     <td>{{username}}</td>
+                    <td>{{isAdmin}}</td>
                     <td><a href="/account/update/{{accountId}}">Update account</a></td>
                     <td><a href="/account/delete/{{accountId}}">Delete account</a></td>
             {{/each}}
