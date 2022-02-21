@@ -8,10 +8,13 @@ exports.getErrorsNewAccount = function(account){
     if(!account.hasOwnProperty("username")){
         errors.push("usernameMissing")
     }
-    else if(account.username.length < MIN_USERNAME_LENGTH){
+    if(account.isAdmin != "yes" || "no"){
+        errors.push("Please write yes or no on admin status, do not use capital letters")
+    }
+    if(account.username.length < MIN_USERNAME_LENGTH){
         errors.push("The username needs to be at least "+MIN_USERNAME_LENGTH+" characters.")
     }
-    else if(account.username.length > MAX_USERNAME_LENGTH){
+    if(account.username.length > MAX_USERNAME_LENGTH){
         errors.push("The username can maximum be "+MAX_USERNAME_LENGTH+" characters.")
     } 
 	return errors	

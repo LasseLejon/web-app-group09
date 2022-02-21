@@ -4,7 +4,7 @@ const authValidator = require('./auth-validator')
 module.exports = function({authRepository}){
 	return{
 
-        login2: function(username,inputAccount, callback){
+        login: function(username,inputAccount, callback){
 
             authRepository.getAccountByUsername(username,function(error,storedAccount){
                 console.log(storedAccount)

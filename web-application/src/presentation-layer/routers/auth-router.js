@@ -20,7 +20,7 @@ module.exports = function({authManager}){
             password: inputPassword
         }
         
-        authManager.login2(username,account,function(errors,storedAccount){        
+        authManager.login(username,account,function(errors,storedAccount){        
             if(errors.length > 0){
                 const model = {
                     username: username,
@@ -33,9 +33,7 @@ module.exports = function({authManager}){
                 console.log(storedAccount.isAdmin)
                 if(storedAccount.isAdmin == 'yes'){
                     request.session.isAdmin = true
-                }
-                         
-                console.log("stored",storedAccount)
+                }                        
                 response.redirect('/login')
             }
         })           
