@@ -114,6 +114,17 @@ module.exports = function({scannerManager}){
 
     router.post('/borrow/:id', function(request, response){
         const scannerId = request.params.id
+        scannerManager.borrowScannerById(scannerId, function(errors){
+            if(errors.length > 0){
+                const model = {
+                    errors: errors,
+                    id: id
+                }
+                response.render('borrow-scanner.hbs', model)
+            }else{
+                response.redirect('/scanner')
+            }
+        })
     })
 
     return router

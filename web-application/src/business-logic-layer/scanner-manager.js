@@ -32,6 +32,10 @@ module.exports = function({scannerRepository}){
 		
 		deleteScannerById: function(scanner, callback){
 			scannerRepository.deleteScannerById(scanner, callback)
+		},
+
+		borrowScannerById: function(scanner, callback){
+			scannerRepository.borrowScannerById(scanner, callback)
 		}
 
 
