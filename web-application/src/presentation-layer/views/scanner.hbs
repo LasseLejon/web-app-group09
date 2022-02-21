@@ -17,6 +17,7 @@
                     <th>In use</th>
                     <th>Update</th>
                     <th>Delete</th>
+                    <th>Borrow</th>
                 </tr>
             </thead>
             {{#each scanners}}
@@ -26,6 +27,7 @@
                     <td>yes</td>
                     <td><a href="/scanner/update/{{scannerId}}">Update scanner</a></td>
                     <td><a href="/scanner/delete/{{scannerId}}">Delete scanner</a></td>
+                    <td><a href="/scanner/borrow/{{scannerId}}">Borrow scanner</a></td>
             {{/each}}
         </table>
     {{else}}
