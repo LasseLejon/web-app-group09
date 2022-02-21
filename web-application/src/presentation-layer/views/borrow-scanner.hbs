@@ -9,12 +9,16 @@
 {{/if}}
 
 {{#if scanner}}
-    <form action="/scanner/borrow/{{scanner.scannerId}}" method="post">
-        <p>Are you sure you wan't to borrow scanner {{scanner.scannerNumber}}</p>
-        <div>
-            <button type="submit">Borrow</button>
-        </div>
-    </form>
+    {{#if scanner.scannerInUse}}
+        <p>The scanner is already in use</p>
+    {{else}}
+        <form action="/scanner/borrow/{{scanner.scannerId}}" method="post">
+            <p>Are you sure you wan't to borrow scanner {{scanner.scannerNumber}}</p>
+            <div>
+                <button type="submit">Borrow</button>
+            </div>
+        </form>
+    {{/if}}
 {{else}}
     <p>That specific scanner does not exist</p>
 {{/if}}

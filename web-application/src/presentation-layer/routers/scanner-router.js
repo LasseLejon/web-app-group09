@@ -52,6 +52,17 @@ module.exports = function({scannerManager}){
             }
             response.render('borrow-scanner.hbs', model)
         })
+    }),
+
+    router.get('/return/:id', function(request, response){
+        const id = request.params.id
+        scannerManager.getScannerById(id, function(errors, scanner){
+            const model = {
+                errors: errors,
+                scanner: scanner[0]
+            }
+            response.render('return-scanner.hbs', model)
+        })
     })
 
     router.get('/create', function(request, response){
@@ -121,6 +132,21 @@ module.exports = function({scannerManager}){
                     id: id
                 }
                 response.render('borrow-scanner.hbs', model)
+            }else{
+                response.redirect('/scanner')
+            }
+        })
+    }),
+
+    router.post('/return/:id', function(request, response){
+        const scannerId = request.params.id
+        scannerManager.returnScannerById(scannerId, function(errors){
+            if(errors.length > 0){
+                const model = {
+                    errors: errors,
+                    id: id
+                }
+                response.render('return-scanner.hbs', model)
             }else{
                 response.redirect('/scanner')
             }

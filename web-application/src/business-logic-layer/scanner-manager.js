@@ -36,6 +36,10 @@ module.exports = function({scannerRepository}){
 
 		borrowScannerById: function(scanner, callback){
 			scannerRepository.borrowScannerById(scanner, callback)
+		},
+
+		returnScannerById: function(scanner, callback){
+			scannerRepository.returnScannerById(scanner, callback)
 		}
 
 

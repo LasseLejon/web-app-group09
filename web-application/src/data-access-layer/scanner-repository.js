@@ -87,6 +87,17 @@ module.exports = function({}){
                     callback([])
                 }
             })
+        },
+
+        returnScannerById: function(scannerId, callback){
+            const query = 'UPDATE Scanners set scannerInUse = false WHERE scannerId = ?'
+            db.query(query, scannerId, function(error, result){
+                if(error){
+                    callback(['databaseError'], null)
+                }else{
+                    callback([])
+                }
+            })
         }
 
     }
