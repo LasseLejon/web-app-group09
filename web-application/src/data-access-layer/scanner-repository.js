@@ -80,8 +80,7 @@ module.exports = function({}){
 
         borrowScannerById: function(scannerId, callback){
             const accountId = 1
-            //const date = '2012-06-22 05:40:06'
-            const date = '123123'
+            const date = new Date().toISOString().slice(0, 19).replace('T', ' ')
             const query = 'UPDATE Scanners set scannerInUse = true WHERE scannerId = ?'
             const queryBorrowSession = 'INSERT INTO ScannerBorrowSession (borrowDate, accountId, scannerId) VALUES (?, ?, ?)'          
             const values = [date, accountId, scannerId]
