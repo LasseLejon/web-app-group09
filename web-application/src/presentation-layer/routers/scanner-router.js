@@ -125,7 +125,7 @@ module.exports = function({scannerManager}){
 
     router.post('/borrow/:id', function(request, response){
         const scannerId = request.params.id
-        const scannerNumber = request.params.scannerNumber
+        const scannerNumber = request.body.scannerNumber
         scannerManager.borrowScannerById(scannerId, function(errors){
             if(errors.length > 0){
                 console.log(errors)
