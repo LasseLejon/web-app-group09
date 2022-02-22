@@ -3,6 +3,9 @@ const expressHandlebars = require('express-handlebars')
 const path = require('path')
 const bodyParser = require('body-parser')
 const variousRouter = require('./routers/various-router')
+const csrf = require('csurf')
+//const csrfProtection = csrf()
+
 
 // const scannerRouter = require('./routers/scanner-router')
 //const authRouter = require('./routers/auth-router')
@@ -18,8 +21,9 @@ const scannerRouter = routers.scannerRouter
 const accountRouter = routers.accountRouter
 
 
-const app = express()
 
+const app = express()
+//app.use(csrfProtection) 
 app.use(bodyParser.urlencoded({extended:false}));
 
 
@@ -40,6 +44,12 @@ app.use(
 	response.locals.session = request.session
 	next()
 })
+app.use(csrf())
+
+app.use((request, response, next) => {
+	response.locals.csrfToken = request.csrfToken()
+	next()
+})
 
 app.set('views', path.join(__dirname, "views"))
 
@@ -53,7 +63,7 @@ app.engine('hbs', expressHandlebars.engine({
 app.use('/', variousRouter)
 app.use('/account', accountRouter)
 app.use('/scanner', scannerRouter)
-app.use('/login', authRouter)
+app.use('/auth', authRouter)
 
 
 app.listen(8080, function(){

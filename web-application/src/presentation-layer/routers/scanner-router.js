@@ -1,4 +1,5 @@
 const express = require('express')
+
 //const scannerManager = require('../../business-logic-layer/scanner-manager')
 
 module.exports = function({scannerManager}){
@@ -17,6 +18,7 @@ module.exports = function({scannerManager}){
     })
 
     router.get('/delete', function(request, response){
+       
         response.render('delete-scanner.hbs')
     })
 
@@ -44,6 +46,7 @@ module.exports = function({scannerManager}){
     })
 
     router.get('/create', function(request, response){
+        
         response.render('create-scanner.hbs')
     })
 

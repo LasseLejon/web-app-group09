@@ -19,7 +19,11 @@
       <nav>
           <ul style="list-style-type: none;">
             <li><a href="/">Home</a></li>
-            <li><a href="/login">Login</a></li>
+            {{#if session.isLoggedIn}}
+            <li><a href="/auth/logout">Logout</a></li>
+            {{else}}
+            <li><a href="/auth/login">Login</a></li>
+            {{/if}}
             <li><a href="/account">Account</a></li>
             <li><a href="/scanner">Scanner</a></li>
           </ul>

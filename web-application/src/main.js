@@ -39,12 +39,14 @@ container.register(
 	awilix.asFunction(require('./presentation-layer/routers/auth-router.js'))
 )
 
+
 const authRouter = container.resolve('authRouter')
 const scannerRouter = container.resolve('scannerRouter')
 const accountRouter = container.resolve('accountRouter')
 
+
 module.exports = {
 	accountRouter,
 	scannerRouter,
-	authRouter
+	authRouter,
 } 
