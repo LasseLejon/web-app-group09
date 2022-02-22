@@ -125,11 +125,17 @@ module.exports = function({scannerManager}){
 
     router.post('/borrow/:id', function(request, response){
         const scannerId = request.params.id
+        const scannerNumber = request.params.scannerNumber
         scannerManager.borrowScannerById(scannerId, function(errors){
             if(errors.length > 0){
+                console.log(errors)
+                const scanner = {
+                    scannerId: scannerId,
+                    scannerNumber: scannerNumber
+                }
                 const model = {
                     errors: errors,
-                    id: id
+                    scanner
                 }
                 response.render('borrow-scanner.hbs', model)
             }else{

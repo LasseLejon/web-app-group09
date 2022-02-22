@@ -79,6 +79,48 @@ module.exports = function({}){
         },
 
         borrowScannerById: function(scannerId, callback){
+            const accountId = 1
+            //const date = '2012-06-22 05:40:06'
+            const date = '123123'
+            const query = 'UPDATE Scanners set scannerInUse = true WHERE scannerId = ?'
+            const queryBorrowSession = 'INSERT INTO ScannerBorrowSession (borrowDate, accountId, scannerId) VALUES (?, ?, ?)'          
+            const values = [date, accountId, scannerId]
+
+
+             db.beginTransaction(function(err){
+                if(err){
+                    return db.rollback(function(){
+                        callback(['databaseError1'])
+                    })
+                }
+                db.query(query, scannerId, function(error, result){
+                    if(error){
+                        return db.rollback(function(){
+                            callback(['databaseError2'])
+                        })
+                    }
+
+                    db.query(queryBorrowSession, values, function(error, result){
+                        if(error){
+                            return db.rollback(function(){
+                                callback(['databaseError3'])
+                            })
+                        }
+                        db.commit(function(error){
+                            if(error){
+                                return db.rollback(function(){
+                                    callback(['databaseError4'])
+                                })
+                            }else{
+                                callback([])
+                            }
+                        })
+                    })
+                })
+            })
+        },
+
+/*         borrowScannerById: function(scannerId, callback){
             const query = 'UPDATE Scanners set scannerInUse = true WHERE scannerId = ?'
             db.query(query, scannerId, function(error, result){
                 if(error){
@@ -87,7 +129,7 @@ module.exports = function({}){
                     callback([])
                 }
             })
-        },
+        }, */
 
         returnScannerById: function(scannerId, callback){
             const query = 'UPDATE Scanners set scannerInUse = false WHERE scannerId = ?'
