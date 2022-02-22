@@ -26,6 +26,7 @@ module.exports = function({authManager}){
     router.post('/logout', function(request,response){
         
         request.session.isLoggedIn = false
+        request.session.isAdmin = false
         response.redirect('/auth/login')
 
 
@@ -52,7 +53,7 @@ module.exports = function({authManager}){
             else{               
                 request.session.isLoggedIn = true 
                 console.log(storedAccount.isAdmin)
-                if(storedAccount.isAdmin == 'yes'){
+                if(authManager.checkIfAdmin(storedAccount.isAdmin)){
                     request.session.isAdmin = true
                 }                        
                 response.redirect('/auth/login')

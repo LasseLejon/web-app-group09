@@ -17,8 +17,6 @@ module.exports = function({accountManager}){
                 accounts: accounts,
                 
             }
-            request.session.isLoggedIn = false
-            request.session.isAdmin = false
             response.render("account.hbs", model)
         })
     })
@@ -89,11 +87,13 @@ module.exports = function({accountManager}){
       router.post('/update/:id', function(request, response){
         const username = request.body.username
         const password = request.body.password
+        const isAdmin = request.body.admin
         const accountId = request.params.id
         const account = {
             accountId: accountId,
             username: username,
-            password: password
+            password: password,
+            isAdmin: isAdmin
         }
         accountManager.updateAccountById(account, function(errors, id){
             if(errors.length > 0){

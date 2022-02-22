@@ -28,6 +28,7 @@ module.exports = function({accountRepository}){
 		
 		updateAccountById: function(account, callback){
 			const errors = accountValidator.getErrorsNewAccount(account)
+			console.log("account", account)
 			if(errors.length > 0){
 				callback(errors, null)
 				return
