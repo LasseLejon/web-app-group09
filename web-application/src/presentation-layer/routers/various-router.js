@@ -6,7 +6,7 @@ router.get("/", function(request, response){
 	response.render("start.hbs")
 })
 
-router.get("/about", function(request, response){
+router.get("/", function(request, response){
 	response.render("about.hbs")
 })
 

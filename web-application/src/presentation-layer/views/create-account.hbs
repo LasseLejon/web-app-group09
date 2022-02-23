@@ -6,9 +6,7 @@
 		{{/each}}
 	</ul>
 {{/if}}
-{{#if session.isLoggedIn}}
-    <p>You are now logged in</p>
-{{else}}       
+{{#if session.isAdmin}}
     <form method="POST" action="/account/create" >
         <div>
             Username: <br>
@@ -27,5 +25,8 @@
         	<button type="submit">Create new</button>	
         </div>   
     </form>
+{{else}}
+    <p>You don't have authorization for this! </p>       
+    
     
 {{/if}}

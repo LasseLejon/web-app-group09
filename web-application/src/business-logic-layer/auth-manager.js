@@ -18,6 +18,15 @@ module.exports = function({authRepository}){
                     return
                 }
             })           
+        },
+
+        checkIfAdmin: function(isAdmin){
+            if(isAdmin == "yes"){
+                return true
+            }
+            else{
+                return false
+            }
         }
     }
 }

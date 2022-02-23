@@ -8,7 +8,7 @@ exports.getErrorsNewAccount = function(account){
     if(!account.hasOwnProperty("username")){
         errors.push("usernameMissing")
     }
-    console.log(account.isAdmin)
+    console.log("isadmin",account.isAdmin)
     if(account.isAdmin != "yes" && account.isAdmin != "no"){
         errors.push("Please write yes or no on admin status, do not use capital letters")
     }

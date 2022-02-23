@@ -7,6 +7,7 @@
             <input type="text" name="scannerId" value="{{scanner.scannerId}}">
         </div>
         <div>
+            <input type="hidden" name="_csrf" value="{{csrfToken}}">
             <button type="submit">Update</button>
         </div>
     </form>
