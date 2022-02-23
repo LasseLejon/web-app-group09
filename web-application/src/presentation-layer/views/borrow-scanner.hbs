@@ -14,8 +14,7 @@
         <p>The scanner is already in use</p>
     {{else}}
         <form action="/scanner/borrow/{{scanner.scannerId}}" method="post">
-            <input type="text" value="{{scanner.scannerNumber}}" name="scannerNumber" hidden>
-            <p>Are you sure you wan't to borrow scanner {{scanner.scannerNumber}}</p>
+            <p>Are you sure you wan't to borrow scanner {{scanner.scannerId}}</p>
             <div>
                 <button type="submit">Borrow</button>
             </div>

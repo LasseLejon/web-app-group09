@@ -70,9 +70,9 @@ module.exports = function({scannerManager}){
     })
 
     router.post('/create', function(request, response){
-        const scannerNumber = request.body.scannerNumber
+        const scannerId = request.body.scannerId
         const scanner = {
-            scannerNumber: scannerNumber
+            scannerId: scannerId
         }
         scannerManager.createScanner(scanner, function(errors, id){
             if(errors.length > 0){
@@ -88,18 +88,17 @@ module.exports = function({scannerManager}){
     })
 
     router.post('/update/:id', function(request, response){
-        const scannerNumber = request.body.scannerNumber
+        const newScannerId = request.body.scannerId
         const scannerId = request.params.id
         const scanner = {
             scannerId: scannerId,
-            scannerNumber: scannerNumber
+            newScannerId: newScannerId
         }
-        scannerManager.updateScannerById(scanner, function(errors, id){
+        scannerManager.updateScannerById(scanner, function(errors){
             if(errors.length > 0){
                 const model = {
                     errors: errors,
-                    scanner: scanner,
-                    id: id
+                    scanner: scanner
                 }
                 response.render('update-scanner.hbs', model)
             }else{
@@ -113,8 +112,7 @@ module.exports = function({scannerManager}){
         scannerManager.deleteScannerById(scannerId, function(errors){
             if(errors.length > 0){
                 const model = {
-                    errors: errors,
-                    id: id
+                    errors: errors
                 }
                 response.render('delete-scanner.hbs', model)
             }else{
@@ -125,13 +123,11 @@ module.exports = function({scannerManager}){
 
     router.post('/borrow/:id', function(request, response){
         const scannerId = request.params.id
-        const scannerNumber = request.body.scannerNumber
         scannerManager.borrowScannerById(scannerId, function(errors){
             if(errors.length > 0){
                 console.log(errors)
                 const scanner = {
-                    scannerId: scannerId,
-                    scannerNumber: scannerNumber
+                    scannerId: scannerId
                 }
                 const model = {
                     errors: errors,

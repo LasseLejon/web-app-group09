@@ -4,8 +4,8 @@ exports.getErrorsNewScanner = function(scanner){
 	/* if(!scanner.hasOwnProperty("scannerNumber")){
 		errors.push("scannerNumberMissing")
 	} */
-    if(scanner.scannerNumber == ""){
-        errors.push("scannerNumberMissing")
+    if(scanner.scannerId == ""){
+        errors.push("scannerIdMissing")
     }
 	
 	return errors

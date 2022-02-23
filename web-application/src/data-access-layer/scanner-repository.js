@@ -18,9 +18,9 @@ module.exports = function({}){
         
         },
         
-        getScannerById: function(id, callback){
+        getScannerById: function(scannerId, callback){
             const query = 'SELECT * FROM Scanners WHERE scannerId = ? LIMIT 1'
-            const values = [id]
+            const values = [scannerId]
         
             db.query(query, values, function(error, scanner){
                 if(error){
@@ -32,13 +32,13 @@ module.exports = function({}){
         },
         
         createScanner: function(scanner, callback){
-            const query = 'INSERT INTO Scanners (scannerNumber) VALUES (?)'
-            const values = [scanner.scannerNumber]
+            const query = 'INSERT INTO Scanners (scannerId) VALUES (?)'
+            const values = [scanner.scannerId]
         
             db.query(query, values, function(error, result){
                 if(error){
                     if(error.code == 'ER_DUP_ENTRY'){
-                        callback(['scannerNumberAlreadyInDatabase'], null)
+                        callback(['scannerIdAlreadyInDatabase'], null)
                     }else{
                         callback(['databaseError'], null)
                     }
@@ -49,13 +49,13 @@ module.exports = function({}){
         },
         
         updateScannerById: function(scanner, callback){
-            const query = 'UPDATE Scanners SET scannerNumber = ? WHERE scannerId = ?'
-            const values = [scanner.scannerNumber, scanner.scannerId]
+            const query = 'UPDATE Scanners SET scannerId = ? WHERE scannerId = ?'
+            const values = [scanner.newScannerId, scanner.scannerId]
         
             db.query(query, values, function(error, result){
                 if(error){
                     if(error.code == 'ER_DUP_ENTRY'){
-                        callback(['scannerNumberAlreadyInDatabase'], null)
+                        callback(['scannerIdAlreadyInDatabase'], null)
                     }else{
                         callback(['databaseError'], null)
                     }
@@ -80,8 +80,7 @@ module.exports = function({}){
 
         borrowScannerById: function(scannerId, callback){
             const accountId = 1
-            //const date = new Date().toISOString().slice(0, 19).replace('T', ' ')
-            const date = '123'
+            const date = new Date().toISOString().slice(0, 19).replace('T', ' ')
             const query = 'UPDATE Scanners set scannerInUse = true WHERE scannerId = ?'
             const queryBorrowSession = 'INSERT INTO ScannerBorrowSession (borrowDate, accountId, scannerId) VALUES (?, ?, ?)'          
             const values = [date, accountId, scannerId]
@@ -102,6 +101,7 @@ module.exports = function({}){
 
                     db.query(queryBorrowSession, values, function(error, result){
                         if(error){
+                            console.log(error)
                             return db.rollback(function(){
                                 callback(['databaseError3'])
                             })
