@@ -174,7 +174,14 @@ module.exports = function({}){
                     })
                 })
             })
+        },
+
+        getActiveScannerByAccountId: function(accountId, callback){
+            const query = 'SELECT * FROM ScannerBorrowSession where accountId = ? and returnDate IS NULL'
+            
         }
+
+        
 
         /* returnScannerById: function(scannerId, callback){
             const query = 'UPDATE Scanners set scannerInUse = false WHERE scannerId = ?'
