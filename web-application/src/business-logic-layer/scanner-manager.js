@@ -52,6 +52,10 @@ module.exports = function({scannerRepository}){
 
 		returnScannerByScannerId: function(scannerId, callback){
 			scannerRepository.returnScannerByScannerId(scannerId, callback)
+		},
+
+		getScannerBorrowSessionDetails: function(callback){
+			scannerRepository.getScannerBorrowSessionDetails(callback)
 		}
 
 	}

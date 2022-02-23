@@ -180,6 +180,17 @@ module.exports = function({scannerManager}){
                 response.redirect('/scanner')
             }
         })
+    }),
+
+    router.get('/history', function(request, response){
+        scannerManager.getScannerBorrowSessionDetails(function(errors, scannerBorrowSessionDetails){
+                const model = {
+                    errors: errors,
+                    scannerBorrowSessionDetails: scannerBorrowSessionDetails
+                }
+
+            response.render('scanner-history.hbs', model)
+        })
     })
 
     return router

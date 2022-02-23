@@ -235,6 +235,16 @@ module.exports = function({}){
                 })
                 
             })
+        },
+
+        getScannerBorrowSessionDetails: function(callback){
+            const query = 'SELECT * FROM ScannerBorrowSession'
+            db.query(query, function(error, scannerBorrowSessionDetails){
+                if(error){
+                    callback(['databaseError'])
+                }
+                callback([], scannerBorrowSessionDetails)
+            })
         }
 
         
