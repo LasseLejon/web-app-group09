@@ -15,8 +15,8 @@ CREATE TABLE ScannerBorrowSession(
     scannerBorrowSessionId INT AUTO_INCREMENT PRIMARY KEY,
     borrowDate DATETIME NOT NULL,
     returnDate DATETIME,
-    accountId INT,
-    scannerId INT,
+    accountId INT NOT NULL,
+    scannerId INT NOT NULL, 
     FOREIGN KEY (scannerId) REFERENCES Scanners(scannerId),
     FOREIGN KEY (accountId) REFERENCES Accounts(accountId)
 );

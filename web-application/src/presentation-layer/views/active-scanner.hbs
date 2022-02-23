@@ -1,7 +1,14 @@
 {{#if session.isLoggedIn}}
-    om
-    object med scannerid
-    annars ingen aktiv
-
-annars
-inte inloggad
+    {{#if activeScanner}}
+        <ul>
+            <li>Scanner {{activeScanner.scannerId}}</li>
+            <li>Account {{activeScanner.accountId}}</li>
+            <li>Borrow date {{activeScanner.borrowDate}}</li>
+        </ul>
+        
+    {{else}}
+        <p>You have no active scanner</p>
+    {{/if}}
+{{else}}
+    <p>you are not logged in</p>
+{{/if}}

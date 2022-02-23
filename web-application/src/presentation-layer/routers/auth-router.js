@@ -27,6 +27,7 @@ module.exports = function({authManager}){
         
         request.session.isLoggedIn = false
         request.session.isAdmin = false
+        request.session.accountId = null
         response.redirect('/auth/login')
 
 
@@ -53,6 +54,7 @@ module.exports = function({authManager}){
             else{               
                 request.session.isLoggedIn = true 
                 console.log(storedAccount.isAdmin)
+                request.session.accountId = storedAccount.accountId
                 if(authManager.checkIfAdmin(storedAccount.isAdmin)){
                     request.session.isAdmin = true
                 }                        

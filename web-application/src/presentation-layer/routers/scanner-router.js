@@ -1,5 +1,4 @@
 const express = require('express')
-
 //const scannerManager = require('../../business-logic-layer/scanner-manager')
 
 module.exports = function({scannerManager}){
@@ -18,7 +17,6 @@ module.exports = function({scannerManager}){
     })
 
     router.get('/delete', function(request, response){
-       
         response.render('delete-scanner.hbs')
     })
 
@@ -57,19 +55,33 @@ module.exports = function({scannerManager}){
     }),
 
     router.get('/return/:id', function(request, response){
-        const id = request.params.id
-        scannerManager.getScannerById(id, function(errors, scanner){
+        const scannerId = request.params.id
+
+         scannerManager.getScannerById(scannerId, function(errors, scanner){
             const model = {
                 errors: errors,
                 scanner: scanner[0]
             }
             response.render('return-scanner.hbs', model)
-        })
+        }) 
+
+
     })
 
     router.get('/create', function(request, response){
-        
         response.render('create-scanner.hbs')
+    })
+
+    router.get('/active', function(request, response){
+        const accountId = request.session.accountId
+        console.log(accountId)
+        scannerManager.getActiveScannerByAccountId(accountId, function(errors, activeScanner){
+            const model = {
+                errors: errors,
+                activeScanner: activeScanner[0]
+            }
+            response.render('active-scanner.hbs', model)
+        })
     })
 
     router.post('/create', function(request, response){
@@ -126,9 +138,16 @@ module.exports = function({scannerManager}){
 
     router.post('/borrow/:id', function(request, response){
         const scannerId = request.params.id
-        scannerManager.borrowScannerById(scannerId, function(errors){
+        const accountId = request.session.accountId
+        const date = new Date().toISOString().slice(0, 19).replace('T', ' ')
+        const scannerBorrowDetails = {
+            scannerId: scannerId,
+            accountId: accountId,
+            date: date
+
+        }
+        scannerManager.borrowScannerById(scannerBorrowDetails, function(errors){
             if(errors.length > 0){
-                console.log(errors)
                 const scanner = {
                     scannerId: scannerId
                 }
@@ -150,11 +169,11 @@ module.exports = function({scannerManager}){
             scannerBorrowSessionId: 8,
             returnDate: new Date().toISOString().slice(0, 19).replace('T', ' ')
         }
-        scannerManager.returnScannerByScannerBorrowSessionId(scannerBorrowDetails, function(errors){
+        scannerManager.returnScannerByScannerId(scannerId, function(errors){
             if(errors.length > 0){
                 const model = {
                     errors: errors,
-                    id: id
+                    scannerId: scannerId
                 }
                 response.render('return-scanner.hbs', model)
             }else{

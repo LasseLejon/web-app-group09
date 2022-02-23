@@ -34,14 +34,25 @@ module.exports = function({scannerRepository}){
 			scannerRepository.deleteScannerById(scanner, callback)
 		},
 
-		borrowScannerById: function(scanner, callback){
-			scannerRepository.borrowScannerById(scanner, callback)
+		borrowScannerById: function(scannerBorrowDetails, callback){
+			scannerRepository.borrowScannerById(scannerBorrowDetails, callback)
 		},
 
 		returnScannerByScannerBorrowSessionId: function(scannerBorrowDetails, callback){
 			scannerRepository.returnScannerByScannerBorrowSessionId(scannerBorrowDetails, callback)
-		}
+		},
 
+		getActiveScannerByAccountId: function(accountId, callback){
+			scannerRepository.getActiveScannerByAccountId(accountId, callback)
+		},
+
+		getScannerBorrowSessionByScannerId: function(scannerId, callback){
+			scannerRepository.getScannerBorrowSessionByScannerId(scannerId, callback)
+		},
+
+		returnScannerByScannerId: function(scannerId, callback){
+			scannerRepository.returnScannerByScannerId(scannerId, callback)
+		}
 
 	}
 }

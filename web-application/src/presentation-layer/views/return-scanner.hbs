@@ -9,15 +9,16 @@
 {{/if}}
 
 {{#if scanner}}
-    {{#if scanner.scannerInUse}}
+    {{#if scanner.returnDate}}
+        <p>This scanner is not in use</p>
+    {{else}}
         <form action="/scanner/return/{{scanner.scannerId}}" method="post">
             <p>Are you sure you wan't to return scanner {{scanner.scannerId}}</p>
             <div>
+                <input type="hidden" name="_csrf" value="{{csrfToken}}">
                 <button type="submit">Return</button>
             </div>
         </form>
-    {{else}}
-        <p>This scanner is not in use</p>
     {{/if}}
 {{else}}
     <p>That specific scanner does not exist</p>

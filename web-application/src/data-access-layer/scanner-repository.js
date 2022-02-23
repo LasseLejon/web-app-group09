@@ -30,6 +30,17 @@ module.exports = function({}){
                 }
             })
         },
+
+        getScannerBorrowSessionByScannerId: function(scannerId, callback){
+            const query = 'SELECT * FROM ScannerBorrowSession WHERE ScannerId = ? and returnDate IS NULL'
+            db.query(query, scannerId, function(error, scannerBorrowSession){
+                if(error){
+                    callback(['databaseError'])
+                }else{
+                    callback([], scannerBorrowSession)
+                }
+            })
+        },
         
         createScanner: function(scanner, callback){
             const query = 'INSERT INTO Scanners (scannerId) VALUES (?)'
@@ -78,12 +89,11 @@ module.exports = function({}){
             })
         },
 
-        borrowScannerById: function(scannerId, callback){
-            const accountId = 1
+        borrowScannerById: function(scannerBorrowDetails, callback){
             const date = new Date().toISOString().slice(0, 19).replace('T', ' ')
             const query = 'UPDATE Scanners set scannerInUse = true WHERE scannerId = ?'
             const queryBorrowSession = 'INSERT INTO ScannerBorrowSession (borrowDate, accountId, scannerId) VALUES (?, ?, ?)'          
-            const values = [date, accountId, scannerId]
+            const values = [scannerBorrowDetails.date, scannerBorrowDetails.accountId, scannerBorrowDetails.scannerId]
 
              db.beginTransaction(function(err){
                 if(err){
@@ -92,7 +102,7 @@ module.exports = function({}){
                     })
                 }
                 
-                db.query(query, scannerId, function(error, result){
+                db.query(query, scannerBorrowDetails.scannerId, function(error, result){
                     if(error){
                         return db.rollback(function(){
                             callback(['databaseError2'])
@@ -178,7 +188,53 @@ module.exports = function({}){
 
         getActiveScannerByAccountId: function(accountId, callback){
             const query = 'SELECT * FROM ScannerBorrowSession where accountId = ? and returnDate IS NULL'
-            
+            db.query(query, accountId, function(error, activeScanner){
+                if(error){
+                    callback(['databaseError'])
+                }else{
+                    callback([], activeScanner)
+                }
+
+            })
+        },
+
+        returnScannerByScannerId: function(scannerId, callback){
+            const query = 'UPDATE ScannerBorrowSession set returnDate = ? WHERE scannerBorrowSessionId = ?'
+            const returnDate = new Date().toISOString().slice(0, 19).replace('T', ' ')
+            this.getScannerBorrowSessionByScannerId(scannerId, function(errors, scannerBorrowSession){
+                if(errors.length){
+                    callback(['databaseError0'])
+                }
+                db.beginTransaction(function(error){
+                    if(error){
+                        return db.rollback(callback(['databaseError1']))
+                    }
+
+                    const values = [returnDate, scannerBorrowSession[0].scannerBorrowSessionId]
+                    db.query(query, values, function(error){
+                        if(error){
+                            
+                            return db.rollback(callback(['databaseError2']))
+                        }
+
+                        db.query('UPDATE Scanners set scannerInUse = false WHERE scannerId = ?', scannerId, function(error){
+                            if(error){
+                                return db.rollback(callback(['databaseError3']))
+                            }
+
+                            db.commit(function(error){
+                                if(error){
+                                    return db.rollback(callback(['databaseError4']))
+                                }
+                                callback([], scannerBorrowSession)
+                            })
+                            
+                        })
+                    })
+
+                })
+                
+            })
         }
 
         
