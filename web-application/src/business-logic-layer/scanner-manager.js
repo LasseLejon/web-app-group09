@@ -38,8 +38,8 @@ module.exports = function({scannerRepository}){
 			scannerRepository.borrowScannerById(scanner, callback)
 		},
 
-		returnScannerById: function(scanner, callback){
-			scannerRepository.returnScannerById(scanner, callback)
+		returnScannerByScannerBorrowSessionId: function(scannerBorrowDetails, callback){
+			scannerRepository.returnScannerByScannerBorrowSessionId(scannerBorrowDetails, callback)
 		}
 
 

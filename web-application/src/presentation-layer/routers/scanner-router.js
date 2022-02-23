@@ -146,7 +146,12 @@ module.exports = function({scannerManager}){
 
     router.post('/return/:id', function(request, response){
         const scannerId = request.params.id
-        scannerManager.returnScannerById(scannerId, function(errors){
+        const scannerBorrowDetails = {
+            scannerId: scannerId,
+            scannerBorrowSessionId: 8,
+            returnDate: new Date().toISOString().slice(0, 19).replace('T', ' ')
+        }
+        scannerManager.returnScannerByScannerBorrowSessionId(scannerBorrowDetails, function(errors){
             if(errors.length > 0){
                 const model = {
                     errors: errors,
