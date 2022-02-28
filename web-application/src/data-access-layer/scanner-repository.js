@@ -41,6 +41,17 @@ module.exports = function({}){
                 }
             })
         },
+
+        getScannerBorrowSessionByAccountId: function(accountId, callback){
+            const query = 'SELECT * FROM ScannerBorrowSession WHERE accountId = ? and returnDate IS NULL'
+            db.query(query, accountId, function(error, scannerBorrowSession){
+                if(error){
+                    callback(['databaseError'])
+                }else{
+                    callback([], scannerBorrowSession)
+                }
+            })
+        },
         
         createScanner: function(scanner, callback){
             const query = 'INSERT INTO Scanners (scannerId) VALUES (?)'

@@ -11,3 +11,15 @@ exports.getErrorsNewScanner = function(scanner){
 	return errors
 	
 }
+
+exports.getErrorsBorrowScanner = function(scannerBorrowSession){
+
+	const errors = []
+	if(scannerBorrowSession.length > 0){
+		errors.push("accountHasActiveScanner")
+	}
+
+	return errors
+
+
+}
