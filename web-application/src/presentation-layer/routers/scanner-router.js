@@ -164,16 +164,20 @@ module.exports = function({scannerManager}){
 
     router.post('/return/:id', function(request, response){
         const scannerId = request.params.id
-        const scannerBorrowDetails = {
+        const accountId = request.session.accountId
+        const scannerReturnDetails = {
             scannerId: scannerId,
-            scannerBorrowSessionId: 8,
+            accountId: accountId,
             returnDate: new Date().toISOString().slice(0, 19).replace('T', ' ')
         }
-        scannerManager.returnScannerByScannerId(scannerId, function(errors){
+        scannerManager.returnScannerByScannerId(scannerReturnDetails, function(errors){
             if(errors.length > 0){
+                const scanner = {
+                    scannerId: scannerReturnDetails.scannerId
+                }
                 const model = {
                     errors: errors,
-                    scannerId: scannerId
+                    scanner
                 }
                 response.render('return-scanner.hbs', model)
             }else{

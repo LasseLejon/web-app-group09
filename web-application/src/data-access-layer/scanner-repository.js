@@ -209,10 +209,9 @@ module.exports = function({}){
             })
         },
 
-        returnScannerByScannerId: function(scannerId, callback){
+        returnScannerByScannerId: function(scannerReturnDetails, callback){
             const query = 'UPDATE ScannerBorrowSession set returnDate = ? WHERE scannerBorrowSessionId = ?'
-            const returnDate = new Date().toISOString().slice(0, 19).replace('T', ' ')
-            this.getScannerBorrowSessionByScannerId(scannerId, function(errors, scannerBorrowSession){
+            this.getScannerBorrowSessionByScannerId(scannerReturnDetails.scannerId, function(errors, scannerBorrowSession){
                 if(errors.length){
                     callback(['databaseError0'])
                 }
@@ -221,14 +220,14 @@ module.exports = function({}){
                         return db.rollback(callback(['databaseError1']))
                     }
 
-                    const values = [returnDate, scannerBorrowSession[0].scannerBorrowSessionId]
+                    const values = [scannerReturnDetails.returnDate, scannerBorrowSession[0].scannerBorrowSessionId]
                     db.query(query, values, function(error){
                         if(error){
                             
                             return db.rollback(callback(['databaseError2']))
                         }
 
-                        db.query('UPDATE Scanners set scannerInUse = false WHERE scannerId = ?', scannerId, function(error){
+                        db.query('UPDATE Scanners set scannerInUse = false WHERE scannerId = ?', scannerReturnDetails.scannerId, function(error){
                             if(error){
                                 return db.rollback(callback(['databaseError3']))
                             }

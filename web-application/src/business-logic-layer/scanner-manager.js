@@ -39,14 +39,10 @@ module.exports = function({scannerRepository}){
 				const errors = scannerValidator.getErrorsBorrowScanner(scannerBorrowSession)
 				if(errors.length > 0){
 					callback(errors, null)
-					return
 				}else{
 					scannerRepository.borrowScannerById(scannerBorrowDetails, callback)
-				}
-				
-			})
-	
-			
+				}	
+			})	
 		},
 
 		returnScannerByScannerBorrowSessionId: function(scannerBorrowDetails, callback){
@@ -65,8 +61,18 @@ module.exports = function({scannerRepository}){
 			scannerRepository.getScannerBorrowSessionByAccountId(scannerId, callback)
 		},
 
-		returnScannerByScannerId: function(scannerId, callback){
-			scannerRepository.returnScannerByScannerId(scannerId, callback)
+		returnScannerByScannerId: function(scannerReturnDetails, callback){
+
+			scannerRepository.getScannerBorrowSessionByScannerId(scannerReturnDetails.scannerId, function(error, scannerBorrowSession){
+				console.log(scannerBorrowSession)
+
+				const errors = scannerValidator.getErrorsReturnScanner(scannerReturnDetails.accountId, scannerBorrowSession)
+				if(errors.length > 0 ){
+					callback(errors, scannerReturnDetails)
+				}else{			
+					scannerRepository.returnScannerByScannerId(scannerReturnDetails, callback)
+				}
+			})
 		},
 
 		getScannerBorrowSessionDetails: function(callback){
