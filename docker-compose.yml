@@ -15,5 +15,10 @@ services:
       MYSQL_DATABASE: "my-platform"
     ports:
       - "3306:3306"
+  "redis":
+    build: "./redis"
+    ports:
+    - "6379:6379"
+
   
 

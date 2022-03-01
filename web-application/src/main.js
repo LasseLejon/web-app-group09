@@ -4,7 +4,7 @@ const container = awilix.createContainer()
 
 container.register(
 	'scannerRepository',
-	awilix.asFunction(require('./data-access-layer/orm/scanner-repository.js'))
+	awilix.asFunction(require('./data-access-layer/scanner-repository.js'))
 )
 container.register(
 	'scannerManager',
@@ -19,18 +19,34 @@ container.register(
 	awilix.asFunction(require('./data-access-layer/account-repository.js'))
 )
 container.register(
+	'authRepository',
+	awilix.asFunction(require('./data-access-layer/auth-repository.js'))
+)
+container.register(
 	'accountManager',
 	awilix.asFunction(require('./business-logic-layer/account-manager.js'))
+)
+container.register(
+	'authManager',
+	awilix.asFunction(require('./business-logic-layer/auth-manager.js'))
 )
 container.register(
 	'accountRouter',
 	awilix.asFunction(require('./presentation-layer/routers/account-router.js'))
 )
+container.register(
+	'authRouter',
+	awilix.asFunction(require('./presentation-layer/routers/auth-router.js'))
+)
 
+
+const authRouter = container.resolve('authRouter')
 const scannerRouter = container.resolve('scannerRouter')
 const accountRouter = container.resolve('accountRouter')
 
+
 module.exports = {
 	accountRouter,
-	scannerRouter
+	scannerRouter,
+	authRouter,
 } 

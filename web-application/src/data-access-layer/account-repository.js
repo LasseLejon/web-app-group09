@@ -36,6 +36,15 @@ module.exports = function({}){
 			})
 		},
 
+
+/*
+	Creates a new account.
+	account: {username: "The username", password: "The password"}
+	Possible errors: databaseError, usernameTaken
+	Success value: The id of the new account.
+*/
+
+
 		/*
 			Retrieves the account with the given username.
 			Possible errors: databaseError
@@ -56,6 +65,7 @@ module.exports = function({}){
 			
 		},
 
+
 		/*
 			Creates a new account.
 			account: {username: "The username", password: "The password"}
@@ -64,8 +74,8 @@ module.exports = function({}){
 		*/
 		createAccount: function(account, callback){
 			
-			const query = `INSERT INTO Accounts (username, password) VALUES (?, ?)`
-			const values = [account.username, account.password]
+			const query = `INSERT INTO Accounts (username, password, isAdmin) VALUES (?, ?, ?)`
+			const values = [account.username, account.password, account.isAdmin]
 			
 			db.query(query, values, function(error, results){
 				if(error){
@@ -79,8 +89,8 @@ module.exports = function({}){
 		},
 
 		updateAccountById: function(account, callback){
-			const query = 'UPDATE Accounts SET username = ?, password = ? WHERE accountId = ?'
-			const values = [account.username, account.password, account.accountId]
+			const query = 'UPDATE Accounts SET username = ?, password = ?, isAdmin = ? WHERE accountId = ?'
+			const values = [account.username, account.password, account.isAdmin, account.accountId]
 
 			db.query(query, values, function(error, result){
 				if(error){

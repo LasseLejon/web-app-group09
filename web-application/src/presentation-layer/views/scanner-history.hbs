@@ -1,0 +1,27 @@
+{{#if errors}}
+    <ul>
+        
+    {{#each errors}}
+        <li>{{this}}</li>
+    </ul>
+    {{/each}}
+{{else}}
+    {{#if scannerBorrowSessionDetails}}
+        <table border="solid">
+            <tr>
+                <th>Account Id</th>
+                <th>Scanner Id</th>
+                <th>Borrow Date</th>
+                <th>Return Date</th>
+            </tr>
+            {{#each scannerBorrowSessionDetails}}
+                <tr>
+                    <td>{{accountId}}</td>
+                    <td>{{scannerId}}</td>
+                    <td>{{borrowDate}}</td>
+                    <td>{{returnDate}}</td>
+                </tr>
+            {{/each}}
+        </table>
+    {{/if}}
+{{/if}}

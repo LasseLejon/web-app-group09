@@ -3,6 +3,7 @@
     <form action="/account/delete/{{account.accountId}}" method="post">
         <p>Are you sure you wan't to delete scanner {{account.username}}</p>
         <div>
+            <input type="hidden" name="_csrf"  value="{{csrfToken}}">
             <button type="submit">Delete</button>
         </div>
     </form>

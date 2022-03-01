@@ -32,8 +32,51 @@ module.exports = function({scannerRepository}){
 		
 		deleteScannerById: function(scanner, callback){
 			scannerRepository.deleteScannerById(scanner, callback)
-		}
+		},
 
+		borrowScannerById: function(scannerBorrowDetails, callback){
+			scannerRepository.getScannerBorrowSessionByAccountId(scannerBorrowDetails.accountId, function(error, scannerBorrowSession){
+				const errors = scannerValidator.getErrorsBorrowScanner(scannerBorrowDetails, scannerBorrowSession)
+				if(errors.length > 0){
+					callback(errors, null)
+				}else{
+					scannerRepository.borrowScannerById(scannerBorrowDetails, callback)
+				}	
+			})	
+		},
+
+		returnScannerByScannerBorrowSessionId: function(scannerBorrowDetails, callback){
+			scannerRepository.returnScannerByScannerBorrowSessionId(scannerBorrowDetails, callback)
+		},
+
+		getActiveScannerByAccountId: function(accountId, callback){
+			scannerRepository.getActiveScannerByAccountId(accountId, callback)
+		},
+
+		getScannerBorrowSessionByScannerId: function(scannerId, callback){
+			scannerRepository.getScannerBorrowSessionByScannerId(scannerId, callback)
+		},
+
+		getScannerBorrowSessionByAccountId: function(scannerId, callback){
+			scannerRepository.getScannerBorrowSessionByAccountId(scannerId, callback)
+		},
+
+		returnScannerByScannerId: function(scannerReturnDetails, callback){
+
+			scannerRepository.getScannerBorrowSessionByScannerId(scannerReturnDetails.scannerId, function(error, scannerBorrowSession){
+
+				const errors = scannerValidator.getErrorsReturnScanner(scannerReturnDetails, scannerBorrowSession)
+				if(errors.length > 0 ){
+					callback(errors, scannerReturnDetails)
+				}else{			
+					scannerRepository.returnScannerByScannerId(scannerReturnDetails, callback)
+				}
+			})
+		},
+
+		getScannerBorrowSessionDetails: function(callback){
+			scannerRepository.getScannerBorrowSessionDetails(callback)
+		}
 
 	}
 }

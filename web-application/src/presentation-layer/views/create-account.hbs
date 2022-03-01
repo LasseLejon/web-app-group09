@@ -6,9 +6,7 @@
 		{{/each}}
 	</ul>
 {{/if}}
-{{#if session.isLoggedIn}}
-    <p>You are now logged in</p>
-{{else}}       
+{{#if session.isAdmin}}
     <form method="POST" action="/account/create" >
         <div>
             Username: <br>
@@ -18,10 +16,17 @@
             Password: <br>
             <input type="password" name="password"value="{{password}}" placeholder="Password"><br>
         </div>
+         <div>
+            Should user have admin authorization? yes/no<br>
+            <input type="password" name="admin"value="{{isAdmin}}" placeholder="Is admin? "><br>
+        </div>
         <div>      
             <input type="hidden" name="_csrf" value="{{csrfToken}}">
         	<button type="submit">Create new</button>	
         </div>   
     </form>
-    <
+{{else}}
+    <p>You don't have authorization for this! </p>       
+    
+    
 {{/if}}

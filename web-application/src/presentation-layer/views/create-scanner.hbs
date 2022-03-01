@@ -12,9 +12,10 @@
 <form action="/scanner/create" method="post">
     <div>
         Scanner Number<br>
-        <input type="text" name="scannerNumber">
+        <input type="text" name="scannerId">
     </div>
     <div>
+        <input type="hidden" name="_csrf" value="{{csrfToken}}">
         <button type="submit">Create</button>
     </div>
 </form>
