@@ -7,17 +7,19 @@ CREATE TABLE Accounts(
 );
 
 CREATE TABLE Scanners(
-    scannerId INT AUTO_INCREMENT PRIMARY KEY,
-    scannerNumber INT NOT NULL,
-    CONSTRAINT scannerNumberUnique UNIQUE (scannerNumber)
+    scannerId INT PRIMARY KEY,
+    scannerInUse BOOLEAN DEFAULT false
 );
 
 CREATE TABLE ScannerBorrowSession(
     scannerBorrowSessionId INT AUTO_INCREMENT PRIMARY KEY,
     borrowDate DATETIME NOT NULL,
     returnDate DATETIME,
-    accountId INT,
-    scannerId INT,
-    FOREIGN KEY (scannerId) REFERENCES Scanners(scannerId),
+    accountId INT NOT NULL,
+    scannerId INT NOT NULL, 
+    FOREIGN KEY (scannerId) REFERENCES Scanners(scannerId)
+    ON UPDATE CASCADE,
     FOREIGN KEY (accountId) REFERENCES Accounts(accountId)
 );
+
+INSERT INTO Accounts (username, password, isAdmin) VALUES ('admin', '$2a$10$f/.KuLqLZJTpuBPYq1u2i.tuzrNBxooPrKXkWGeIMhaoCO2C0aQhi', 'yes')

@@ -1,0 +1,28 @@
+<h1>Borrow Scanner</h1>
+
+{{#if errors.length}}
+    <ul>
+        {{#each errors}}
+            <li>{{this}}</li>
+        {{/each}}
+    </ul>
+{{/if}}
+
+{{#if scanner}}
+    
+    {{#if scanner.scannerInUse}}
+        <p>The scanner is already in use</p>
+    {{else}}
+        <form action="/scanner/borrow/{{scanner.scannerId}}" method="post">
+            <p>Are you sure you wan't to borrow scanner {{scanner.scannerId}}</p>
+            <div>
+                <input type="hidden" name="_csrf" value="{{csrfToken}}">
+                <button type="submit">Borrow</button>
+            </div>
+        </form>
+    {{/if}}
+{{else}}
+    <p>That specific scanner does not exist</p>
+{{/if}}
+
+

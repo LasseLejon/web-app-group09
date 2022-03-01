@@ -24,7 +24,7 @@ module.exports = function({}){
 		},
 		getAccountByUsername: function(username, callback){
 			
-			const query = `SELECT password as storedPassword, isAdmin as isAdmin FROM Accounts WHERE username = ? LIMIT 1`
+			const query = `SELECT password as storedPassword, isAdmin as isAdmin, accountId as accountId FROM Accounts WHERE username = ? LIMIT 1`
 			const values = [username]
 			
 			db.query(query, values, function(error, account){

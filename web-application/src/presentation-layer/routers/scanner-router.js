@@ -1,5 +1,4 @@
 const express = require('express')
-
 //const scannerManager = require('../../business-logic-layer/scanner-manager')
 
 module.exports = function({scannerManager}){
@@ -18,7 +17,6 @@ module.exports = function({scannerManager}){
     })
 
     router.get('/delete', function(request, response){
-       
         response.render('delete-scanner.hbs')
     })
 
@@ -45,15 +43,51 @@ module.exports = function({scannerManager}){
         })
     })
 
+    router.get('/borrow/:id', function(request, response){
+        const id = request.params.id
+        scannerManager.getScannerById(id, function(errors, scanner){
+            const model = {
+                errors: errors,
+                scanner: scanner[0]
+            }
+            response.render('borrow-scanner.hbs', model)
+        })
+    }),
+
+    router.get('/return/:id', function(request, response){
+        const scannerId = request.params.id
+
+         scannerManager.getScannerById(scannerId, function(errors, scanner){
+            const model = {
+                errors: errors,
+                scanner: scanner[0]
+            }
+            response.render('return-scanner.hbs', model)
+        }) 
+
+
+    })
+
     router.get('/create', function(request, response){
-        
         response.render('create-scanner.hbs')
     })
 
+    router.get('/active', function(request, response){
+        const accountId = request.session.accountId
+        console.log(accountId)
+        scannerManager.getActiveScannerByAccountId(accountId, function(errors, activeScanner){
+            const model = {
+                errors: errors,
+                activeScanner: activeScanner[0]
+            }
+            response.render('active-scanner.hbs', model)
+        })
+    })
+
     router.post('/create', function(request, response){
-        const scannerNumber = request.body.scannerNumber
+        const scannerId = request.body.scannerId
         const scanner = {
-            scannerNumber: scannerNumber
+            scannerId: scannerId
         }
         scannerManager.createScanner(scanner, function(errors, id){
             if(errors.length > 0){
@@ -69,18 +103,17 @@ module.exports = function({scannerManager}){
     })
 
     router.post('/update/:id', function(request, response){
-        const scannerNumber = request.body.scannerNumber
+        const newScannerId = request.body.scannerId
         const scannerId = request.params.id
         const scanner = {
             scannerId: scannerId,
-            scannerNumber: scannerNumber
+            newScannerId: newScannerId
         }
-        scannerManager.updateScannerById(scanner, function(errors, id){
+        scannerManager.updateScannerById(scanner, function(errors){
             if(errors.length > 0){
                 const model = {
                     errors: errors,
-                    scanner: scanner,
-                    id: id
+                    scanner: scanner
                 }
                 response.render('update-scanner.hbs', model)
             }else{
@@ -94,13 +127,77 @@ module.exports = function({scannerManager}){
         scannerManager.deleteScannerById(scannerId, function(errors){
             if(errors.length > 0){
                 const model = {
-                    errors: errors,
-                    id: id
+                    errors: errors
                 }
                 response.render('delete-scanner.hbs', model)
             }else{
                 response.redirect('/scanner')
             }
+        })
+    })
+
+    router.post('/borrow/:id', function(request, response){
+        const scannerId = request.params.id
+        const accountId = request.session.accountId
+        const isLoggedIn = request.session.isLoggedIn
+        const date = new Date().toISOString().slice(0, 19).replace('T', ' ')
+        const scannerBorrowDetails = {
+            scannerId: scannerId,
+            accountId: accountId,
+            isLoggedIn,
+            date: date
+
+        }
+        scannerManager.borrowScannerById(scannerBorrowDetails, function(errors){
+            if(errors.length > 0){
+                const scanner = {
+                    scannerId: scannerId
+                }
+                const model = {
+                    errors: errors,
+                    scanner
+                }
+                response.render('borrow-scanner.hbs', model)
+            }else{
+                response.redirect('/scanner')
+            }
+        })
+    }),
+
+    router.post('/return/:id', function(request, response){
+        const scannerId = request.params.id
+        const accountId = request.session.accountId
+        const isLoggedIn = request.session.isLoggedIn
+        const scannerReturnDetails = {
+            scannerId: scannerId,
+            accountId: accountId,
+            isLoggedIn,
+            returnDate: new Date().toISOString().slice(0, 19).replace('T', ' ')
+        }
+        scannerManager.returnScannerByScannerId(scannerReturnDetails, function(errors){
+            if(errors.length > 0){
+                const scanner = {
+                    scannerId: scannerReturnDetails.scannerId
+                }
+                const model = {
+                    errors: errors,
+                    scanner
+                }
+                response.render('return-scanner.hbs', model)
+            }else{
+                response.redirect('/scanner')
+            }
+        })
+    }),
+
+    router.get('/history', function(request, response){
+        scannerManager.getScannerBorrowSessionDetails(function(errors, scannerBorrowSessionDetails){
+                const model = {
+                    errors: errors,
+                    scannerBorrowSessionDetails: scannerBorrowSessionDetails
+                }
+
+            response.render('scanner-history.hbs', model)
         })
     })
 
