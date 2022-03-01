@@ -12,6 +12,14 @@ exports.getErrorsNewScanner = function(scanner){
 	
 }
 
+exports.getErrorsDeleteScanner = function(scanner){
+	const errors = []
+	if(scanner.scannerInUse){
+		errors.push('scannerInUse')
+	}
+	return errors
+}
+
 exports.getErrorsBorrowScanner = function(scannerBorrowDetails, scannerBorrowSession){
 
 	const errors = []

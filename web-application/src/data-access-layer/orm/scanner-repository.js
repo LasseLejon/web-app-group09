@@ -24,7 +24,7 @@ module.exports = function(){
         },
 
         createScanner: function(scanner, callback){
-            Scanner.create({scannerNumber: scanner.scannerNumber}).then(function(){
+            Scanner.create({scannerId: scanner.scannerId}).then(function(){
                 callback([])
             }).catch(function(error){
                 if(error.name == 'SequelizeUniqueConstraintError'){
@@ -37,7 +37,7 @@ module.exports = function(){
         },
 
         updateScannerById: function(scanner, callback){
-            Scanner.update({scannerNumber: scanner.scannerNumber}, {where: {scannerId: scanner.scannerId}})
+            Scanner.update({scannerId: scanner.newScannerId}, {where: {scannerId: scanner.scannerId}})
             .then(function(){
                 callback([])
             }).catch(function(error){

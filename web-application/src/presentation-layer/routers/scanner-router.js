@@ -127,7 +127,10 @@ module.exports = function({scannerManager}){
         scannerManager.deleteScannerById(scannerId, function(errors){
             if(errors.length > 0){
                 const model = {
-                    errors: errors
+                    errors: errors,
+                    scanner: {
+                        scannerId: scannerId
+                    }
                 }
                 response.render('delete-scanner.hbs', model)
             }else{

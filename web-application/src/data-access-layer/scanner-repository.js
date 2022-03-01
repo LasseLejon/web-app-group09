@@ -142,17 +142,6 @@ module.exports = function({}){
             })
         },
 
-/*         borrowScannerById: function(scannerId, callback){
-            const query = 'UPDATE Scanners set scannerInUse = true WHERE scannerId = ?'
-            db.query(query, scannerId, function(error, result){
-                if(error){
-                    callback(['databaseError'], null)
-                }else{
-                    callback([])
-                }
-            })
-        }, */
-
         /* Used to return a borrowed scanner by passing the function scannerId and scannerBorrowSessionId */
 
         returnScannerByScannerBorrowSessionId: function(scannerBorrowDetails, callback){
@@ -257,18 +246,6 @@ module.exports = function({}){
             })
         }
 
-        
-
-        /* returnScannerById: function(scannerId, callback){
-            const query = 'UPDATE Scanners set scannerInUse = false WHERE scannerId = ?'
-            db.query(query, scannerId, function(error, result){
-                if(error){
-                    callback(['databaseError'], null)
-                }else{
-                    callback([])
-                }
-            })
-        } */
 
     }
 
