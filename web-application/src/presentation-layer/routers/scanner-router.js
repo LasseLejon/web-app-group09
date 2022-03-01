@@ -139,10 +139,12 @@ module.exports = function({scannerManager}){
     router.post('/borrow/:id', function(request, response){
         const scannerId = request.params.id
         const accountId = request.session.accountId
+        const isLoggedIn = request.session.isLoggedIn
         const date = new Date().toISOString().slice(0, 19).replace('T', ' ')
         const scannerBorrowDetails = {
             scannerId: scannerId,
             accountId: accountId,
+            isLoggedIn,
             date: date
 
         }
@@ -165,9 +167,11 @@ module.exports = function({scannerManager}){
     router.post('/return/:id', function(request, response){
         const scannerId = request.params.id
         const accountId = request.session.accountId
+        const isLoggedIn = request.session.isLoggedIn
         const scannerReturnDetails = {
             scannerId: scannerId,
             accountId: accountId,
+            isLoggedIn,
             returnDate: new Date().toISOString().slice(0, 19).replace('T', ' ')
         }
         scannerManager.returnScannerByScannerId(scannerReturnDetails, function(errors){

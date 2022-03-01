@@ -12,31 +12,33 @@ exports.getErrorsNewScanner = function(scanner){
 	
 }
 
-exports.getErrorsBorrowScanner = function(scannerBorrowSession){
+exports.getErrorsBorrowScanner = function(scannerBorrowDetails, scannerBorrowSession){
 
 	const errors = []
-	if(scannerBorrowSession.length > 0){
-		errors.push("accountHasActiveScanner")
+	if(scannerBorrowDetails.isLoggedIn){
+		if(scannerBorrowSession.length > 0){
+			errors.push("accountHasActiveScanner")
+		}
+	}else{
+		errors.push('notLoggedIn')
 	}
 
 	return errors
 
 }
 
-exports.getErrorsReturnScanner = function(accountId, scannerBorrowSession){
-
-	console.log(scannerBorrowSession)
-	console.log('hej')
-
+exports.getErrorsReturnScanner = function(scannerReturnDetails, scannerBorrowSession){
 	const errors = []
-	console.log(accountId, scannerBorrowSession.accountId)
-	if(scannerBorrowSession.length > 0){
-		if(accountId != scannerBorrowSession[0].accountId){
-			errors.push('accountsNotMatching')
+	if(scannerReturnDetails.isLoggedIn){
+		if(scannerBorrowSession.length > 0){
+			if(scannerReturnDetails.accountId != scannerBorrowSession[0].accountId){
+				errors.push('accountsNotMatching')
+			}
+		}else{
+			errors.push('scannerNotInUse')
 		}
 	}else{
-		errors.push('scannerNotInUse')
+		errors.push('notLoggedIn')
 	}
-
 	return errors
 }
