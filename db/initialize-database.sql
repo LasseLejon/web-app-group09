@@ -17,7 +17,8 @@ CREATE TABLE ScannerBorrowSession(
     returnDate DATETIME,
     accountId INT NOT NULL,
     scannerId INT NOT NULL, 
-    FOREIGN KEY (scannerId) REFERENCES Scanners(scannerId),
+    FOREIGN KEY (scannerId) REFERENCES Scanners(scannerId)
+    ON UPDATE CASCADE,
     FOREIGN KEY (accountId) REFERENCES Accounts(accountId)
 );
 
