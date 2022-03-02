@@ -10,9 +10,7 @@ module.exports = function(){
         getAllScanners: function(callback){
             Scanner.findAll({raw: true}).then(function(scanners){
                 callback([], scanners)
-                console.log(scanners)
             }).catch(function(error){
-                console.log(error)
                 callback(['databaseError'], null)
             })
         },
@@ -57,26 +55,18 @@ module.exports = function(){
             Scanner.destroy({where: {scannerId: scannerId}}).then(function(){
                 callback([])
             }).catch(function(error){
+                console.log(error)
                 callback(['databaseError'])
             })
         },
 
         getScannerBorrowSessionByAccountId: function(accountId, callback){
-
             ScannerBorrowSession.findAll({where: {accountId: accountId, returnDate: null}, raw: true})
             .then(function(scannerBorrowSession){
                 callback([], scannerBorrowSession)
             }).catch(function(error){
                 callback(['databaseError'])
             })
-            /* const query = 'SELECT * FROM ScannerBorrowSession WHERE accountId = ? and returnDate IS NULL'
-            db.query(query, accountId, function(error, scannerBorrowSession){
-                if(error){
-                    callback(['databaseError'])
-                }else{
-                    callback([], scannerBorrowSession)
-                }
-            }) */
         },
 
         getScannerBorrowSessionByScannerId: function(scannerId, callback){
@@ -89,7 +79,6 @@ module.exports = function(){
         },
 
         borrowScannerById: function(scannerBorrowDetails, callback){
-
             seql.transaction(function(transaction){
                 return Scanner.update({
                     scannerInUse: true
@@ -121,7 +110,6 @@ module.exports = function(){
         },
 
         returnScannerByScannerId: function(scannerReturnDetails, callback){
-
             this.getScannerBorrowSessionByScannerId(scannerReturnDetails.scannerId, function(errors, scannerBorrowSession){
                 if(errors.length){
                     callback(['databaseError0'])
@@ -169,15 +157,6 @@ module.exports = function(){
             }).catch(function(error){
                 callback(error)
             })
-            
-
-           /*  const query = 'SELECT * FROM ScannerBorrowSession'
-            db.query(query, function(error, scannerBorrowSessionDetails){
-                if(error){
-                    callback(['databaseError'])
-                }
-                callback([], scannerBorrowSessionDetails)
-            }) */
         }
 
     }

@@ -75,5 +75,6 @@ Account.hasMany(ScannerBorrowSession, {foreignKey: 'accountId'})
 module.exports = {
     sequelize,
     Scanner,
-    ScannerBorrowSession
+    ScannerBorrowSession,
+    Account
 }
