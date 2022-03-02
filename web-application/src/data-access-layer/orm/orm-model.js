@@ -20,11 +20,6 @@ const sequelize = new Sequelize(
         }
 })
 
-
-
-
-    
-
 const Scanner = sequelize.define('Scanner', {
     scannerId: {
         type: DataTypes.INTEGER,
@@ -47,8 +42,6 @@ const Account = sequelize.define ('Account', {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true
-        
-
     },
     password:{
         type: DataTypes.STRING,
@@ -58,21 +51,7 @@ const Account = sequelize.define ('Account', {
         type: DataTypes.STRING,
         allowNull: false
     } 
-
-
 })
-
-/* 
-CREATE TABLE ScannerBorrowSession(
-    scannerBorrowSessionId INT AUTO_INCREMENT PRIMARY KEY,
-    borrowDate DATETIME NOT NULL,
-    returnDate DATETIME,
-    accountId INT NOT NULL,
-    scannerId INT NOT NULL, 
-    FOREIGN KEY (scannerId) REFERENCES Scanners(scannerId)
-    ON UPDATE CASCADE,
-    FOREIGN KEY (accountId) REFERENCES Accounts(accountId)
-); */
 
 const ScannerBorrowSession = sequelize.define('ScannerBorrowSession', {
     scannerBorrowSessionId:{
@@ -84,12 +63,18 @@ const ScannerBorrowSession = sequelize.define('ScannerBorrowSession', {
         type: DataTypes.DATE,
         allowNull: false
     },
-    returnDate: DataTypes.DATE
+    returnDate: DataTypes.DATE,
 })
-
-Scanner.belongsTo(ScannerBorrowSession, {foreignKey: 'scannerId', onUpdate: 'CASCADE'})
-
+/* Scanner.belongsTo(ScannerBorrowSession, {foreignKey: 'scannerId'})
+ScannerBorrowSession.hasMany(Scanner, {foreignKey: 'scannerId'})
 Account.belongsTo(ScannerBorrowSession, {foreignKey: 'accountId'})
+ScannerBorrowSession.hasMany(Account, {foreignKey: 'accountId'}) */
+
+ScannerBorrowSession.belongsTo(Scanner, {foreignKey: 'scannerId'})
+Scanner.hasMany(ScannerBorrowSession, {foreignKey: 'scannerId'})
+ScannerBorrowSession.belongsTo(Account, {foreignKey: 'accountId'})
+Account.hasMany(ScannerBorrowSession, {foreignKey: 'accountId'})
+
 
 module.exports = {
     sequelize,

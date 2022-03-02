@@ -11,7 +11,7 @@ CREATE TABLE Scanners(
     scannerInUse BOOLEAN DEFAULT false
 );
 
-CREATE TABLE ScannerBorrowSession(
+CREATE TABLE ScannerBorrowSessions(
     scannerBorrowSessionId INT AUTO_INCREMENT PRIMARY KEY,
     borrowDate DATETIME NOT NULL,
     returnDate DATETIME,

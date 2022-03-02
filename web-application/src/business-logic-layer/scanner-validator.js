@@ -24,6 +24,7 @@ exports.getErrorsBorrowScanner = function(scannerBorrowDetails, scannerBorrowSes
 
 	const errors = []
 	if(scannerBorrowDetails.isLoggedIn){
+		console.log(scannerBorrowSession, "hsdafhasdlkfhalskdfjhls")
 		if(scannerBorrowSession.length > 0){
 			errors.push("accountHasActiveScanner")
 		}
