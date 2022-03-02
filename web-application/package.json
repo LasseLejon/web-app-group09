@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon src/presentation-layer/app.js",
+    "start": "nodemon src/main.js",
+    "start1": "nodemon src/presentation-layer/rest-api/rest-app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
