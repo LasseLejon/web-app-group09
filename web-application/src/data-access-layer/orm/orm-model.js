@@ -65,10 +65,6 @@ const ScannerBorrowSession = sequelize.define('ScannerBorrowSession', {
     },
     returnDate: DataTypes.DATE,
 })
-/* Scanner.belongsTo(ScannerBorrowSession, {foreignKey: 'scannerId'})
-ScannerBorrowSession.hasMany(Scanner, {foreignKey: 'scannerId'})
-Account.belongsTo(ScannerBorrowSession, {foreignKey: 'accountId'})
-ScannerBorrowSession.hasMany(Account, {foreignKey: 'accountId'}) */
 
 ScannerBorrowSession.belongsTo(Scanner, {foreignKey: 'scannerId'})
 Scanner.hasMany(ScannerBorrowSession, {foreignKey: 'scannerId'})

@@ -63,7 +63,7 @@ module.exports = function(){
 
         getScannerBorrowSessionByAccountId: function(accountId, callback){
 
-            ScannerBorrowSession.findAll({where: {accountId: accountId}, raw: true})
+            ScannerBorrowSession.findAll({where: {accountId: accountId, returnDate: null}, raw: true})
             .then(function(scannerBorrowSession){
                 callback([], scannerBorrowSession)
             }).catch(function(error){
@@ -79,22 +79,85 @@ module.exports = function(){
             }) */
         },
 
-        borrowScannerById: function(scannerBorrowDetails, callback){
-            const date = new Date().toISOString().slice(0, 19).replace('T', ' ')
-            const query = 'UPDATE Scanners set scannerInUse = true WHERE scannerId = ?'
-            const queryBorrowSession = 'INSERT INTO ScannerBorrowSession (borrowDate, accountId, scannerId) VALUES (?, ?, ?)'          
-            const values = [scannerBorrowDetails.date, scannerBorrowDetails.accountId, scannerBorrowDetails.scannerId]
-
-            return seql.transaction(t => {
-                return Scanner.update({scannerInUse: true}, {where:{scannerId: scannerBorrowDetails.scannerId}}, {transaction: t})
-                .then(function(){
-                   return ScannerBorrowSession.create({accountId: scannerBorrowDetails.accountId, scannerId: scannerBorrowDetails.scannerId, borrowDate: scannerBorrowDetails.date}
-                    , {transaction: t})   
-                })
-            }).then(function(){
-                callback([])
+        getScannerBorrowSessionByScannerId: function(scannerId, callback){
+            ScannerBorrowSession.findAll({where: {scannerId: scannerId, returnDate: null}, raw: true})
+            .then(function(scannerBorrowSession){
+                callback([], scannerBorrowSession)
             }).catch(function(error){
-                callback('databaseError')
+                callback(['databaseError'])
+            })
+        },
+
+        borrowScannerById: function(scannerBorrowDetails, callback){
+
+            seql.transaction(function(transaction){
+                return Scanner.update({
+                    scannerInUse: true
+                    },
+                    {
+                        where:
+                        {
+                            scannerId: scannerBorrowDetails.scannerId
+                        }, 
+                        transaction: transaction
+                    })
+                    .then(function(){
+                    return ScannerBorrowSession.create({
+                        accountId: scannerBorrowDetails.accountId,
+                        scannerId: scannerBorrowDetails.scannerId, 
+                        borrowDate: scannerBorrowDetails.date
+                    }, 
+                    {
+                        transaction: transaction
+                    })
+                })   
+            })
+            .then(function(){
+                callback([])
+            })
+            .catch(function(){
+                callback(['databaseError'])
+            })
+        },
+
+        returnScannerByScannerId: function(scannerReturnDetails, callback){
+
+            this.getScannerBorrowSessionByScannerId(scannerReturnDetails.scannerId, function(errors, scannerBorrowSession){
+                if(errors.length){
+                    callback(['databaseError0'])
+                }
+
+                seql.transaction(function(t){
+                    return Scanner.update({
+                        scannerInUse: false
+                    },
+                    {
+                        where:
+                        {
+                            scannerId: scannerReturnDetails.scannerId
+                        },
+                        transaction: t
+                    })
+                    .then(function(){
+                        return ScannerBorrowSession.update({
+                            returnDate: scannerReturnDetails.returnDate
+                        }, 
+                        {
+                            where: 
+                            {
+                                scannerBorrowSessionId: scannerBorrowSession[0].scannerBorrowSessionId
+                            }, 
+                            transaction: t
+                        })
+                    })                   
+                })
+                .then(function(){
+                    callback([])
+                })
+                .catch(function(){
+                    callback(['databaseError'])
+                })
+                
             })
         },
 
