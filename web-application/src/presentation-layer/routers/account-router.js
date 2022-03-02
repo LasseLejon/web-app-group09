@@ -87,12 +87,13 @@ module.exports = function({accountManager}){
       router.post('/update/:id', function(request, response){
         const username = request.body.username
         const password = request.body.password
+        const hashedPassword = accountManager.hashPassword(password)
         const isAdmin = request.body.admin
         const accountId = request.params.id
         const account = {
             accountId: accountId,
             username: username,
-            password: password,
+            password: hashedPassword,
             isAdmin: isAdmin
         }
         accountManager.updateAccountById(account, function(errors, id){

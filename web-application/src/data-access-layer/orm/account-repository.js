@@ -15,7 +15,7 @@ module.exports = function(){
 		},
 
         getAccountById: function(id, callback){
-            Account.findAll({where: {accountId: id}}, {raw: true})
+            Account.findAll({where: {accountId: id}, raw: true})
             .then(function(account){
                 callback([], account)
             })
@@ -25,7 +25,7 @@ module.exports = function(){
 		},
 
         getAccountByUsername: function(username, callback){
-			Account.findAll({where: {username: username}}, {raw: true})
+			Account.findAll({where: {username: username}, raw: true})
             .then(function(account){
                 callback([], account)
             })
