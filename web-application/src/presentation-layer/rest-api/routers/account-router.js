@@ -1,77 +1,132 @@
-const express = require('express')
-const bodyParser = require('body-parser')
-const app = require('../../app')
+//const express = require('express')
+//const bodyParser = require('body-parser')
+//const app = require('../../app')
+const ACCESS_TOKEN_SECRET = "adksfjdsfdsfsdf"
 const { response } = require('express')
 
 
-module.exports = function({accountManager,authManager}){
+
+module.exports = function({accountManager,authManager,scannerManager}){
+    
+    
+    const express = require('express')
+    const bodyParser = require('body-parser')
+    const jwt = require('jsonwebtoken')
     const router = express.Router() 
+ //   router.use(express.json())
+ //   router.use(express.urlencoded({ extended: false }))
+    
 
     router.get("/account", function(request, response){
 
-
-        accountManager.getAllAccounts(function(error,accounts){
-            if(error.length > 0){
-                response.status(404).json(error)
+        accountManager.getAllAccounts(function(errors,accounts){
+            if(errors.length > 0){
+                response.status(404).json(errors)
             }
             response.status(200).json(accounts)
         })
         
     })
+    router.use(bodyParser.json())
+    router.use(bodyParser.urlencoded({
+        extended: false
+    }))
 
-    router.post('/create',function(request,respone){
+    router.get("/scanner", function(request, response){
+        scannerManager.getAllScanners(function(errors, scanners){
+            if(errors.length > 0){
+                response.status(404).json(errors)
+            }
+            response.status(200).json(scanners)
+        })
+        
+    })
+
+    router.post('/create',function(request,response){
             const username = request.body.username
             const password = request.body.password
             const isAdmin = request.body.admin
-    
+            const authorizationHeader = request.header("Authorization")
+            const access_token = authorizationHeader.substring("Bearer ".length)
             const hashedPassword = accountManager.hashPassword(password)
-        
             const account = {
                 username: username,
                 password: hashedPassword,
                 isAdmin: isAdmin
             }
-        
-            accountManager.createAccount(account,function(errors,id){
-                if(errors.length > 0){
-                    response.status(404).json("hej")
-                }
 
-                else{
-                    response.status(200).json(account)
+            jwt.verify(access_token, ACCESS_TOKEN_SECRET, function(error,payload){
+                console.log(payload.isAdmin)
+                if(error){
+                    console.log("gar in fel")
+                    response.status(401).end()
                 }
+                if(payload.isAdmin != true){
+                    console.log("gar in ratt")
+                    response.status(401).end()
+                }
+                if(payload.isAdmin == true){
+                    accountManager.createAccount(account,function(errors,id){
+                        if(errors.length > 0){
+                            console.log("hejhej")
         
+                            response.status(404).json(errors)
+                        }
         
-            })
+                        else{
+        
+                           // response.setHeader(account)
+                            console.log(account)
+                        //    console.log(respone.status(201).json(account))
+                            response.status(201).json(account)
+                        }
+                               
+                    })  
+                }
                 
-          
-
+            })
 
     })
 
-    router.use(bodyParser.json())
-    router.post('/login', function(request,respone){
-        const username = request.body.username1
-        const inputPassword = request.body.password1
+    
 
+    router.post('/tokens', function(request,response){
+        const grant_type = request.body.grant_type
+        const username = request.body.username
+        const password = request.body.password
 
+        var payload = {
+
+        }
 
         const account = {
             username: username,
-            password: inputPassword
+            password: password,
+            grant_type: grant_type
         }
 
-        authManager.login(username,account,function(errors,storedAccount){
-            console.log("hej", storedAccount)        
-            if(errors.length > 0){                         
-                response.status(404).json(errors)
-            }  
-            console.log("hej", storedAccount)
-            console.log("ajajajaj")
+        authManager.loginFromRestApi(username,account,function(errors,storedAccount){
+            if(errors.length > 0){  
+                console.log("if")                       
+                response.status(400).json(errors)
 
-            response.status(200).json("you are now logged in")
-
-
+            } 
+            if(authManager.checkIfAdmin(storedAccount.isAdmin))
+                payload = {
+                    isLoggedIn:true,
+                    isAdmin:true
+                }
+            else{
+                payload = {
+                    isLoggedIn: true,
+                    isAdmin:false
+                } 
+            }
+           
+            jwt.sign(payload,ACCESS_TOKEN_SECRET,function(err, token) {
+                console.log("else", token)
+                response.status(200).json({"access_token: ": token})
+            })           
 
         })
     })

@@ -4,7 +4,10 @@ const MAX_USERNAME_LENGTH = 10
 
 exports.getErrorsNewAccount = function(account){	
     const errors = []
-
+    console.log("test1",account.isAdmin)
+    console.log("test2", account.username)
+    console.group("test3", account.password)
+    
     if(!account.hasOwnProperty("username")){
         errors.push("usernameMissing")
     }

@@ -82,6 +82,7 @@ module.exports = function({}){
 					// TODO: Look for usernameUnique violation.
 					callback(['databaseError'], null)
 				}else{
+					console.log("test7", results.insertId)
 					callback([], results.insertId)
 				}
 			})

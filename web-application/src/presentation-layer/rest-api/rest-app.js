@@ -1,4 +1,4 @@
-
+//const jwt = require('jsonwebtoken')
 
 module.exports = function({}){
     return{
@@ -6,7 +6,7 @@ module.exports = function({}){
 
             const express = require('express')
             const app = express()
-            const csrf = require('csurf')
+           // const csrf = require('csurf')
 
             app.use(express.json())
 
