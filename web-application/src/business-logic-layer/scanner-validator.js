@@ -12,10 +12,19 @@ exports.getErrorsNewScanner = function(scanner){
 	
 }
 
+exports.getErrorsDeleteScanner = function(scanner){
+	const errors = []
+	if(scanner.scannerInUse){
+		errors.push('scannerInUse')
+	}
+	return errors
+}
+
 exports.getErrorsBorrowScanner = function(scannerBorrowDetails, scannerBorrowSession){
 
 	const errors = []
 	if(scannerBorrowDetails.isLoggedIn){
+		console.log(scannerBorrowSession, "hsdafhasdlkfhalskdfjhls")
 		if(scannerBorrowSession.length > 0){
 			errors.push("accountHasActiveScanner")
 		}

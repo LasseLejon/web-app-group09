@@ -11,14 +11,15 @@ CREATE TABLE Scanners(
     scannerInUse BOOLEAN DEFAULT false
 );
 
-CREATE TABLE ScannerBorrowSession(
+CREATE TABLE ScannerBorrowSessions(
     scannerBorrowSessionId INT AUTO_INCREMENT PRIMARY KEY,
     borrowDate DATETIME NOT NULL,
     returnDate DATETIME,
     accountId INT NOT NULL,
     scannerId INT NOT NULL, 
     FOREIGN KEY (scannerId) REFERENCES Scanners(scannerId)
-    ON UPDATE CASCADE,
+    ON UPDATE CASCADE
+    ON DELETE CASCADE,
     FOREIGN KEY (accountId) REFERENCES Accounts(accountId)
 );
 

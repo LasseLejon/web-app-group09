@@ -30,12 +30,20 @@ module.exports = function({scannerRepository}){
 			scannerRepository.updateScannerById(scanner, callback)
 		},
 		
-		deleteScannerById: function(scanner, callback){
-			scannerRepository.deleteScannerById(scanner, callback)
+		deleteScannerById: function(scannerId, callback){
+			scannerRepository.getScannerById(scannerId, function(error, scanner){
+				const errors = scannerValidator.getErrorsDeleteScanner(scanner)
+				if(errors.length > 0){
+					callback(errors, null)
+				}else{
+				scannerRepository.deleteScannerById(scannerId, callback)
+				}
+			})
 		},
 
 		borrowScannerById: function(scannerBorrowDetails, callback){
 			scannerRepository.getScannerBorrowSessionByAccountId(scannerBorrowDetails.accountId, function(error, scannerBorrowSession){
+				console.log(scannerBorrowDetails.accountId)
 				const errors = scannerValidator.getErrorsBorrowScanner(scannerBorrowDetails, scannerBorrowSession)
 				if(errors.length > 0){
 					callback(errors, null)
