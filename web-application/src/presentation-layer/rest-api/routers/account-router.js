@@ -6,7 +6,7 @@ const { response } = require('express')
 
 
 
-module.exports = function({accountManager,authManager,scannerManager}){
+module.exports = function({accountManager,authManager}){
     
     
     const express = require('express')
@@ -32,16 +32,6 @@ module.exports = function({accountManager,authManager,scannerManager}){
         extended: false
     }))
 
-    router.get("/scanner", function(request, response){
-        scannerManager.getAllScanners(function(errors, scanners){
-            if(errors.length > 0){
-                response.status(404).json(errors)
-            }
-            response.status(200).json(scanners)
-        })
-        
-    })
-
     router.post('/create',function(request,response){
             const username = request.body.username
             const password = request.body.password
@@ -54,7 +44,8 @@ module.exports = function({accountManager,authManager,scannerManager}){
                 password: hashedPassword,
                 isAdmin: isAdmin
             }
-
+            // invalid grant om token är fel eller expired
+            // unauthirized_client om ej admin status
             jwt.verify(access_token, ACCESS_TOKEN_SECRET, function(error,payload){
                 console.log(payload.isAdmin)
                 if(error){
@@ -107,8 +98,12 @@ module.exports = function({accountManager,authManager,scannerManager}){
 
         authManager.loginFromRestApi(username,account,function(errors,storedAccount){
             if(errors.length > 0){  
-                console.log("if")                       
+                if(errors == "invalid_client")  {
+                    response.status(401).json(errors)
+                }   
+                else{               
                 response.status(400).json(errors)
+                }
 
             } 
             if(authManager.checkIfAdmin(storedAccount.isAdmin))
