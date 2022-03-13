@@ -17,10 +17,12 @@ module.exports = function({}){
             const routers = require('../../main.js')
             const accountRouterRest = routers.accountRouterRest
             const scannerRouterRest = routers.scannerRouterRest
+            const authRouterRest = routers.authRouterRest
 
 
             app.use('/', accountRouterRest)
             app.use('/', scannerRouterRest)
+            app.use('/', authRouterRest)
 
             return app
 
