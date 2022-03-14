@@ -6,7 +6,7 @@ const { response } = require('express')
 
 
 
-module.exports = function({accountManager,authManager}){
+module.exports = function({accountManager}){
     
     
     const express = require('express')

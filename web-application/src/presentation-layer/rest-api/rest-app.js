@@ -19,7 +19,6 @@ module.exports = function({}){
             const scannerRouterRest = routers.scannerRouterRest
             const authRouterRest = routers.authRouterRest
 
-
             app.use('/', accountRouterRest)
             app.use('/', scannerRouterRest)
             app.use('/', authRouterRest)
