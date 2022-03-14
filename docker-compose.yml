@@ -8,6 +8,12 @@ services:
       - "./web-application/src:/web-application/src"
     depends_on:
       - database
+  "spa":
+    build: "./spa"
+    ports:
+    - "4000:4000"
+    volumes:
+    - "./spa/src:/spa/src"
   "database":
     build: "./db"
     environment:
