@@ -32,7 +32,7 @@ module.exports = function({}){
         },
 
         getScannerBorrowSessionByScannerId: function(scannerId, callback){
-            const query = 'SELECT * FROM ScannerBorrowSession WHERE ScannerId = ? and returnDate IS NULL'
+            const query = 'SELECT * FROM ScannerBorrowSessions WHERE ScannerId = ? and returnDate IS NULL'
             db.query(query, scannerId, function(error, scannerBorrowSession){
                 if(error){
                     callback(['databaseError'])
@@ -43,7 +43,7 @@ module.exports = function({}){
         },
 
         getScannerBorrowSessionByAccountId: function(accountId, callback){
-            const query = 'SELECT * FROM ScannerBorrowSession WHERE accountId = ? and returnDate IS NULL'
+            const query = 'SELECT * FROM ScannerBorrowSessions WHERE accountId = ? and returnDate IS NULL'
             db.query(query, accountId, function(error, scannerBorrowSession){
                 if(error){
                     callback(['databaseError'])
@@ -103,7 +103,7 @@ module.exports = function({}){
         borrowScannerById: function(scannerBorrowDetails, callback){
             const date = new Date().toISOString().slice(0, 19).replace('T', ' ')
             const query = 'UPDATE Scanners set scannerInUse = true WHERE scannerId = ?'
-            const queryBorrowSession = 'INSERT INTO ScannerBorrowSession (borrowDate, accountId, scannerId) VALUES (?, ?, ?)'          
+            const queryBorrowSession = 'INSERT INTO ScannerBorrowSessions (borrowDate, accountId, scannerId) VALUES (?, ?, ?)'          
             const values = [scannerBorrowDetails.date, scannerBorrowDetails.accountId, scannerBorrowDetails.scannerId]
 
              db.beginTransaction(function(err){
@@ -142,24 +142,13 @@ module.exports = function({}){
             })
         },
 
-/*         borrowScannerById: function(scannerId, callback){
-            const query = 'UPDATE Scanners set scannerInUse = true WHERE scannerId = ?'
-            db.query(query, scannerId, function(error, result){
-                if(error){
-                    callback(['databaseError'], null)
-                }else{
-                    callback([])
-                }
-            })
-        }, */
-
         /* Used to return a borrowed scanner by passing the function scannerId and scannerBorrowSessionId */
 
         returnScannerByScannerBorrowSessionId: function(scannerBorrowDetails, callback){
             const scannerBorrowSessionId = 3
             const returnDate = new Date().toISOString().slice(0, 19).replace('T', ' ')
             const query = 'UPDATE Scanners set scannerInUse = false WHERE scannerId = ?'
-            const queryBorrowSession = 'UPDATE ScannerBorrowSession set returnDate = ? WHERE scannerBorrowSessionId = ?'          
+            const queryBorrowSession = 'UPDATE ScannerBorrowSessions set returnDate = ? WHERE scannerBorrowSessionId = ?'          
             const values = [scannerBorrowDetails.returnDate, scannerBorrowDetails.scannerBorrowSessionId]
 
              db.beginTransaction(function(err){
@@ -198,7 +187,7 @@ module.exports = function({}){
         },
 
         getActiveScannerByAccountId: function(accountId, callback){
-            const query = 'SELECT * FROM ScannerBorrowSession where accountId = ? and returnDate IS NULL'
+            const query = 'SELECT * FROM ScannerBorrowSessions where accountId = ? and returnDate IS NULL'
             db.query(query, accountId, function(error, activeScanner){
                 if(error){
                     callback(['databaseError'])
@@ -210,7 +199,7 @@ module.exports = function({}){
         },
 
         returnScannerByScannerId: function(scannerReturnDetails, callback){
-            const query = 'UPDATE ScannerBorrowSession set returnDate = ? WHERE scannerBorrowSessionId = ?'
+            const query = 'UPDATE ScannerBorrowSessions set returnDate = ? WHERE scannerBorrowSessionId = ?'
             this.getScannerBorrowSessionByScannerId(scannerReturnDetails.scannerId, function(errors, scannerBorrowSession){
                 if(errors.length){
                     callback(['databaseError0'])
@@ -248,7 +237,7 @@ module.exports = function({}){
         },
 
         getScannerBorrowSessionDetails: function(callback){
-            const query = 'SELECT * FROM ScannerBorrowSession'
+            const query = 'SELECT * FROM ScannerBorrowSessions'
             db.query(query, function(error, scannerBorrowSessionDetails){
                 if(error){
                     callback(['databaseError'])
@@ -257,18 +246,6 @@ module.exports = function({}){
             })
         }
 
-        
-
-        /* returnScannerById: function(scannerId, callback){
-            const query = 'UPDATE Scanners set scannerInUse = false WHERE scannerId = ?'
-            db.query(query, scannerId, function(error, result){
-                if(error){
-                    callback(['databaseError'], null)
-                }else{
-                    callback([])
-                }
-            })
-        } */
 
     }
 
