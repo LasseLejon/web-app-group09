@@ -13,6 +13,14 @@ module.exports = function({scannerManager}){
         extended: false
     }))
 
+    router.use(function(request, response, next){
+        response.setHeader("Access-Control-Allow-Origin", "*")
+        response.setHeader("Access-Control-Allow-Methods", "*")
+        response.setHeader("Access-Control-Allow-Headers", "*")
+        response.setHeader("Access-Control-Expose-Headers", "*")
+        next()
+    })
+
     router.get("/scanner", function(request, response){
         scannerManager.getAllScanners(function(errors, scanners){
             if(errors.length > 0){
