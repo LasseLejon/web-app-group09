@@ -15,6 +15,9 @@ module.exports = function({accountRepository}){
 		createAccount: function(account, callback){
 			
 			// Validate the account.
+			console.log("test4",account.isAdmin)
+    		console.log("test5", account.username)
+    		console.group("test6", account.password)
 			const errors = accountValidator.getErrorsNewAccount(account)
 			
 			if(0 < errors.length){
