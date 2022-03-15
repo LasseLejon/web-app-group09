@@ -37,26 +37,31 @@ router.post('/tokens', function(request,response){
             if(errors == "invalid_client")  {
                 response.status(401).json(errors)
             }   
-            else{               
-            response.status(400).json(errors).end()
+            else{          
+                response.status(400).json(errors)
+
             }
 
         } 
-        if(authManager.checkIfAdmin(storedAccount.isAdmin))
-            payload = {
-                isLoggedIn:true,
-                isAdmin:true
-            }
         else{
-            payload = {
-                isLoggedIn: true,
-                isAdmin:false
-            } 
-        }          
-        jwt.sign(payload,ACCESS_TOKEN_SECRET,function(err, token) {
-            console.log("else", token)
-            response.status(200).json({"access_token: ": token})
-        })           
+            if(authManager.checkIfAdmin(storedAccount.isAdmin)){
+                payload = {
+                    isLoggedIn:true,
+                    isAdmin:true
+                }
+            }
+            else{
+                payload = {
+                    isLoggedIn: true,
+                    isAdmin:false
+                } 
+            }          
+            jwt.sign(payload,ACCESS_TOKEN_SECRET,function(err, token) {
+                console.log("else", token)
+                response.status(200).json({"access_token: ": token})
+            })          
+
+        }
 
     })
 })
