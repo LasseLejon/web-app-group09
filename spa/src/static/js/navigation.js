@@ -58,9 +58,16 @@ function showPage(url){
                 nextPageId = 'update-scanner-page'
                 loadUpdateScannerPage(id)
             }
-            else{
+            if(url.startsWith("/scanner/delete/")){
+
+                const parts = url.split('/')
+                console.log("parts", parts)
+                nextPageId = 'delete-scanner-page'
+                loadDeleteScannerPage(parts[3])
+            }else{
                 nextPageId = 'not-found-page'
             }
+            
     }
 
     document.getElementById(nextPageId).classList.add('current-page')
