@@ -22,6 +22,7 @@ module.exports = function({authRepository}){
         loginFromRestApi: function(username,inputAccount, callback){
 
             authRepository.getAccountByUsername(username,function(error,storedAccount){
+                console.log("get")
                 console.log(storedAccount)
                 const errors = authValidator.getErrorsNewLoginRestApi(inputAccount,storedAccount)               
                 if(errors.length > 0){
