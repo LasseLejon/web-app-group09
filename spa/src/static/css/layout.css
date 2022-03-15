@@ -7,3 +7,6 @@ body{
 .page.current-page{
     display: block;
 }
+div#scanner-page table{
+    outline: solid;
+}

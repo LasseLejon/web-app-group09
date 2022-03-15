@@ -14,6 +14,14 @@ module.exports = function({}){
                 extended: false
             }))
 
+            app.use(function(request, response, next){
+                response.setHeader("Access-Control-Allow-Origin", "*")
+                response.setHeader("Access-Control-Allow-Methods", "*")
+                response.setHeader("Access-Control-Allow-Headers", "*")
+                response.setHeader("Access-Control-Expose-Headers", "*")
+                next()
+            })
+
             const routers = require('../../main.js')
             const accountRouterRest = routers.accountRouterRest
             const scannerRouterRest = routers.scannerRouterRest

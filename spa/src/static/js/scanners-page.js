@@ -5,27 +5,39 @@ async function loadScannersPage(){
 	// TODO: Check status code and act accordingly!
 	
 	const scanners = await response.json()
-
-    console.log("hej",scanners)
 	
-	const allScannersUl = document.getElementById('all-scanners')
-	allScannersUl.innerText = ""
+	const allScannersTable = document.getElementById('all-scanners')
+	allScannersTable.innerText = ""
+
 	
 	for(const scanner of scanners){
-		
-		const li = document.createElement('li')
-		li.innerText = "scanner: "+ scanner.scannerId
-        console.log(scanner.scannerId)
-		
-	//	const anchor = document.createElement('a')
-	//	anchor.innerText = human.name
-	//	anchor.setAttribute('href', "/humans/"+human.id)
-		
-		//li.appendChild(anchor)
-		
-		allScannersUl.appendChild(li)
-        console.log(allScannersUl)
-		
+		const tr = document.createElement('tr')
+		const tdId = document.createElement('td')
+		const tdInUse = document.createElement('td')
+		const tdUpdate = document.createElement('td')
+		const tdDelete = document.createElement('td')
+
+		const anchorUpdate = document.createElement('a')
+		const anchorDelete = document.createElement('a')
+
+		anchorUpdate.href = "scanner/update/" + scanner.scannerId
+		anchorUpdate.innerText = "Update"
+
+		anchorDelete.href = "scanner/delete/" + scanner.scannerId
+		anchorDelete.innerText = "Delete"
+
+		tdId.innerText = scanner.scannerId
+		tdInUse.innerText = scanner.scannerInUse
+
+		tdUpdate.appendChild(anchorUpdate)
+		tdDelete.appendChild(anchorDelete)
+
+
+		tr.appendChild(tdId)
+		tr.appendChild(tdInUse)
+		tr.appendChild(tdUpdate)
+		tr.appendChild(tdDelete)
+		allScannersTable.appendChild(tr)	
 	}
 	
 }
