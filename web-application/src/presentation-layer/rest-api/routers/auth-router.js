@@ -39,6 +39,7 @@ router.post('/tokens', function(request,response){
             }   
             else{          
                 response.status(400).json(errors)
+
             }
 
         } 
