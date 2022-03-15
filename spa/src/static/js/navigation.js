@@ -59,11 +59,9 @@ function showPage(url){
                 loadUpdateScannerPage(id)
             }
             if(url.startsWith("/scanner/delete/")){
-
-                const parts = url.split('/')
-                console.log("parts", parts)
+                const [empty, scanner, update, id] = url.split('/')
                 nextPageId = 'delete-scanner-page'
-                loadDeleteScannerPage(parts[3])
+                loadDeleteScannerPage(id)
             }else{
                 nextPageId = 'not-found-page'
             }
