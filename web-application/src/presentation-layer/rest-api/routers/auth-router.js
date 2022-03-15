@@ -37,9 +37,8 @@ router.post('/tokens', function(request,response){
             if(errors == "invalid_client")  {
                 response.status(401).json(errors)
             }   
-            else{
-                console.log("not good")               
-                response.status(400).json(errors)
+            else{               
+            response.status(400).json(errors).end()
             }
 
         } 
