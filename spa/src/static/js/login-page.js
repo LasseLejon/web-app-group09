@@ -1,4 +1,4 @@
-function loadLoginPage(){
+/* function loadLoginPage(){
     document.addEventListener('submit', function(event){
         event.preventDefault()
         const username = document.getElementById('login-username-input').value
@@ -16,9 +16,9 @@ function loadLoginPage(){
             console.log(error)
         })
     })
-}
+} */
 
-/* async function loadLoginPage(){
+async function loadLoginPage(){
     document.addEventListener('submit', async function(event){
         event.preventDefault()
         const username = document.getElementById('login-username-input').value
@@ -27,13 +27,14 @@ function loadLoginPage(){
          const response = await fetch("http://localhost:3000/api/tokens", {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
             },
             body: JSON.stringify({grant_type: 'password',username: username, password: password})
         })
 
-        console.log(response)
         const status = await response.json()
-        console.log(status)
+        console.log(status.access_token)
+
     })
-} */
+} 

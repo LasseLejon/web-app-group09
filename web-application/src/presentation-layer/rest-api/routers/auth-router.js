@@ -57,7 +57,7 @@ router.post('/tokens', function(request,response){
             }          
             jwt.sign(payload,ACCESS_TOKEN_SECRET,function(err, token) {
                 console.log("else", token)
-                response.status(200).json({"access_token: ": token})
+                response.status(200).json({access_token: token})
             })          
 
         }
