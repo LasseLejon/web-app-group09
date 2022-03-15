@@ -43,7 +43,7 @@ function showPage(url){
             break
 
         case '/scanner':
-            nextPageId = 'scanners-page'
+            nextPageId = 'scanner-page'
             loadScannersPage()
             break
 
