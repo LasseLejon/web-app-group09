@@ -49,7 +49,7 @@ module.exports = function({scannerManager}){
                 response.status(204).end()
             }
             else{
-                response.status(200).json(scanner)
+                response.status(204).end()
             }
         })
     })

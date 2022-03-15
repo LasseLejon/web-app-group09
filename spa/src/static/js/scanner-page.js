@@ -20,10 +20,11 @@ async function loadScannersPage(){
 		const anchorUpdate = document.createElement('a')
 		const anchorDelete = document.createElement('a')
 
-		anchorUpdate.href = "scanner/update/" + scanner.scannerId
+		anchorUpdate.href = "/scanner/update/" + scanner.scannerId
 		anchorUpdate.innerText = "Update"
 
-		anchorDelete.href = "scanner/delete/" + scanner.scannerId
+		anchorDelete.href = "/scanner/delete/" + scanner.scannerId
+        console.log(anchorDelete)
 		anchorDelete.innerText = "Delete"
 
 		tdId.innerText = scanner.scannerId

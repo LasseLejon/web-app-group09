@@ -52,8 +52,16 @@ function showPage(url){
             break
     
         default:
-            nextPageId = 'not-found-page'
-            break
+            if(url.startsWith("/scanner/delete/")){
+
+                const parts = url.split('/')
+                console.log("parts", parts)
+                nextPageId = 'delete-scanner-page'
+                loadDeleteScannerPage()
+            }else{
+                nextPageId = 'not-found-page'
+            }
+            
     }
 
     document.getElementById(nextPageId).classList.add('current-page')
