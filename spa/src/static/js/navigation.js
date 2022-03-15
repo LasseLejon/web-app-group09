@@ -36,6 +36,7 @@ function showPage(url){
 
         case '/auth/login':
             nextPageId = 'login-page'
+            loadLoginPage()
             break
 
         case '/account':
@@ -52,8 +53,14 @@ function showPage(url){
             break
     
         default:
-            nextPageId = 'not-found-page'
-            break
+            if(url.startsWith('/scanner/update/')){
+                const [empty, scanner, update, id] = url.split('/')
+                nextPageId = 'update-scanner-page'
+                loadUpdateScannerPage(id)
+            }
+            else{
+                nextPageId = 'not-found-page'
+            }
     }
 
     document.getElementById(nextPageId).classList.add('current-page')

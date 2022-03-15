@@ -5,9 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ScannerTracker</title>
-    <link rel="stylesheet" href="css/layout.css">
-    <script src="js/navigation.js"></script>
-    <script src="js/scanners-page.js"></script>
+    <link rel="stylesheet" href="/css/layout.css">
+    <script src="/js/navigation.js"></script>
+    <script src="/js/scanners-page.js"></script>
+    <script src="/js/update-scanner-page.js"></script>
+    <script src="/js/login-page.js"></script>
+    
 </head>
 <body>
     <header>
@@ -31,7 +34,17 @@
         </div>
         <div class="page" id="login-page">
             <h1>Login</h1>
-            <p>This is the login page</p>
+            <form action="login" method="post">
+                <div>
+                    <input type="text" id="login-username-input">
+                </div>
+                <div>
+                    <input type="password" id="login-password-input">
+                </div>
+                <div>
+                    <button type="submit">Log in!</button>
+                </div>
+            </form>
         </div>
         <div class="page" id="account-page">
             <h1>Account</h1>
@@ -51,6 +64,18 @@
 
                 </tbody>
             </table>
+        </div>
+        <div class="page" id="update-scanner-page">
+            <h1>Update Scanner</h1>
+            <ul id="update-error-ul"></ul>
+            <form action="/scanner/update" method="post">
+                <div>
+                    <input type="text" id="update-scanner-input">
+                </div>
+                <div>
+                    <button type="submit" id="update-scanner-submit">Update</button>
+                </div>
+            </form>
         </div>
         <div class="page" id="history-page">
             <h1>History</h1>

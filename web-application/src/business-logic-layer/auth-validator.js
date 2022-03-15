@@ -35,9 +35,9 @@ exports.getErrorsNewLoginRestApi = function(inputAccount,storedAccount){
     }
     if(typeof(storedAccount) == "undefined"){
         errors.push("No such username exist, please write your username again")
-      //  return errors
+        return errors
     }   
-    if(!compareInputAndStoredPassword(inputAccount.password, storedAccount.storedPassword)){
+    if(!compareInputAndStoredPassword(inputAccount.password, storedAccount.password)){
         errors.push("invalid_client")
     }
 
