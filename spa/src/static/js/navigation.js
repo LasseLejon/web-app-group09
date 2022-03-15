@@ -57,7 +57,7 @@ function showPage(url){
                 const parts = url.split('/')
                 console.log("parts", parts)
                 nextPageId = 'delete-scanner-page'
-                loadDeleteScannerPage()
+                loadDeleteScannerPage(id)
             }else{
                 nextPageId = 'not-found-page'
             }
