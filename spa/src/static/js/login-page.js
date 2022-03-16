@@ -34,6 +34,11 @@ async function loadLoginPage(ACCESS_TOKEN){
         })
 
         const status = await response.json()
+<<<<<<< HEAD
+=======
+        ACCESS_TOKEN = status.access_token
+        console.log(status.access_token)
+>>>>>>> 10f222c626e272ef0621feba59aad5602c16091a
 
     })
 } 
