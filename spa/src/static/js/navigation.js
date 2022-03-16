@@ -3,6 +3,7 @@ var ACCESS_TOKEN
 const API_URL = "http://localhost:3000/api/"
 
 
+
 document.addEventListener('DOMContentLoaded', function(){
     const anchors = document.querySelectorAll('a')
 
@@ -67,7 +68,8 @@ function showPage(url){
             else if(url.startsWith("/scanner/delete/")){
                 const [empty, scanner, update, id] = url.split('/')
                 nextPageId = 'delete-scanner-page'
-                loadDeleteScannerPage(id)
+                console.log("kolla token", ACCESS_TOKEN)
+                loadDeleteScannerPage(id, ACCESS_TOKEN)
             }
             else{
                 nextPageId = 'not-found-page'
