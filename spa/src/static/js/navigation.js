@@ -41,7 +41,7 @@ function showPage(url){
 
         case '/auth/login':
             nextPageId = 'login-page'
-            loadLoginPage(ACCESS_TOKEN)
+            loadLoginPage()
             break
 
         case '/account':
