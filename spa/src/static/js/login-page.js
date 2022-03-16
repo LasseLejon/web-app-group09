@@ -24,7 +24,7 @@ async function loadLoginPage(){
         const username = document.getElementById('login-username-input').value
         const password = document.getElementById('login-password-input').value
         
-         const response = await fetch("http://localhost:3000/api/tokens", {
+         const response = await fetch(API_URL + "tokens", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -35,7 +35,6 @@ async function loadLoginPage(){
 
         const status = await response.json()
         ACCESS_TOKEN = status.access_token
-        console.log(status.access_token)
 
     })
 } 
