@@ -11,6 +11,7 @@
     <script src="/js/update-scanner-page.js"></script>
     <script src="/js/login-page.js"></script>
     <script src="/js/delete-scanner-page.js"></script>
+    <script src="/js/create-account-page.js"></script>
 </head>
 <body>
     <header>
@@ -21,7 +22,7 @@
         <ul>
             <li><a href="/">Home</a></li>
             <li><a href="/auth/login">Login</a></li>
-            <li><a href="/account">Account</a></li>
+            <li><a href="/account/create">Create Account</a></li>
             <li><a href="/scanner">Scanner</a></li>
             <li><a href="/history">History</a></li>
         </ul>
@@ -34,7 +35,7 @@
         </div>
         <div class="page" id="login-page">
             <h1>Login</h1>
-            <form action="login" method="post">
+            <form action="login" method="post" id="login-form">
                 <div>
                     <input type="text" id="login-username-input">
                 </div>
@@ -87,6 +88,23 @@
         </div>
         <div class="page" id="not-found-page">
             <h1>Not Found</h1>
+        </div>
+        <div class="page" id="create-account-page">
+            <h1>Create account</h1>
+            <form action="create" method="post" id="create-account-form">
+                <div>
+                    <input type="text" id="create-account-username-input">
+                </div>
+                <div>
+                    <input type="password" id="create-account-password-input">
+                </div>
+                <div>
+                    <input type="password" id="create-account-repeat-password-input">
+                </div>
+                <div>
+                    <button type="submit">Create Account</button>
+                </div>
+            </form>
         </div>
 
         <footer>

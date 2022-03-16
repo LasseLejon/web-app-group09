@@ -19,7 +19,8 @@
 } */
 
 async function loadLoginPage(){
-    document.addEventListener('submit', async function(event){
+    const loginForm = document.getElementById('login-form')
+    loginForm.addEventListener('submit', async function(event){
         event.preventDefault()
         const username = document.getElementById('login-username-input').value
         const password = document.getElementById('login-password-input').value
