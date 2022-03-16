@@ -22,6 +22,26 @@ async function loadScannersPage(){
 
 		anchorUpdate.setAttribute('href', "/scanner/update/" + scanner.scannerId)
 		anchorUpdate.innerText = "Update"
+		anchorUpdate.addEventListener('click', function(event){
+			event.preventDefault()
+            const url = anchorUpdate.getAttribute('href')
+
+            history.pushState(null, "", url)
+
+            hideCurrentPage()
+            showPage(url)
+
+		})
+		anchorDelete.addEventListener('click', function(event){
+			event.preventDefault()
+            const url = anchorDelete.getAttribute('href')
+
+            history.pushState(null, "", url)
+
+            hideCurrentPage()
+            showPage(url)
+
+		})
 
 		anchorDelete.setAttribute('href', "/scanner/delete/" + scanner.scannerId)
 		anchorDelete.innerText = "Delete"

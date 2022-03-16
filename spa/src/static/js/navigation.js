@@ -1,6 +1,7 @@
 //A Global var containing the access_token
 var ACCESS_TOKEN
-console.log("blablabal", ACCESS_TOKEN)
+const API_URL = "http://localhost:3000/api/"
+
 
 
 document.addEventListener('DOMContentLoaded', function(){
@@ -50,6 +51,7 @@ function showPage(url){
 
         case '/scanner':
             nextPageId = 'scanner-page'
+            console.log(ACCESS_TOKEN)
             loadScannersPage()
             break
 
@@ -63,13 +65,12 @@ function showPage(url){
                 nextPageId = 'update-scanner-page'
                 loadUpdateScannerPage(id)
             }
-            if(url.startsWith("/scanner/delete/")){
+            else if(url.startsWith("/scanner/delete/")){
                 const [empty, scanner, update, id] = url.split('/')
                 nextPageId = 'delete-scanner-page'
-                console.log("hej", id)
-                console.log('Bearer '+ACCESS_TOKEN)
                 loadDeleteScannerPage(id, ACCESS_TOKEN)
-            }else{
+            }
+            else{
                 nextPageId = 'not-found-page'
             }
             
