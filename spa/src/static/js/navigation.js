@@ -1,5 +1,6 @@
 //A Global var containing the access_token
 var ACCESS_TOKEN
+console.log("blablabal", ACCESS_TOKEN)
 
 
 document.addEventListener('DOMContentLoaded', function(){
@@ -65,7 +66,9 @@ function showPage(url){
             if(url.startsWith("/scanner/delete/")){
                 const [empty, scanner, update, id] = url.split('/')
                 nextPageId = 'delete-scanner-page'
-                loadDeleteScannerPage(id)
+                console.log("hej", id)
+                console.log('Bearer '+ACCESS_TOKEN)
+                loadDeleteScannerPage(id, ACCESS_TOKEN)
             }else{
                 nextPageId = 'not-found-page'
             }

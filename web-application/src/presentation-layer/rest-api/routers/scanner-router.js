@@ -113,7 +113,7 @@ module.exports = function({scannerManager}){
         
     })
 
-    router.post('/scanner/delete/:id', function(request, response){
+    router.delete('/scanner/delete/:id', function(request, response){
         const scannerId = request.params.id
         const authorizationHeader = request.header("Authorization")
         const access_token = authorizationHeader.substring("Bearer ".length)
