@@ -1,3 +1,7 @@
+//A Global var containing the access_token
+var ACCESS_TOKEN
+
+
 document.addEventListener('DOMContentLoaded', function(){
     const anchors = document.querySelectorAll('a')
 
