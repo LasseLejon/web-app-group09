@@ -18,7 +18,7 @@
     })
 } */
 
-async function loadLoginPage(){
+async function loadLoginPage(ACCESS_TOKEN){
     document.addEventListener('submit', async function(event){
         event.preventDefault()
         const username = document.getElementById('login-username-input').value
@@ -38,3 +38,4 @@ async function loadLoginPage(){
 
     })
 } 
+console.log(ACCESS_TOKEN)
