@@ -5,7 +5,7 @@ async function loadDeleteScannerPage(id){
     p.innerText = "Are you sure you want to delete this scanner?"
     deletescanner.appendChild(p)
     
-    const form = document.getElementById('deleteForm')
+  //  const form = document.getElementById('deleteForm')
 
     const button = document.getElementById('deleteButton')
     button.innerText = "Yes delete"

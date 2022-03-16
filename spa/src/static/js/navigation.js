@@ -42,7 +42,7 @@ function showPage(url){
 
         case '/auth/login':
             nextPageId = 'login-page'
-            loadLoginPage(ACCESS_TOKEN)
+            loadLoginPage()
             break
 
         case '/account':
@@ -68,6 +68,7 @@ function showPage(url){
             else if(url.startsWith("/scanner/delete/")){
                 const [empty, scanner, update, id] = url.split('/')
                 nextPageId = 'delete-scanner-page'
+                console.log("kolla token", ACCESS_TOKEN)
                 loadDeleteScannerPage(id, ACCESS_TOKEN)
             }
             else{
