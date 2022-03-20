@@ -11,6 +11,7 @@
     <script src="/js/update-scanner-page.js"></script>
     <script src="/js/login-page.js"></script>
     <script src="/js/delete-scanner-page.js"></script>
+    <script src="/js/create-scanner-page.js"></script>
 </head>
 <body>
     <header>
@@ -51,6 +52,7 @@
         </div>
         <div class="page" id="scanner-page">
             <h1>Scanner</h1>
+            <a href="/scanner/create">Create Scanner</a>
             <table>
                 <thead>
                     <tr>
@@ -80,8 +82,15 @@
         <div class="page" id="history-page">
             <h1>History</h1>
         </div>
+        <div class="page" id="create-scanner-page">
+            <form action="POST" id="createScannerForm">
+                <input type="text" id="create-scanner-input">
+                <button type="submit">Create Scanner</button>
+            </form>
+
+        </div>
         <div class="page" id="delete-scanner-page">
-            <form action="/scanner/delete" method="post" id="deleteForm">
+            <form action="/scanner/delete" method="POST" id="deleteForm">
                 <button type="submit" id="deleteButton">Yes delete</button>
             </form>
         </div>

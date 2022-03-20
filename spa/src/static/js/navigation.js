@@ -71,6 +71,11 @@ function showPage(url){
                 console.log("kolla token", ACCESS_TOKEN)
                 loadDeleteScannerPage(id, ACCESS_TOKEN)
             }
+            else if(url.startsWith("/scanner/create")){
+                const parts = url.split('/')
+                nextPageId = 'create-scanner-page'
+                loadCreateScannerPage()
+            }
             else{
                 nextPageId = 'not-found-page'
             }
