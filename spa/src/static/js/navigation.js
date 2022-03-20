@@ -20,6 +20,24 @@ document.addEventListener('DOMContentLoaded', function(){
 
     }
 
+    const loginForm = document.getElementById('login-form')
+    loginForm.addEventListener('submit', (event) =>{
+        event.preventDefault()
+        submitLoginForm()
+    })
+
+    const createAccountForm = document.getElementById('create-account-form')
+    createAccountForm.addEventListener('submit', (event) => {
+        event.preventDefault()
+        submitCreateAccountForm()
+    })
+
+    const updateScannerForm = document.getElementById('update-scanner-form')
+    updateScannerForm.addEventListener('submit', (event) => {
+        event.preventDefault()
+        submitUpdateScannerForm()
+    })
+
     showPage(location.pathname)
 })
 
@@ -42,11 +60,7 @@ function showPage(url){
 
         case '/auth/login':
             nextPageId = 'login-page'
-            loadLoginPage()
-            break
-
-        case '/account':
-            nextPageId = 'account-page'
+            //loadLoginPage()
             break
 
         case '/scanner':
@@ -57,6 +71,11 @@ function showPage(url){
 
         case '/history':
             nextPageId = 'history-page'
+            break
+
+        case '/account/create':
+            nextPageId = 'create-account-page'
+            //loadCreateAccountPage()
             break
     
         default:
