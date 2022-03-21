@@ -5,7 +5,7 @@ async function loadUpdateScannerPage(id){
     if(response.status == 404){
         hideCurrentPage()
         window.history.pushState(null, "", '/not-found')
-        showPage('/not-found')
+        showPage('/not-found')  
     }
     else{
         const scanner = await response.json()

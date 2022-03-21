@@ -26,7 +26,9 @@ module.exports = function({scannerManager}){
             if(errors.length > 0){
                 response.status(404).json(errors)
             }
-            response.status(200).json(scanners)
+            else{
+                response.status(200).json(scanners)
+            }
         })
         
     })
@@ -39,16 +41,19 @@ module.exports = function({scannerManager}){
             if(errors.length > 0){
                 response.status(404).json(errors)
             }
-            console.log(scanner[0])
+            else{
+                response.status(200).json(scanner)
+            }
+            //console.log(scanner[0])
            // console.log(scanner)
-            response.status(200).json(scanner)
+            
         })
     })
     router.get('/scanner/delete/:id', function(request, response){
         const id = request.params.id
         scannerManager.getScannerById(id, function(errors, scanner){
             if(errors.length > 0){
-                response.status(204).end()
+                response.status(404).json(errors)
             }
             else{
                 response.status(200).json(scanner)

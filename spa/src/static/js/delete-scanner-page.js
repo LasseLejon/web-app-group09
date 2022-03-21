@@ -5,9 +5,19 @@ async function loadDeleteScannerPage(id){
     p.innerText = ""
     console.log(API_URL + 'scanner/delete/' + id)
     const response = await fetch(API_URL + 'scanner/delete/' + id)
-    const scanner = await response.json()
-    console.log(scanner[0].scannerId)
-    p.innerText = 'Are you sure you want to delete scanner with id ' + scanner[0].scannerId +'?'
+    console.log(response.status)
+
+    if(response.status == 404){
+        hideCurrentPage()
+        window.history.pushState(null, "", '/not-found')
+        showPage('/not-found')
+    }
+    else{
+        const scanner = await response.json()
+        console.log(scanner[0].scannerId)
+        p.innerText = 'Are you sure you want to delete scanner with id ' + scanner[0].scannerId +'?'
+
+    }
     
 }
 

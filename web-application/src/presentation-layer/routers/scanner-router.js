@@ -23,57 +23,35 @@ module.exports = function({scannerManager}){
     router.get('/update/:id', function(request, response){
         const id = request.params.id
         scannerManager.getScannerById(id, function(errors, scanner){
-            if(errors.length > 0){
-                const model = {
-                    errors: errors
-                }
-                response.render('update-scanner.hbs', model)
+            
+            const model = {
+                errors: errors,
+                scanner: scanner[0]
             }
-            else{
-                const model = {
-                    errors: errors,
-                    scanner: scanner[0]
-                }
-                response.render('update-scanner.hbs', model)   
-            }   
+            
+            response.render('update-scanner.hbs', model)
         })
     })
 
     router.get('/delete/:id', function(request, response){
         const id = request.params.id
         scannerManager.getScannerById(id, function(errors, scanner){
-            if(errors.length > 0){
-                const model = {
-                    errors: errors
-                }
-                response.render('delete-scanner.hbs', model)
+            const model = {
+                errors: errors,
+                scanner: scanner[0]
             }
-            else{
-                const model = {
-                    errors: errors,
-                    scanner: scanner[0]
-                }
-                response.render('delete-scanner.hbs', model)   
-            }
+            response.render('delete-scanner.hbs', model)
         })
     })
 
     router.get('/borrow/:id', function(request, response){
         const id = request.params.id
         scannerManager.getScannerById(id, function(errors, scanner){
-            if(errors.length > 0){
-                const model = {
-                    errors: errors
-                }
-                response.render('borrow-scanner.hbs', model)
+            const model = {
+                errors: errors,
+                scanner: scanner[0]
             }
-            else{
-                const model = {
-                    errors: errors,
-                    scanner: scanner[0]
-                }
-                response.render('borrow-scanner.hbs', model)   
-            }
+            response.render('borrow-scanner.hbs', model)
         })
     }),
 
@@ -81,19 +59,11 @@ module.exports = function({scannerManager}){
         const scannerId = request.params.id
 
          scannerManager.getScannerById(scannerId, function(errors, scanner){
-            if(errors.length > 0){
-                const model = {
-                    errors: errors
-                }
-                response.render('return-scanner.hbs', model)
+            const model = {
+                errors: errors,
+                scanner: scanner[0]
             }
-            else{
-                const model = {
-                    errors: errors,
-                    scanner: scanner[0]
-                }
-                response.render('return-scanner.hbs', model)   
-            }
+            response.render('return-scanner.hbs', model)
         }) 
 
 

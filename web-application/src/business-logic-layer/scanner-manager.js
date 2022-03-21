@@ -12,7 +12,7 @@ module.exports = function({scannerRepository}){
 			scannerRepository.getScannerById(id, function(error, scanner){
 				const errors = scannerValidator.getErrorsGetScannerById(scanner)
 				if(errors.length > 0){
-					callback(['notFound'], null)
+					callback(['notFound'], scanner)
 				}		
 				else{
 					callback([], scanner)
