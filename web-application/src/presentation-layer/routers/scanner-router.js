@@ -23,12 +23,22 @@ module.exports = function({scannerManager}){
     router.get('/update/:id', function(request, response){
         const id = request.params.id
         scannerManager.getScannerById(id, function(errors, scanner){
-            const model = {
-                errors: errors,
-                scanner: scanner[0]
+            if(errors.length > 0){
+                const model = {
+                    errors: errors
+                }
+                response.render('update-scanner.hbs', model)
+            }
+            else{
+                const model = {
+                    errors: errors,
+                    scanner: scanner[0]
+                }
+                response.render('update-scanner.hbs', model)
+                
             }
             
-            response.render('update-scanner.hbs', model)
+            
         })
     })
 

@@ -1,12 +1,21 @@
 async function loadUpdateScannerPage(id){
     const response = await fetch("http://localhost:3000/api/scanner/update/" + id)
-    const scanner = await response.json()
-    const updateErrorUl = document.getElementById('update-error-ul')
-    updateErrorUl.innerText = ""
-    //errorhandling
-    const inputElement = document.getElementById('update-scanner-input')
+    console.log(response.status)
 
-    inputElement.value = scanner[0].scannerId 
+    if(response.status == 404){
+        hideCurrentPage()
+        window.history.pushState(null, "", '/not-found')
+        showPage('/not-found')
+    }
+    else{
+        const scanner = await response.json()
+        const updateErrorUl = document.getElementById('update-error-ul')
+        updateErrorUl.innerText = ""
+        const inputElement = document.getElementById('update-scanner-input')
+    
+        inputElement.value = scanner[0].scannerId 
+        
+    }
 }
 
 async function submitUpdateScannerForm(){

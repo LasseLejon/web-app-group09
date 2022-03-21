@@ -9,7 +9,15 @@ module.exports = function({scannerRepository}){
 		},
 		
 		getScannerById: function(id, callback){
-			scannerRepository.getScannerById(id, callback)
+			scannerRepository.getScannerById(id, function(error, scanner){
+				const errors = scannerValidator.getErrorsGetScannerById(scanner)
+				if(errors.length > 0){
+					callback(['notFound'], null)
+				}		
+				else{
+					callback([], scanner)
+				}
+			})
 		},
 		
 		createScanner: function(scanner, callback){

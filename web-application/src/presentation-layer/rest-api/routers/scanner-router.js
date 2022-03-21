@@ -34,6 +34,8 @@ module.exports = function({scannerManager}){
     router.get('/scanner/update/:id', function(request, response){
         const id = request.params.id
         scannerManager.getScannerById(id, function(errors, scanner){
+            
+            console.log(" errrer ",errors)
             if(errors.length > 0){
                 response.status(404).json(errors)
             }
@@ -49,7 +51,7 @@ module.exports = function({scannerManager}){
                 response.status(204).end()
             }
             else{
-                response.status(204).end()
+                response.status(200).json(scanner)
             }
         })
     })

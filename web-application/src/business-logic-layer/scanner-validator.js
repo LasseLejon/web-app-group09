@@ -7,9 +7,17 @@ exports.getErrorsNewScanner = function(scanner){
     if(scanner.scannerId == ""){
         errors.push("scannerIdMissing")
     }
-	
 	return errors
 	
+}
+
+exports.getErrorsGetScannerById = function(scanner){
+	const errors = []
+	console.log("getErrors",scanner)
+	if(!scanner.length){
+		errors.push('notFound')
+	}
+	return errors
 }
 
 exports.getErrorsDeleteScanner = function(scanner){

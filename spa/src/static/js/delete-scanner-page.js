@@ -1,6 +1,14 @@
 async function loadDeleteScannerPage(id){
     const ul = document.getElementById('delete-error-ul')
     ul.innerText = ""
+    const p = document.getElementById('delete-scanner-p')
+    p.innerText = ""
+    console.log(API_URL + 'scanner/delete/' + id)
+    const response = await fetch(API_URL + 'scanner/delete/' + id)
+    const scanner = await response.json()
+    console.log(scanner[0].scannerId)
+    p.innerText = 'Are you sure you want to delete scanner with id ' + scanner[0].scannerId +'?'
+    
 }
 
 async function submitDeleteScannerForm(){
