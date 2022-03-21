@@ -22,6 +22,9 @@ exports.getErrorsGetScannerById = function(scanner){
 
 exports.getErrorsDeleteScanner = function(scanner){
 	const errors = []
+	if(!scanner.isAdmin){
+		errors.push('notAdmin')
+	}
 	if(scanner.scannerInUse){
 		errors.push('scannerInUse')
 	}

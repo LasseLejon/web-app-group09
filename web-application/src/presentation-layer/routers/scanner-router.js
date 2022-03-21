@@ -87,8 +87,10 @@ module.exports = function({scannerManager}){
 
     router.post('/create', function(request, response){
         const scannerId = request.body.scannerId
+        const isLoggedIn = request.session.isLoggedIn
         const scanner = {
-            scannerId: scannerId
+            scannerId: scannerId,
+            isLoggedIn: isLoggedIn
         }
         scannerManager.createScanner(scanner, function(errors, id){
             if(errors.length > 0){
@@ -125,7 +127,12 @@ module.exports = function({scannerManager}){
     })
     router.post('/delete/:id', function(request, response){
         const scannerId = request.params.id
-        scannerManager.deleteScannerById(scannerId, function(errors){
+        const isAdmin = request.session.isAdmin
+        const requestData = {
+            scannerId: scannerId,
+            isAdmin: isAdmin
+        }
+        scannerManager.deleteScannerById(requestData, function(errors){
             if(errors.length > 0){
                 const model = {
                     errors: errors,
@@ -148,7 +155,7 @@ module.exports = function({scannerManager}){
         const scannerBorrowDetails = {
             scannerId: scannerId,
             accountId: accountId,
-            isLoggedIn,
+            isLoggedIn: isLoggedIn,
             date: date
 
         }
@@ -175,7 +182,7 @@ module.exports = function({scannerManager}){
         const scannerReturnDetails = {
             scannerId: scannerId,
             accountId: accountId,
-            isLoggedIn,
+            isLoggedIn: isLoggedIn,
             returnDate: new Date().toISOString().slice(0, 19).replace('T', ' ')
         }
         scannerManager.returnScannerByScannerId(scannerReturnDetails, function(errors){

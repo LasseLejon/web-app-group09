@@ -38,13 +38,13 @@ module.exports = function({scannerRepository}){
 			scannerRepository.updateScannerById(scanner, callback)
 		},
 		
-		deleteScannerById: function(scannerId, callback){
-			scannerRepository.getScannerById(scannerId, function(error, scanner){
-				const errors = scannerValidator.getErrorsDeleteScanner(scanner)
+		deleteScannerById: function(requestData, callback){
+			scannerRepository.getScannerById(requestData.scannerId, function(error, scanner){
+				const errors = scannerValidator.getErrorsDeleteScanner(requestData)
 				if(errors.length > 0){
 					callback(errors, null)
 				}else{
-				scannerRepository.deleteScannerById(scannerId, callback)
+				scannerRepository.deleteScannerById(requestData.scannerId, callback)
 				}
 			})
 		},
