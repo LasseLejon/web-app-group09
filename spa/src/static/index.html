@@ -16,7 +16,9 @@
 </head>
 <body>
     <header>
-        ScannerTracker
+        
+        <a href="/"></a>
+        
     </header>
 
     <nav>
@@ -25,8 +27,8 @@
             <li><a href="/auth/login">Login</a></li>
             <li><a href="/account/create">Create Account</a></li>
             <li><a href="/scanner">Scanner</a></li>
-            <li><a href="/history">History</a></li>
         </ul>
+        
     </nav>
 
     <main>
@@ -37,10 +39,12 @@
         <div class="page" id="login-page">
             <h1>Login</h1>
             <form action="login" method="post" id="login-form">
+                Username<br>
                 <div>
                     <input type="text" id="login-username-input">
                 </div>
                 <div>
+                    Password<br>
                     <input type="password" id="login-password-input">
                 </div>
                 <div>
@@ -73,6 +77,7 @@
             <ul id="update-error-ul"></ul>
             <form action="/scanner/update" method="post" id="update-scanner-form">
                 <div>
+                    ScannerId <br>
                     <input type="text" id="update-scanner-input">
                 </div>
                 <div>
@@ -87,8 +92,13 @@
             <h1>Create Scanner</h1>
             <ul id="create-error-ul"></ul>
             <form action="POST" id="createScannerForm">
-                <input type="text" id="create-scanner-input">
-                <button type="submit">Create Scanner</button>
+                <div>
+                    ScannerId <br>
+                    <input type="text" id="create-scanner-input">
+                </div>
+                <div>
+                    <button type="submit">Create Scanner</button>
+                </div>
             </form>
 
         </div>
@@ -107,12 +117,15 @@
             <h1>Create account</h1>
             <form action="create" method="post" id="create-account-form">
                 <div>
+                    Username <br>
                     <input type="text" id="create-account-username-input">
                 </div>
                 <div>
+                    Password <br>
                     <input type="password" id="create-account-password-input">
                 </div>
                 <div>
+                    Repeat password <br>
                     <input type="password" id="create-account-repeat-password-input">
                 </div>
                 <div>
@@ -120,11 +133,10 @@
                 </div>
             </form>
         </div>
-
-        <footer>
-            Created by Daniel and Lasse
-        </footer>
     </main>
+    <footer>
+        Created by Daniel and Lasse
+    </footer>
     
 </body>
 </html>
