@@ -71,6 +71,7 @@ module.exports = function({scannerManager}){
             if(payload.isAdmin == true){
                 scannerManager.createScanner(scanner, function(errors, id){
                     if(errors.length > 0){
+                        console.log("error",errors)
                         response.status(400).json(errors)
                     }else{
                         response.status(200).end()

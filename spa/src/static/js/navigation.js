@@ -38,6 +38,20 @@ document.addEventListener('DOMContentLoaded', function(){
         submitUpdateScannerForm()
     })
 
+    const deleteScannerForm = document.getElementById('delete-scanner-form')
+    deleteScannerForm.addEventListener('submit', (event) => {
+        event.preventDefault()
+        submitDeleteScannerForm()
+    })
+
+    const createScannerForm = document.getElementById('createScannerForm')
+    createScannerForm.addEventListener('submit', (event) => {
+        event.preventDefault()
+        submitCreateScannerForm()
+
+
+        })
+
     showPage(location.pathname)
 })
 
@@ -88,7 +102,7 @@ function showPage(url){
                 const [empty, scanner, update, id] = url.split('/')
                 nextPageId = 'delete-scanner-page'
                 console.log("kolla token", ACCESS_TOKEN)
-                loadDeleteScannerPage(id, ACCESS_TOKEN)
+                loadDeleteScannerPage(id)
             }
             else if(url.startsWith("/scanner/create")){
                 const parts = url.split('/')

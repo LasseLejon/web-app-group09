@@ -84,6 +84,8 @@
             <h1>History</h1>
         </div>
         <div class="page" id="create-scanner-page">
+            <h1>Create Scanner</h1>
+            <ul id="create-error-ul"></ul>
             <form action="POST" id="createScannerForm">
                 <input type="text" id="create-scanner-input">
                 <button type="submit">Create Scanner</button>
@@ -91,7 +93,10 @@
 
         </div>
         <div class="page" id="delete-scanner-page">
-            <form action="/scanner/delete" method="POST" id="deleteForm">
+            <h1>Delete Scanner</h1>
+            <ul id="delete-error-ul"></ul>
+            <p id="delete-scanner-paragraph">Are you sure you want to delete this scanner?</p>
+            <form action="/scanner/delete" method="POST" id="delete-scanner-form">
                 <button type="submit" id="deleteButton">Yes delete</button>
             </form>
         </div>
