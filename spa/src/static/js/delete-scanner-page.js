@@ -21,7 +21,7 @@ async function submitDeleteScannerForm(){
             ul.appendChild(li)    
     }
     else{
-        const response = fetch("http://localhost:3000/api/scanner/delete/" + id, {
+        const response = await fetch("http://localhost:3000/api/scanner/delete/" + id, {
             method: 'DELETE',
             headers: {
                 'Authorization' : 'Bearer '+ACCESS_TOKEN,
@@ -30,6 +30,7 @@ async function submitDeleteScannerForm(){
 
             },
         //    body: JSON.stringify(response.status)
+        
         
     
         })
@@ -49,6 +50,7 @@ async function submitDeleteScannerForm(){
             ul.appendChild(li)    
             
         }
+        
 
     }
     
