@@ -28,7 +28,9 @@
             <li><a href="/account">Account</a></li>
           
             <li><a href="/scanner">Scanner</a></li>
-            <li><a href="/scanner/history">History</a></li>
+            {{#if session.isAdmin}}
+              <li><a href="/scanner/history">History</a></li>
+            {{/if}}
           </ul>
       </nav>
     </div>   

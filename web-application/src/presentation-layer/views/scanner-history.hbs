@@ -1,4 +1,6 @@
+<h1>Scanner History</h1>
 {{#if errors}}
+    <p>Cannot get history because:</p>
     <ul>
         
     {{#each errors}}
@@ -23,5 +25,7 @@
                 </tr>
             {{/each}}
         </table>
+    {{else}}
+        <p>No history for scanners</p>
     {{/if}}
 {{/if}}
