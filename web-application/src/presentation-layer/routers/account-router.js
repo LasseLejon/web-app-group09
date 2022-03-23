@@ -92,11 +92,13 @@ module.exports = function({accountManager}){
         const hashedPassword = accountManager.hashPassword(password)
         const isAdmin = request.body.admin
         const accountId = request.params.id
+        const loggedInAccount = request.session.accountId
         const account = {
             accountId: accountId,
             username: username,
             password: hashedPassword,
-            isAdmin: isAdmin
+            isAdmin: isAdmin,
+            loggedInAccount: loggedInAccount
         }
         accountManager.updateAccountById(account, function(errors, id){
             if(errors.length > 0){
@@ -115,11 +117,18 @@ module.exports = function({accountManager}){
     
     router.post('/delete/:id', function(request, response){
         const accountId = request.params.id
-        accountManager.deleteAccountById(accountId, function(errors){
+        const loggedInAccount = request.session.accountId
+        const isAdmin = request.session.isAdmin
+        const account = {
+            accountId: accountId,
+            loggedInAccount: loggedInAccount,
+            isAdmin: isAdmin
+        }
+        accountManager.deleteAccountById(account, function(errors){
             if(errors.length > 0){
                 const model = {
                     errors: errors,
-                    id: id
+                    account: account
                 }
                 response.render('delete-account.hbs', model)
             }else{
