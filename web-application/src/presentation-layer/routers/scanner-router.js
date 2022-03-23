@@ -207,7 +207,11 @@ module.exports = function({scannerManager}){
     }),
 
     router.get('/history', function(request, response){
-        scannerManager.getScannerBorrowSessionDetails(function(errors, scannerBorrowSessionDetails){
+        const isAdmin = request.session.isAdmin
+        const account = {
+            isAdmin: isAdmin
+        }
+        scannerManager.getScannerBorrowSessionDetails(account, function(errors, scannerBorrowSessionDetails){
                 const model = {
                     errors: errors,
                     scannerBorrowSessionDetails: scannerBorrowSessionDetails
