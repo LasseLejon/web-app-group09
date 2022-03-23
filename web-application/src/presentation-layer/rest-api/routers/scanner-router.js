@@ -21,7 +21,7 @@ module.exports = function({scannerManager}){
         next()
     })
 
-    router.get("/scanner", function(request, response){
+    router.get("/scanners", function(request, response){
         scannerManager.getAllScanners(function(errors, scanners){
             if(errors.length > 0){
                 response.status(404).json(errors)
@@ -61,7 +61,7 @@ module.exports = function({scannerManager}){
         })
     })
 
-    router.post('/scanner/create', function(request, response){
+    router.post('/scanners', function(request, response){
         const scannerId = request.body.scannerId
         const authorizationHeader = request.header("Authorization")
         const access_token = authorizationHeader.substring("Bearer ".length)
