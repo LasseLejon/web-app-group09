@@ -21,6 +21,7 @@ module.exports = function({accountRepository}){
 			const errors = accountValidator.getErrorsNewAccount(account)
 			
 			if(0 < errors.length){
+				console.log("finns det errors", errors)
 				callback(errors, null)
 				return
 			}

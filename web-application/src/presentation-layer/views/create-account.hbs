@@ -1,32 +1,27 @@
 {{#if errors.length}}
-	<p>Couldn't create new because:</p>
+	<p>Couldn't create new account because:</p>
 	<ul>
 		{{#each errors}}
 			<li>{{this}}</li>
 		{{/each}}
 	</ul>
 {{/if}}
-{{#if session.isAdmin}}
-    <form method="POST" action="/account/create" >
+
+<form method="POST" action="/account/create" >
+    <div>
+        Username: <br>
+        <input type="text" name="username" value="{{username}}"placeholder="Username"><br>
+    </div>
+    <div>
+        Password: <br>
+        <input type="password" name="password"value="{{password}}" placeholder="Password"><br>
+    </div>
         <div>
-            Username: <br>
-            <input type="text" name="username" value="{{username}}"placeholder="Username"><br>
-        </div>
-        <div>
-            Password: <br>
-            <input type="password" name="password"value="{{password}}" placeholder="Password"><br>
-        </div>
-         <div>
-            Should user have admin authorization? yes/no<br>
-            <input type="password" name="admin"value="{{isAdmin}}" placeholder="Is admin? "><br>
-        </div>
-        <div>      
-            <input type="hidden" name="_csrf" value="{{csrfToken}}">
-        	<button type="submit">Create new</button>	
-        </div>   
-    </form>
-{{else}}
-    <p>You don't have authorization for this! </p>       
-    
-    
-{{/if}}
+        Should user have admin authorization? yes/no<br>
+        <input type="password" name="admin"value="{{isAdmin}}" placeholder="Is admin? "><br>
+    </div>
+    <div>      
+        <input type="hidden" name="_csrf" value="{{csrfToken}}">
+        <button type="submit">Create new</button>	
+    </div>   
+</form>

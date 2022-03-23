@@ -68,12 +68,13 @@ module.exports = function({accountManager}){
     
         
         accountManager.createAccount(account,function(errors,id){
-            if(errors){
+            if(errors.length > 0){
                 const model = {
                     username: username,
                     errors: errors,
                     id: id
                 }
+                console.log("går in i fel jävla sats")
                 response.render('create-account.hbs',model)
             }
             else{

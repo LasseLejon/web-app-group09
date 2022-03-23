@@ -1,6 +1,9 @@
 exports.getErrorsNewScanner = function(scanner){
 	
 	const errors = []
+	if(!scanner.isAdmin){
+		errors.push('notAdmin')
+	}
 	/* if(!scanner.hasOwnProperty("scannerNumber")){
 		errors.push("scannerNumberMissing")
 	} */

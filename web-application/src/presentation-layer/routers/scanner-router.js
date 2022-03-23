@@ -87,12 +87,12 @@ module.exports = function({scannerManager}){
 
     router.post('/create', function(request, response){
         const scannerId = request.body.scannerId
-        const isLoggedIn = request.session.isLoggedIn
-        const scanner = {
+        const isAdmin = request.session.isAdmin
+        const requestData = {
             scannerId: scannerId,
-            isLoggedIn: isLoggedIn
+            isAdmin: isAdmin
         }
-        scannerManager.createScanner(scanner, function(errors, id){
+        scannerManager.createScanner(requestData, function(errors, id){
             if(errors.length > 0){
                 const model = {
                     errors: errors,
@@ -108,12 +108,17 @@ module.exports = function({scannerManager}){
     router.post('/update/:id', function(request, response){
         const newScannerId = request.body.scannerId
         const scannerId = request.params.id
-        const scanner = {
+        const isAdmin = request.session.isAdmin
+        const requestData = {
             scannerId: scannerId,
-            newScannerId: newScannerId
+            newScannerId: newScannerId,
+            isAdmin: isAdmin
         }
-        scannerManager.updateScannerById(scanner, function(errors){
+        scannerManager.updateScannerById(requestData, function(errors){
             if(errors.length > 0){
+                const scanner = {
+                    scannerId: scannerId
+                }
                 const model = {
                     errors: errors,
                     scanner: scanner
