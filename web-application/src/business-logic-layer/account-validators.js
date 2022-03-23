@@ -4,10 +4,7 @@ const MAX_USERNAME_LENGTH = 10
 
 exports.getErrorsNewAccount = function(account){	
     const errors = []
-    console.log("test1",account.isAdmin)
-    console.log("test2", account.username)
-    console.group("test3", account.password)
-
+    console.log("jag går in i validatorn")
     if(!account.hasOwnProperty("username")){
         errors.push("usernameMissing")
     }
@@ -21,6 +18,7 @@ exports.getErrorsNewAccount = function(account){
     if(account.username.length > MAX_USERNAME_LENGTH){
         errors.push("The username can maximum be "+MAX_USERNAME_LENGTH+" characters.")
     } 
+    console.log("checkar error validator", errors)
 	return errors	
 }
 exports.getErrorsNewAccountRestApi = function(account){	

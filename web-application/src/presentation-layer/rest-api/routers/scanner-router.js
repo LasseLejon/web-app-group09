@@ -77,7 +77,11 @@ module.exports = function({scannerManager}){
                 response.status(401).end()
             }
             if(payload.isAdmin == true){
-                scannerManager.createScanner(scanner, function(errors, id){
+                const requestData = {
+                    scannerId: scannerId,
+                    isAdmin: true
+                }
+                scannerManager.createScanner(requestData, function(errors, id){
                     if(errors.length > 0){
                         console.log("error",errors)
                         response.status(400).json(errors)
@@ -96,10 +100,6 @@ module.exports = function({scannerManager}){
         const scannerId = request.params.id
         const authorizationHeader = request.header("Authorization")
         const access_token = authorizationHeader.substring("Bearer ".length)
-        const scanner = {
-            scannerId: scannerId,
-            newScannerId: newScannerId
-        }
         jwt.verify(access_token, ACCESS_TOKEN_SECRET, function(error,payload){
             if(error){
                 response.status(401).end()
@@ -108,7 +108,12 @@ module.exports = function({scannerManager}){
                 response.status(401).end()
             }
             if(payload.isAdmin == true){
-                scannerManager.updateScannerById(scanner, function(errors){
+                const requestData = {
+                    scannerId : scannerId,
+                    newScannerId : newScannerId,
+                    isAdmin : true
+                }
+                scannerManager.updateScannerById(requestData, function(errors){
                     if(errors.length > 0){
                        
                         response.status(400).json(errors)

@@ -20,22 +20,22 @@ module.exports = function({scannerRepository}){
 			})
 		},
 		
-		createScanner: function(scanner, callback){
-			const errors = scannerValidator.getErrorsNewScanner(scanner)
+		createScanner: function(requestData, callback){
+			const errors = scannerValidator.getErrorsNewScanner(requestData)
 			if(errors.length > 0){
 				callback(errors, null)
 				return
 			}
-			scannerRepository.createScanner(scanner, callback)
+			scannerRepository.createScanner(requestData, callback)
 		},
 		
-		updateScannerById: function(scanner, callback){
-			const errors = scannerValidator.getErrorsNewScanner(scanner)
+		updateScannerById: function(requestData, callback){
+			const errors = scannerValidator.getErrorsNewScanner(requestData)
 			if(errors.length > 0){
 				callback(errors, null)
 				return
 			}
-			scannerRepository.updateScannerById(scanner, callback)
+			scannerRepository.updateScannerById(requestData, callback)
 		},
 		
 		deleteScannerById: function(requestData, callback){

@@ -3,7 +3,8 @@ async function loadCreateScannerPage(){
 //    const scanner = await response.json()
     const ul = document.getElementById('create-error-ul')
     ul.innerText = ""
-   
+    const inputValue = document.getElementById('create-scanner-input').value
+    inputValue.innerText = ""
 }
 async function submitCreateScannerForm(){
     const form = document.getElementById('createScannerForm')
