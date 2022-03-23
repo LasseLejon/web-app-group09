@@ -33,31 +33,16 @@ module.exports = function({scannerManager}){
         
     })
 
-    router.get('/scanner/update/:id', function(request, response){
+    router.get('/scanners/:id', function(request, response){
         const id = request.params.id
         scannerManager.getScannerById(id, function(errors, scanner){
             
-            console.log(" errrer ",errors)
             if(errors.length > 0){
                 response.status(404).json(errors)
             }
             else{
                 response.status(200).json(scanner)
-            }
-            //console.log(scanner[0])
-           // console.log(scanner)
-            
-        })
-    })
-    router.get('/scanner/delete/:id', function(request, response){
-        const id = request.params.id
-        scannerManager.getScannerById(id, function(errors, scanner){
-            if(errors.length > 0){
-                response.status(404).json(errors)
-            }
-            else{
-                response.status(200).json(scanner)
-            }
+            }           
         })
     })
 
@@ -95,7 +80,7 @@ module.exports = function({scannerManager}){
     
     })
 
-    router.put('/scanner/update/:id', function(request, response){
+    router.put('/scanners/:id', function(request, response){
         const newScannerId = request.body.scannerId
         const scannerId = request.params.id
         const authorizationHeader = request.header("Authorization")
@@ -127,7 +112,7 @@ module.exports = function({scannerManager}){
         
     })
 
-    router.delete('/scanner/delete/:id', function(request, response){
+    router.delete('/scanners/:id', function(request, response){
         const scannerId = request.params.id
         const authorizationHeader = request.header("Authorization")
         const access_token = authorizationHeader.substring("Bearer ".length)
