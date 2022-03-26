@@ -18,7 +18,8 @@ module.exports = function({accountManager}){
         const hashedPassword = accountManager.hashPassword(password)
         const account = {
             username: username,
-            password: hashedPassword,
+            password: password,
+            hashedPassword: hashedPassword,
             shouldBeAdmin: shouldBeAdmin
         }
                         
