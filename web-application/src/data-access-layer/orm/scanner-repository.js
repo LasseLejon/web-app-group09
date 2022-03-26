@@ -29,7 +29,7 @@ module.exports = function(){
                 callback([])
             }).catch(function(error){
                 if(error.name == 'SequelizeUniqueConstraintError'){
-                    callback(['SequelizeUniqueConstraintError'])
+                    callback(['scannerIdAlreadyInDatabase'])
                 }
                 else{
                     callback(['databaseError'])

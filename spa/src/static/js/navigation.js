@@ -72,16 +72,12 @@ function showPage(url){
 
         case '/scanner':
             nextPageId = 'scanner-page'
-            console.log(ACCESS_TOKEN)
             loadScannersPage()
-            break
-
-        case '/history':
-            nextPageId = 'history-page'
             break
 
         case '/account/create':
             nextPageId = 'create-account-page'
+            loadCreateAccountPage()
             break
     
         default:

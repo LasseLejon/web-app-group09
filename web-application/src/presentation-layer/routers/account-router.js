@@ -46,20 +46,22 @@ module.exports = function({accountManager}){
     router.post('/create', function(request,response){
         const username = request.body.username
         const password = request.body.password
-        const isAdmin = request.body.admin
+        const shouldBeAdmin = request.body.admin
+
         const hashedPassword = accountManager.hashPassword(password)
 
         const account = {
             username: username,
             password: hashedPassword,
-            isAdmin: isAdmin
-        }  
-
+            shouldBeAdmin: shouldBeAdmin
+        }
+    
+        
         accountManager.createAccount(account,function(errors,id){
             if(errors.length > 0){
                 const model = {
                     username: username,
-                    isAdmin: isAdmin,
+                    shouldBeAdmin: shouldBeAdmin,
                     errors: errors,
                     id: id
                 }

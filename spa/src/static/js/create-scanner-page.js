@@ -1,8 +1,8 @@
 async function loadCreateScannerPage(){
     const ul = document.getElementById('create-error-ul')
     ul.innerText = ""
-    const inputValue = document.getElementById('create-scanner-input').value
-    inputValue.innerText = ""
+    const scannerIdInput = document.getElementById('create-scanner-input')
+    scannerIdInput.value = ""
 }
 
 async function submitCreateScannerForm(){
@@ -28,16 +28,23 @@ async function submitCreateScannerForm(){
             },
             body: JSON.stringify({scannerId : inputValue})   
         })
-        if(response.status == 200){
+        if(response.status == 201){
             hideCurrentPage()
             window.history.pushState(null, "", '/scanner')
             showPage('/scanner')
         }
-        else{
+        if(response.status == 400){
             ul.innerText = ""
-            const li = document.createElement('li')
-            li.innerText = response.statusText
-            ul.appendChild(li)               
+            const errors = await response.json()
+            for(const error of errors){
+                console.log(error)
+                const li = document.createElement('li')
+                li.innerText = error
+                ul.appendChild(li)    
+            } 
+        }
+        else{
+                         
         }
     }   
 }
@@ -47,7 +54,8 @@ function getValidationErrorsCreateScannerInput(input){
     if(isNaN(input)){
         errors.push('invalidInput')
     }
-    if(typeof ACCESS_TOKEN == 'undefined'){
+    if(!ACCESS_TOKEN){
+        console.log(ACCESS_TOKEN)
         errors.push('unauthorized')
     }
     return errors

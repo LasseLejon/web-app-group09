@@ -75,12 +75,16 @@ module.exports = function({}){
 		createAccount: function(account, callback){
 			
 			const query = `INSERT INTO Accounts (username, password, isAdmin) VALUES (?, ?, ?)`
-			const values = [account.username, account.password, account.isAdmin]
+			const values = [account.username, account.password, account.shouldBeAdmin]
+			console.log(values)
 			
 			db.query(query, values, function(error, results){
 				if(error){
-					// TODO: Look for usernameUnique violation.
-					callback(['databaseError'], null)
+					if(error.code == 'ER_DUP_ENTRY'){
+						callback(['AccountAlreadyInDatabase'], null)
+					}else{
+						callback(['databaseError'], null)
+					}
 				}else{
 					console.log("test7", results.insertId)
 					callback([], results.insertId)

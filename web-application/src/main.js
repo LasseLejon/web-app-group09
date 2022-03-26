@@ -16,7 +16,7 @@ container.register(
 )
 container.register(
 	'accountRepository',
-	awilix.asFunction(require('./data-access-layer/orm/account-repository.js'))
+	awilix.asFunction(require('./data-access-layer/account-repository.js'))
 )
 container.register(
 	'authRepository',

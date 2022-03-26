@@ -9,6 +9,26 @@ async function submitLoginForm(){
         },
         body: JSON.stringify({grant_type: 'password',username: username, password: password})
     })   
-    const status = await response.json()
-    ACCESS_TOKEN = status.access_token  
+    if(response.status == 200){
+        hideCurrentPage()
+            window.history.pushState(null, "", '/scanner')
+            showPage('/scanner')
+            const token = await response.json()
+            ACCESS_TOKEN = token.access_token 
+    }
+    else{
+        const ulErrors = document.getElementById('login-error-ul')
+        ulErrors.innerText = ""
+        const errors = await response.json()
+        for(const error of errors){
+            const li = document.createElement('li')
+            li.innerText = error
+            ulErrors.appendChild(li)
+
+
+        }
+         
+    }
+    
+    
 }
