@@ -91,7 +91,7 @@ module.exports = function({}){
 
 		updateAccountById: function(account, callback){
 			const query = 'UPDATE Accounts SET username = ?, password = ?, isAdmin = ? WHERE accountId = ?'
-			const values = [account.username, account.password, account.isAdmin, account.accountId]
+			const values = [account.username, account.password, account.shouldBeAdmin, account.accountId]
 
 			db.query(query, values, function(error, result){
 				if(error){
