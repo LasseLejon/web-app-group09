@@ -44,9 +44,12 @@ async function submitUpdateScannerForm(){
             showPage('/scanner')
         }
         else{
-            const li = document.createElement('li')
-            li.innerText = response.statusText
-            updateErrorUl.appendChild(li)    
+            const errors = await response.json()
+            for(const error of errors){
+                const li = document.createElement('li')
+                li.innerText = error
+                updateErrorUl.appendChild(li)    
+            }
         }
     }
 }
