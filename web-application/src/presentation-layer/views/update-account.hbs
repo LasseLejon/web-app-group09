@@ -1,5 +1,5 @@
 {{#if errors.length}}
-	<p>Couldn't update new because:</p>
+	<p>Couldn't update because:</p>
 	<ul>
 		{{#each errors}}
 			<li>{{this}}</li>
@@ -17,7 +17,7 @@
             <input type="password" name="password"value="{{password}}" placeholder="Password"><br>
         </div>
           <div>
-            Should user have admin authorization? yes/no<br>
+            Should user have admin authorization? Write yes or no<br>
             <input type="password" name="admin"value="{{admin}}" placeholder="Is admin? "><br>
         </div>
         <div>      

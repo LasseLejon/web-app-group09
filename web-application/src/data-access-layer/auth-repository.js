@@ -21,7 +21,7 @@ module.exports = function({}){
 				}
 			})
 			
-		},
+		},		
 		getAccountByUsername: function(username, callback){
 			
 			const query = `SELECT * FROM Accounts WHERE username = ? LIMIT 1`

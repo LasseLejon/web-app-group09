@@ -44,8 +44,12 @@ module.exports = function(){
                 callback([], results.insertId)
             })
             .catch(function(error){
-                console.log(error)
-                callback(['databaseError'])
+                if(error.name == "SequelizeUniqueConstraintError"){
+                    callback(['usernameAlreadyExists'])
+                }
+                else{
+                    callback(['databaseError'])
+                }
             })
 		},
 
@@ -54,8 +58,13 @@ module.exports = function(){
             .then(function(result){
                 callback([], result.insertId)
             })
-            .catch(function(){
-                callback(['databaseError'])
+            .catch(function(error){
+                if(error.name == "SequelizeUniqueConstraintError"){
+                    callback(['usernameAlreadyExists'])
+                }
+                else{
+                    callback(['databaseError'])
+                }
             })
 		},
 

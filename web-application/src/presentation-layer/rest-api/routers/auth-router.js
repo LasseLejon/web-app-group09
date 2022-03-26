@@ -15,57 +15,51 @@ module.exports = function({authManager}){
         extended: false
     }))
 
+    router.post('/tokens', function(request,response){
+        const grant_type = request.body.grant_type
+        const username = request.body.username
+        const password = request.body.password
 
-
-router.post('/tokens', function(request,response){
-    const grant_type = request.body.grant_type
-    const username = request.body.username
-    const password = request.body.password
-
-    var payload = {
-
-    }
-
-    const account = {
-        username: username,
-        password: password,
-        grant_type: grant_type
-    }
-
-    authManager.loginFromRestApi(username,account,function(errors,storedAccount){
-        if(errors.length > 0){  
-            if(errors == "invalid_client")  {
-                response.status(401).json(errors)
-            }   
-            else{          
-                response.status(400).json(errors)
-
-            }
-
-        } 
-        else{
-            if(authManager.checkIfAdmin(storedAccount.isAdmin)){
-                payload = {
-                    isLoggedIn:true,
-                    isAdmin:true
-                }
-            }
-            else{
-                payload = {
-                    isLoggedIn: true,
-                    isAdmin:false
-                } 
-            }          
-            jwt.sign(payload,ACCESS_TOKEN_SECRET,function(err, token) {
-                console.log("else", token)
-                response.status(200).json({access_token: token})
-            })          
+        var payload = {
 
         }
 
-    })
-})
+        const account = {
+            username: username,
+            password: password,
+            grant_type: grant_type
+        }
 
-return router
+        authManager.loginFromRestApi(username,account,function(errors,storedAccount){
+            if(errors.length > 0){  
+                if(errors == "invalid_client")  {
+                    response.status(401).json(errors)
+                }   
+                else{          
+                    response.status(400).json(errors)
+                }
+            } 
+            else{
+                if(authManager.checkIfAdmin(storedAccount.isAdmin)){
+                    payload = {
+                        isLoggedIn:true,
+                        isAdmin:true
+                    }
+                }
+                else{
+                    payload = {
+                        isLoggedIn: true,
+                        isAdmin:false
+                    } 
+                }          
+                jwt.sign(payload,ACCESS_TOKEN_SECRET,function(err, token) {
+                    console.log("else", token)
+                    response.status(200).json({access_token: token})
+                })          
+            }
+        })
+    })
+
+    return router
 
 }

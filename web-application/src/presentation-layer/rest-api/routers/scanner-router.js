@@ -1,7 +1,5 @@
 const ACCESS_TOKEN_SECRET = "adksfjdsfdsfsdf"
 
-
-
 module.exports = function({scannerManager}){
     const express = require('express')
     const bodyParser = require('body-parser')
@@ -76,8 +74,7 @@ module.exports = function({scannerManager}){
                 })
 
             }
-        })
-    
+        })    
     })
 
     router.put('/scanners/:id', function(request, response){
@@ -140,10 +137,6 @@ module.exports = function({scannerManager}){
             }
         })
     })
-
-
-
-
 
     return router
 

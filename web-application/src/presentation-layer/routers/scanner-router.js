@@ -1,8 +1,6 @@
 const express = require('express')
-//const scannerManager = require('../../business-logic-layer/scanner-manager')
 
 module.exports = function({scannerManager}){
-
     const router = express.Router()
 
     router.get("/", function(request, response){
@@ -53,7 +51,7 @@ module.exports = function({scannerManager}){
             }
             response.render('borrow-scanner.hbs', model)
         })
-    }),
+    })
 
     router.get('/return/:id', function(request, response){
         const scannerId = request.params.id
@@ -65,8 +63,6 @@ module.exports = function({scannerManager}){
             }
             response.render('return-scanner.hbs', model)
         }) 
-
-
     })
 
     router.get('/create', function(request, response){
@@ -126,8 +122,7 @@ module.exports = function({scannerManager}){
                 response.render('update-scanner.hbs', model)
             }else{
                 response.redirect('/scanner')
-            }
-            
+            }           
         })
     })
     router.post('/delete/:id', function(request, response){
@@ -162,7 +157,6 @@ module.exports = function({scannerManager}){
             accountId: accountId,
             isLoggedIn: isLoggedIn,
             date: date
-
         }
         scannerManager.borrowScannerById(scannerBorrowDetails, function(errors){
             if(errors.length > 0){
@@ -178,7 +172,7 @@ module.exports = function({scannerManager}){
                 response.redirect('/scanner')
             }
         })
-    }),
+    })
 
     router.post('/return/:id', function(request, response){
         const scannerId = request.params.id
@@ -204,7 +198,7 @@ module.exports = function({scannerManager}){
                 response.redirect('/scanner')
             }
         })
-    }),
+    })
 
     router.get('/history', function(request, response){
         const isAdmin = request.session.isAdmin
