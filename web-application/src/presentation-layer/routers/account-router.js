@@ -1,10 +1,5 @@
 const express = require('express')
 
-
-
-
-
-
 module.exports = function({accountManager}){
     const router = express.Router() 
 
@@ -21,29 +16,24 @@ module.exports = function({accountManager}){
         })
     })
         
-
-
-
-    router.get("/create", function(request, response){
-          
+    router.get("/create", function(request, response){        
         response.render("create-account.hbs")
     })
     
     router.get('/update/:id', function(request, response){
         const id = request.params.id
         accountManager.getAccountById(id, function(errors, account){
-
             const model = {
                 errors: errors,
                 account: account[0]
-            }
-            
+            }           
             response.render('update-account.hbs', model)
         })
     })
     
     router.get('/delete/:id', function(request, response){
         const id = request.params.id
+
         accountManager.getAccountById(id, function(errors, account){
             const model = {
                 errors: errors,
@@ -57,16 +47,14 @@ module.exports = function({accountManager}){
         const username = request.body.username
         const password = request.body.password
         const isAdmin = request.body.admin
-
         const hashedPassword = accountManager.hashPassword(password)
-    
+
         const account = {
             username: username,
             password: hashedPassword,
             isAdmin: isAdmin
-        }
-    
-        
+        }  
+
         accountManager.createAccount(account,function(errors,id){
             if(errors.length > 0){
                 const model = {
@@ -80,12 +68,9 @@ module.exports = function({accountManager}){
             }
             else{
                 response.redirect('/account')
-            }
-    
-    
-        })
-            
-      })
+            }   
+        })           
+    })
     
       router.post('/update/:id', function(request, response){
         const username = request.body.username

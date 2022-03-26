@@ -20,13 +20,11 @@
           <ul style="list-style-type: none;">
             <li><a href="/">Home</a></li>
             {{#if session.isLoggedIn}}
-            <li><a href="/auth/logout">Logout</a></li>
+              <li><a href="/auth/logout">Logout</a></li>
             {{else}}
-            <li><a href="/auth/login">Login</a></li>
-            {{/if}}
-            
-            <li><a href="/account">Account</a></li>
-          
+              <li><a href="/auth/login">Login</a></li>
+            {{/if}}            
+            <li><a href="/account">Account</a></li>         
             <li><a href="/scanner">Scanner</a></li>
             {{#if session.isAdmin}}
               <li><a href="/scanner/history">History</a></li>
@@ -44,9 +42,7 @@
         <div class="divider"></div>
 <body>
     <main>
-        {{{body}}}
-
-    </main>
-    
+      {{{body}}}
+    </main> 
 </body>
 </html>

@@ -8,5 +8,4 @@ const dbConnection = mysql.createConnection({
   database: "my-platform"
 })
 
-
 module.exports = dbConnection
