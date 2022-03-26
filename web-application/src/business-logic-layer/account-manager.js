@@ -36,7 +36,7 @@ module.exports = function({accountRepository}){
 			accountAuthorizer.getAuthorizationErrorsUpdateAccount(errors, account)
 			console.log("account", account)
 			if(errors.length > 0){
-				callback(errors, null)
+				callback(errors, account)
 			}
 			else{
 				accountRepository.updateAccountById(account, callback)
@@ -50,7 +50,8 @@ module.exports = function({accountRepository}){
 		deleteAccountById: function(account, callback){
 			const errors = accountAuthorizer.getAuthorizationErrorsDeleteAccount(account)
 			if(errors.length > 0){
-				callback(errors, null)
+				console.log(account)
+				callback(errors)
 			}
 			else{
 				accountRepository.deleteAccountById(account.accountId, callback)

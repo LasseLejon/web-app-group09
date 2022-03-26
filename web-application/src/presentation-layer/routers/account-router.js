@@ -91,7 +91,8 @@ module.exports = function({accountManager}){
         const username = request.body.username
         const password = request.body.password
         const hashedPassword = accountManager.hashPassword(password)
-        const isAdmin = request.body.admin
+        const shouldBeAdmin = request.body.admin
+        const isAdmin = request.session.isAdmin
         const accountId = request.params.id
         const loggedInAccount = request.session.accountId
         const account = {
@@ -99,7 +100,8 @@ module.exports = function({accountManager}){
             username: username,
             password: hashedPassword,
             isAdmin: isAdmin,
-            loggedInAccount: loggedInAccount
+            loggedInAccount: loggedInAccount,
+            shouldBeAdmin: shouldBeAdmin
         }
         accountManager.updateAccountById(account, function(errors, id){
             if(errors.length > 0){
@@ -129,7 +131,7 @@ module.exports = function({accountManager}){
             if(errors.length > 0){
                 const model = {
                     errors: errors,
-                    accountId: accountId
+                    account: account
                 }
                 response.render('delete-account.hbs', model)
             }else{
