@@ -71,6 +71,7 @@ module.exports = function({accountManager}){
             if(errors.length > 0){
                 const model = {
                     username: username,
+                    isAdmin: isAdmin,
                     errors: errors,
                     id: id
                 }
@@ -119,7 +120,7 @@ module.exports = function({accountManager}){
             if(errors.length > 0){
                 const model = {
                     errors: errors,
-                    id: id
+                    accountId: accountId
                 }
                 response.render('delete-account.hbs', model)
             }else{
