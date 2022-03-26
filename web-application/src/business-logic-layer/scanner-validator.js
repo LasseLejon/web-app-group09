@@ -2,16 +2,13 @@ exports.getErrorsCreateScanner = function(scanner){
 	const errors = []
 	const scannerId = Number(scanner.scannerId)
 
-	if(!Number.isInteger(scannerId)){
+	if(!Number.isInteger(scannerId || scanner.scannerId == "")){
 		errors.push('invalidInput')
 	}
 
 	if(!scanner.isAdmin){
 		errors.push('notAdmin')
 	}
-    if(scanner.scannerId == ""){
-        errors.push("scannerIdMissing")
-    }
 	return errors
 }
 
@@ -28,16 +25,13 @@ exports.getErrorsUpdateScanner = function(scanner){
 	const errors = []
 	const scannerId = Number(scanner.newScannerId)
 
-	if(!Number.isInteger(scannerId)){
+	if(!Number.isInteger(scannerId) || scanner.newScannerId == ""){
 		errors.push('invalidInput')
 	}
 
 	if(!scanner.isAdmin){
 		errors.push('notAdmin')
 	}
-    if(scanner.scannerId == ""){
-        errors.push("scannerIdMissing")
-    }
 	return errors
 }
 
