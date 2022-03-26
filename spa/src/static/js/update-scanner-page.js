@@ -1,5 +1,5 @@
 async function loadUpdateScannerPage(id){
-    const response = await fetch("http://localhost:3000/api/scanners/" + id)
+    const response = await fetch(API_URL + "scanners/" + id)
     if(response.status == 404){
         hideCurrentPage()
         window.history.pushState(null, "", '/not-found')

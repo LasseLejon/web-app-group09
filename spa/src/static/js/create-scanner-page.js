@@ -20,7 +20,7 @@ async function submitCreateScannerForm(){
         }
     }
     else{
-        const response = await fetch("http://localhost:3000/api/scanners", {
+        const response = await fetch(API_URL + "scanners", {
             method: 'POST',
             headers: {
                 'Authorization': 'Bearer '+ACCESS_TOKEN,

@@ -1,5 +1,5 @@
 async function loadScannersPage(){	
-	const response = await fetch("http://localhost:3000/api/scanners")	
+	const response = await fetch(API_URL + "scanners")	
 	const scanners = await response.json()	
 	const allScannersTable = document.getElementById('all-scanners')
 	allScannersTable.innerText = ""
