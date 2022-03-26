@@ -34,7 +34,7 @@ async function submitCreateScannerForm(){
             window.history.pushState(null, "", '/scanner')
             showPage('/scanner')
         }
-        if(response.status == 400){
+        else{
             ul.innerText = ""
             const errors = await response.json()
             for(const error of errors){
@@ -43,9 +43,6 @@ async function submitCreateScannerForm(){
                 li.innerText = error
                 ul.appendChild(li)    
             } 
-        }
-        else{
-                         
         }
     }   
 }
