@@ -2,8 +2,6 @@
 var ACCESS_TOKEN
 const API_URL = "http://localhost:3000/api/"
 
-
-
 document.addEventListener('DOMContentLoaded', function(){
     const anchors = document.querySelectorAll('a')
 
@@ -11,13 +9,10 @@ document.addEventListener('DOMContentLoaded', function(){
         anchor.addEventListener('click', function(event){
             event.preventDefault()
             const url = anchor.getAttribute('href')
-
             history.pushState(null, "", url)
-
             hideCurrentPage()
             showPage(url)
         })
-
     }
 
     const loginForm = document.getElementById('login-form')
@@ -48,9 +43,7 @@ document.addEventListener('DOMContentLoaded', function(){
     createScannerForm.addEventListener('submit', (event) => {
         event.preventDefault()
         submitCreateScannerForm()
-
-
-        })
+    })
 
     showPage(location.pathname)
 })
@@ -89,7 +82,6 @@ function showPage(url){
 
         case '/account/create':
             nextPageId = 'create-account-page'
-            //loadCreateAccountPage()
             break
     
         default:
@@ -111,8 +103,7 @@ function showPage(url){
             }
             else{
                 nextPageId = 'not-found-page'
-            }
-            
+            }           
     }
 
     document.getElementById(nextPageId).classList.add('current-page')

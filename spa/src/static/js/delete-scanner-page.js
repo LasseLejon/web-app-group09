@@ -17,14 +17,11 @@ async function loadDeleteScannerPage(id){
         console.log(scanner[0].scannerId)
         p.innerText = 'Are you sure you want to delete scanner with id ' + scanner[0].scannerId +'?'
 
-    }
-    
+    }   
 }
 
-async function submitDeleteScannerForm(){
-    
-    const [empty, scanner, update, id] = location.pathname.split('/')
-    
+async function submitDeleteScannerForm(){   
+    const [empty, scanner, update, id] = location.pathname.split('/')  
     const button = document.getElementById('deleteButton')
     button.innerText = "Yes delete"
     const ul = document.getElementById('delete-error-ul')

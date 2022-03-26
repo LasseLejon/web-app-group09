@@ -1,7 +1,5 @@
 async function loadUpdateScannerPage(id){
     const response = await fetch("http://localhost:3000/api/scanners/" + id)
-    console.log(response.status)
-
     if(response.status == 404){
         hideCurrentPage()
         window.history.pushState(null, "", '/not-found')
@@ -11,10 +9,8 @@ async function loadUpdateScannerPage(id){
         const scanner = await response.json()
         const updateErrorUl = document.getElementById('update-error-ul')
         updateErrorUl.innerText = ""
-        const inputElement = document.getElementById('update-scanner-input')
-    
-        inputElement.value = scanner[0].scannerId 
-        
+        const inputElement = document.getElementById('update-scanner-input')  
+        inputElement.value = scanner[0].scannerId       
     }
 }
 
