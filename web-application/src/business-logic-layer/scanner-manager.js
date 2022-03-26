@@ -21,7 +21,7 @@ module.exports = function({scannerRepository}){
 		},
 		
 		createScanner: function(requestData, callback){
-			const errors = scannerValidator.getErrorsNewScanner(requestData)
+			const errors = scannerValidator.getErrorsCreateScanner(requestData)
 			if(errors.length > 0){
 				callback(errors, null)
 				return
@@ -30,7 +30,7 @@ module.exports = function({scannerRepository}){
 		},
 		
 		updateScannerById: function(requestData, callback){
-			const errors = scannerValidator.getErrorsNewScanner(requestData)
+			const errors = scannerValidator.getErrorsUpdateScanner(requestData)
 			if(errors.length > 0){
 				callback(errors, null)
 				return

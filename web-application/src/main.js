@@ -4,7 +4,7 @@ const container = awilix.createContainer()
 
 container.register(
 	'scannerRepository',
-	awilix.asFunction(require('./data-access-layer/scanner-repository.js'))
+	awilix.asFunction(require('./data-access-layer/orm/scanner-repository.js'))
 )
 container.register(
 	'scannerManager',
@@ -16,7 +16,7 @@ container.register(
 )
 container.register(
 	'accountRepository',
-	awilix.asFunction(require('./data-access-layer/account-repository.js'))
+	awilix.asFunction(require('./data-access-layer/orm/account-repository.js'))
 )
 container.register(
 	'authRepository',
