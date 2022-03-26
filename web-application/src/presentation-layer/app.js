@@ -7,7 +7,6 @@ module.exports = function({webApp,restApp}){
             app.use('/api',restApp.getRestApp())
             app.listen(8080)
         }
-
     }
 }
 

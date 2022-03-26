@@ -7,13 +7,7 @@ module.exports = function({}){
 			const path = require('path')
 			const bodyParser = require('body-parser')
 			const variousRouter = require('./routers/various-router')
-			const csrf = require('csurf')
-			//const csrfProtection = csrf()
-
-
-			// const scannerRouter = require('./routers/scanner-router')
-			//const authRouter = require('./routers/auth-router')
-
+		//	const csrf = require('csurf')
 			const session = require('express-session')
 			const RedisStore = require("connect-redis")(session)
 			const { createClient } = require("redis")
@@ -25,13 +19,9 @@ module.exports = function({}){
 			const scannerRouter = routers.scannerRouter
 			const accountRouter = routers.accountRouter
 
-
-
-
 			const app = express()
-			//app.use(csrfProtection) 
+	
 			app.use(bodyParser.urlencoded({extended:false}));
-
 
 			app.use(express.urlencoded({
 				extended: false
@@ -50,12 +40,6 @@ module.exports = function({}){
 				response.locals.session = request.session
 				next()
 			})
-	//		app.use(csrf())
-	//		
-	//		app.use((request, response, next) => {
-	//			response.locals.csrfToken = request.csrfToken()
-	//			next()
-	//		})
 
 			app.set('views', path.join(__dirname, "views"))
 
@@ -71,10 +55,6 @@ module.exports = function({}){
 			app.use('/auth', authRouter)
 
 			return app
-//app.listen(8080, function(){
-//  console.log("Web application listening on port 8080.")
-//})
-
 		}
 	}
 }

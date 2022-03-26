@@ -62,9 +62,7 @@ container.register(
 	'webApp',
 	awilix.asFunction(require('./presentation-layer/web-app.js'))
 )
-//const restApp = container.resolve('restApp')
 const startApps = container.resolve('startApps')
-
 const accountRouterRest = container.resolve('accountRouterRest')
 const authRouterRest = container.resolve('authRouterRest')
 const scannerRouterRest = container.resolve('scannerRouterRest')
@@ -72,9 +70,7 @@ const authRouter = container.resolve('authRouter')
 const scannerRouter = container.resolve('scannerRouter')
 const accountRouter = container.resolve('accountRouter')
 
-
 module.exports = {
-//	restApp,
 	authRouterRest,
 	scannerRouterRest,
 	accountRouterRest,
