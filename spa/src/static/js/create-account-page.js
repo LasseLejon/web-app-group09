@@ -9,7 +9,7 @@ async function submitCreateAccountForm(){
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
             },
-            body: JSON.stringify({username: username, password: password, admin: 'no'})
+            body: JSON.stringify({username: username, password: password, shouldBeAdmin: 'yes'})
         })
         if(response.status == 400){
             const data = await response.json()

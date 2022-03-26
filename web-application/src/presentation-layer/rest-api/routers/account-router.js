@@ -14,12 +14,13 @@ module.exports = function({accountManager}){
     router.post('/accounts',function(request,response){
         const username = request.body.username
         const password = request.body.password
-        const isAdmin = request.body.admin
+        const shouldBeAdmin = request.body.shouldBeAdmin
+        console.log(shouldBeAdmin)
         const hashedPassword = accountManager.hashPassword(password)
         const account = {
             username: username,
             password: hashedPassword,
-            isAdmin: isAdmin
+            shouldBeAdmin: shouldBeAdmin
         }
         // invalid grant om token är fel eller expired
         // unauthirized_client om ej admin status

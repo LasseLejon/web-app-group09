@@ -38,18 +38,19 @@ module.exports = function(){
 			Account.create({
                 username: account.username,
                 password: account.password,
-                isAdmin: account.isAdmin
+                isAdmin: account.shouldBeAdmin
             })
             .then(function(results){
                 callback([], results.insertId)
             })
-            .catch(function(){
+            .catch(function(error){
+                console.log(error)
                 callback(['databaseError'])
             })
 		},
 
         updateAccountById: function(account, callback){
-            Account.update({username: account.username, password: account.password, isAdmin: account.isAdmin}, {where: {accountId: account.accountId}})
+            Account.update({username: account.username, password: account.password, isAdmin: account.shouldBeAdmin}, {where: {accountId: account.accountId}})
             .then(function(result){
                 callback([], result.insertId)
             })
