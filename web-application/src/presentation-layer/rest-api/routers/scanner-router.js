@@ -71,7 +71,7 @@ module.exports = function({scannerManager}){
                         console.log("error",errors)
                         response.status(400).json(errors)
                     }else{
-                        response.status(200).end()
+                        response.status(201).end()
                     }
                 })
 

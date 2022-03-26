@@ -37,8 +37,7 @@ async function submitUpdateScannerForm(){
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer '+ ACCESS_TOKEN,
-                'Accept': 'application/json'
+                'Authorization': 'Bearer '+ ACCESS_TOKEN
             },
             body: JSON.stringify({scannerId: inputValue})
         })
