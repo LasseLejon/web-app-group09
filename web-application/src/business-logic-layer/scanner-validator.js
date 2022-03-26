@@ -25,7 +25,7 @@ exports.getErrorsUpdateScanner = function(scanner){
 	const errors = []
 	const scannerId = Number(scanner.newScannerId)
 
-	if(!Number.isInteger(scannerId) || scanner.newScannerId == ""){
+	if(!Number.isInteger(scannerId || scanner.newScannerId == "")){
 		errors.push('invalidInput')
 	}
 
