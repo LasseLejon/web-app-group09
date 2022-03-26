@@ -1,5 +1,5 @@
-//const scannerRepository = require('../data-access-layer/scanner-repository')
 const scannerValidator = require('./scanner-validator')
+const scannerAuthorizer = require('./scanner-authorizer')
 
 module.exports = function({scannerRepository}){
 	return {
@@ -90,8 +90,14 @@ module.exports = function({scannerRepository}){
 			})
 		},
 
-		getScannerBorrowSessionDetails: function(callback){
-			scannerRepository.getScannerBorrowSessionDetails(callback)
+		getScannerBorrowSessionDetails: function(account, callback){
+			const errors = scannerAuthorizer.getAuthorizationErrorsGetScannerBorrowDetails(account)
+			if(errors.length > 0){
+				callback(errors, null)
+			}
+			else{
+				scannerRepository.getScannerBorrowSessionDetails(callback)
+			}
 		}
 
 	}

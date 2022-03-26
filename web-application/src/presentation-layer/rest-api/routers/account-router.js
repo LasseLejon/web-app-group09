@@ -17,7 +17,7 @@ module.exports = function({accountManager}){
  //   router.use(express.urlencoded({ extended: false }))
     
 
-    router.get("/account", function(request, response){
+    router.get("/accounts", function(request, response){
 
         accountManager.getAllAccounts(function(errors,accounts){
             if(errors.length > 0){
@@ -32,7 +32,7 @@ module.exports = function({accountManager}){
         extended: false
     }))
 
-    router.post('/create',function(request,response){
+    router.post('/accounts',function(request,response){
             const username = request.body.username
             const password = request.body.password
             const isAdmin = request.body.admin

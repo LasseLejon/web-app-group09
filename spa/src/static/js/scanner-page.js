@@ -1,6 +1,6 @@
 async function loadScannersPage(){
 	
-	const response = await fetch("http://localhost:3000/api/scanner")
+	const response = await fetch("http://localhost:3000/api/scanners")
 	
 	// TODO: Check status code and act accordingly!
 	

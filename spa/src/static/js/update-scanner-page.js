@@ -1,5 +1,5 @@
 async function loadUpdateScannerPage(id){
-    const response = await fetch("http://localhost:3000/api/scanner/update/" + id)
+    const response = await fetch("http://localhost:3000/api/scanners/" + id)
     console.log(response.status)
 
     if(response.status == 404){
@@ -33,7 +33,7 @@ async function submitUpdateScannerForm(){
         }
     }
     else{    
-        const response = await fetch(API_URL + "scanner/update/" + id, {
+        const response = await fetch(API_URL + "scanners/" + id, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

@@ -3,8 +3,8 @@ async function loadDeleteScannerPage(id){
     ul.innerText = ""
     const p = document.getElementById('delete-scanner-p')
     p.innerText = ""
-    console.log(API_URL + 'scanner/delete/' + id)
-    const response = await fetch(API_URL + 'scanner/delete/' + id)
+    console.log(API_URL + 'scanners/' + id)
+    const response = await fetch(API_URL + 'scanners/' + id)
     console.log(response.status)
 
     if(response.status == 404){
@@ -39,7 +39,7 @@ async function submitDeleteScannerForm(){
             ul.appendChild(li)    
     }
     else{
-        const response = await fetch("http://localhost:3000/api/scanner/delete/" + id, {
+        const response = await fetch("http://localhost:3000/api/scanners/" + id, {
             method: 'DELETE',
             headers: {
                 'Authorization' : 'Bearer '+ACCESS_TOKEN,

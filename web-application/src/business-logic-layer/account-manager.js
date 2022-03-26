@@ -1,5 +1,6 @@
 //const accountRepository = require('../data-access-layer/account-repository')
 const accountValidator = require('./account-validators')
+const accountAuthorizer = require('./account-authorizer')
 const bcrypt = require('bcryptjs');
 
 module.exports = function({accountRepository}){
@@ -32,12 +33,14 @@ module.exports = function({accountRepository}){
 		
 		updateAccountById: function(account, callback){
 			const errors = accountValidator.getErrorsNewAccount(account)
+			accountAuthorizer.getAuthorizationErrorsUpdateAccount(errors, account)
 			console.log("account", account)
 			if(errors.length > 0){
 				callback(errors, null)
-				return
 			}
-			accountRepository.updateAccountById(account, callback)
+			else{
+				accountRepository.updateAccountById(account, callback)
+			}
 		},
 		
 		getAccountByUsername: function(username, callback){
@@ -45,7 +48,13 @@ module.exports = function({accountRepository}){
 		},
 		
 		deleteAccountById: function(account, callback){
-			accountRepository.deleteAccountById(account, callback)
+			const errors = accountAuthorizer.getAuthorizationErrorsDeleteAccount(account)
+			if(errors.length > 0){
+				callback(errors, null)
+			}
+			else{
+				accountRepository.deleteAccountById(account.accountId, callback)
+			}
 		},
 
 		hashPassword: function(password){

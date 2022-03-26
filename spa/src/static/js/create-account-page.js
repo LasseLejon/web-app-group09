@@ -3,7 +3,7 @@ async function submitCreateAccountForm(){
         const password = document.getElementById('create-account-password-input').value
         const repeatPassword = document.getElementById('create-account-repeat-password-input').value
         if(password == repeatPassword){
-            const response = await fetch(API_URL + 'create', {
+            const response = await fetch(API_URL + 'accounts', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
