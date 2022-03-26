@@ -14,27 +14,19 @@ module.exports = function({accountRepository}){
 		},
 		
 		createAccount: function(account, callback){
-			
-			// Validate the account.
-			console.log("test4",account.isAdmin)
-    		console.log("test5", account.username)
-    		console.group("test6", account.password)
 			const errors = accountValidator.getErrorsNewAccount(account)
 			
 			if(0 < errors.length){
-				console.log("finns det errors", errors)
 				callback(errors, null)
 				return
-			}
-			
-			accountRepository.createAccount(account, callback)
-			
+			}			
+			accountRepository.createAccount(account, callback)			
 		},
 		
 		updateAccountById: function(account, callback){
 			const errors = accountValidator.getErrorsNewAccount(account)
 			accountAuthorizer.getAuthorizationErrorsUpdateAccount(errors, account)
-			console.log("account", account)
+
 			if(errors.length > 0){
 				callback(errors, account)
 			}
@@ -49,8 +41,8 @@ module.exports = function({accountRepository}){
 		
 		deleteAccountById: function(account, callback){
 			const errors = accountAuthorizer.getAuthorizationErrorsDeleteAccount(account)
+
 			if(errors.length > 0){
-				console.log(account)
 				callback(errors)
 			}
 			else{
@@ -63,9 +55,7 @@ module.exports = function({accountRepository}){
 			const hash = bcrypt.hashSync(password, salt);
 
 			return hash
-
 		}
-
 	}
 }
 

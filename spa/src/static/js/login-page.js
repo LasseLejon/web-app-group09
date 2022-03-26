@@ -1,6 +1,7 @@
 async function submitLoginForm(){
     const username = document.getElementById('login-username-input').value
     const password = document.getElementById('login-password-input').value  
+
     const response = await fetch(API_URL + "tokens", {
         method: 'POST',
         headers: {
@@ -20,15 +21,11 @@ async function submitLoginForm(){
         const ulErrors = document.getElementById('login-error-ul')
         ulErrors.innerText = ""
         const errors = await response.json()
+
         for(const error of errors){
             const li = document.createElement('li')
             li.innerText = error
             ulErrors.appendChild(li)
-
-
-        }
-         
-    }
-    
-    
+        }        
+    }   
 }

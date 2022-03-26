@@ -1,22 +1,18 @@
-exports.getErrorsNewScanner = function(scanner){
-	
+exports.getErrorsNewScanner = function(scanner){	
 	const errors = []
+
 	if(!scanner.isAdmin){
 		errors.push('notAdmin')
 	}
-	/* if(!scanner.hasOwnProperty("scannerNumber")){
-		errors.push("scannerNumberMissing")
-	} */
     if(scanner.scannerId == ""){
         errors.push("scannerIdMissing")
     }
 	return errors
-	
 }
 
 exports.getErrorsGetScannerById = function(scanner){
 	const errors = []
-	console.log("getErrors",scanner)
+	
 	if(!scanner.length){
 		errors.push('notFound')
 	}
@@ -25,6 +21,7 @@ exports.getErrorsGetScannerById = function(scanner){
 
 exports.getErrorsDeleteScanner = function(scanner){
 	const errors = []
+
 	if(!scanner.isAdmin){
 		errors.push('notAdmin')
 	}
@@ -35,32 +32,33 @@ exports.getErrorsDeleteScanner = function(scanner){
 }
 
 exports.getErrorsBorrowScanner = function(scannerBorrowDetails, scannerBorrowSession){
-
 	const errors = []
+
 	if(scannerBorrowDetails.isLoggedIn){
-		console.log(scannerBorrowSession, "hsdafhasdlkfhalskdfjhls")
 		if(scannerBorrowSession.length > 0){
 			errors.push("accountHasActiveScanner")
 		}
-	}else{
+	}
+	else{
 		errors.push('notLoggedIn')
 	}
-
 	return errors
-
 }
 
 exports.getErrorsReturnScanner = function(scannerReturnDetails, scannerBorrowSession){
 	const errors = []
+
 	if(scannerReturnDetails.isLoggedIn){
 		if(scannerBorrowSession.length > 0){
 			if(scannerReturnDetails.accountId != scannerBorrowSession[0].accountId){
 				errors.push('accountsNotMatching')
 			}
-		}else{
+		}
+		else{
 			errors.push('scannerNotInUse')
 		}
-	}else{
+	}
+	else{
 		errors.push('notLoggedIn')
 	}
 	return errors
