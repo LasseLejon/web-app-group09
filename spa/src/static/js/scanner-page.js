@@ -1,14 +1,8 @@
-async function loadScannersPage(){
-	
-	const response = await fetch("http://localhost:3000/api/scanners")
-	
-	// TODO: Check status code and act accordingly!
-	
-	const scanners = await response.json()
-	
+async function loadScannersPage(){	
+	const response = await fetch("http://localhost:3000/api/scanners")	
+	const scanners = await response.json()	
 	const allScannersTable = document.getElementById('all-scanners')
 	allScannersTable.innerText = ""
-
 	
 	for(const scanner of scanners){
 		const tr = document.createElement('tr')
@@ -16,10 +10,8 @@ async function loadScannersPage(){
 		const tdInUse = document.createElement('td')
 		const tdUpdate = document.createElement('td')
 		const tdDelete = document.createElement('td')
-
 		const anchorUpdate = document.createElement('a')
 		const anchorDelete = document.createElement('a')
-
 		anchorUpdate.setAttribute('href', "/scanner/update/" + scanner.scannerId)
 		anchorUpdate.innerText = "Update"
 		anchorUpdate.addEventListener('click', function(event){
@@ -40,9 +32,7 @@ async function loadScannersPage(){
 
             hideCurrentPage()
             showPage(url)
-
 		})
-
 		anchorDelete.setAttribute('href', "/scanner/delete/" + scanner.scannerId)
 		anchorDelete.innerText = "Delete"
 
@@ -51,7 +41,6 @@ async function loadScannersPage(){
 
 		tdUpdate.appendChild(anchorUpdate)
 		tdDelete.appendChild(anchorDelete)
-
 
 		tr.appendChild(tdId)
 		tr.appendChild(tdInUse)
