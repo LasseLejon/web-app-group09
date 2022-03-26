@@ -9,6 +9,7 @@ async function submitCreateAccountForm(){
     const repeatPassword = document.getElementById('create-account-repeat-password-input').value
     const errorUl = document.getElementById('create-account-error-ul')
     errorUl.innerText = ""
+
     if(password == repeatPassword){
         const response = await fetch(API_URL + 'accounts', {
             method: 'POST',
@@ -20,15 +21,11 @@ async function submitCreateAccountForm(){
         })
         if(response.status == 400){
             const errors = await response.json()
-            console.log(errors)
             for(const error of errors){
                 const li = document.createElement('li')
                 li.innerText = error
                 errorUl.appendChild(li)
-
-            }
-
-            
+            }           
         }
         else{
             hideCurrentPage()
@@ -40,7 +37,5 @@ async function submitCreateAccountForm(){
         const li = document.createElement('li')
         li.innerText = "passwordNotMatching"
         errorUl.appendChild(li)
-
     }
-
 }

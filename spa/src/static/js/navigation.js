@@ -44,7 +44,6 @@ document.addEventListener('DOMContentLoaded', function(){
         event.preventDefault()
         submitCreateScannerForm()
     })
-
     showPage(location.pathname)
 })
 
@@ -67,7 +66,6 @@ function showPage(url){
 
         case '/auth/login':
             nextPageId = 'login-page'
-            //loadLoginPage()
             break
 
         case '/scanner':
@@ -89,7 +87,6 @@ function showPage(url){
             else if(url.startsWith("/scanner/delete/")){
                 const [empty, scanner, update, id] = url.split('/')
                 nextPageId = 'delete-scanner-page'
-                console.log("kolla token", ACCESS_TOKEN)
                 loadDeleteScannerPage(id)
             }
             else if(url.startsWith("/scanner/create")){

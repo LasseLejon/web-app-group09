@@ -11,6 +11,7 @@ async function submitCreateScannerForm(){
     ul.innerText = ""
     const inputValue = document.getElementById('create-scanner-input').value
     const errors = getValidationErrorsCreateScannerInput(inputValue)
+
     if(errors.length > 0){
         for(const error of errors){
             const li = document.createElement('li')
@@ -51,11 +52,11 @@ async function submitCreateScannerForm(){
 
 function getValidationErrorsCreateScannerInput(input){
     const errors = []
+
     if(isNaN(input)){
         errors.push('invalidInput')
     }
     if(!ACCESS_TOKEN){
-        console.log(ACCESS_TOKEN)
         errors.push('unauthorized')
     }
     return errors

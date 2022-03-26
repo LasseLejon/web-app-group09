@@ -19,17 +19,14 @@ async function loadScannersPage(){
             const url = anchorUpdate.getAttribute('href')
 
             history.pushState(null, "", url)
-
             hideCurrentPage()
             showPage(url)
-
 		})
 		anchorDelete.addEventListener('click', function(event){
 			event.preventDefault()
             const url = anchorDelete.getAttribute('href')
 
             history.pushState(null, "", url)
-
             hideCurrentPage()
             showPage(url)
 		})
@@ -48,5 +45,4 @@ async function loadScannersPage(){
 		tr.appendChild(tdDelete)
 		allScannersTable.appendChild(tr)	
 	}
-	
 }

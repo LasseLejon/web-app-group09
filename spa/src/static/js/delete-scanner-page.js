@@ -16,7 +16,6 @@ async function loadDeleteScannerPage(id){
         const scanner = await response.json()
         console.log(scanner[0].scannerId)
         p.innerText = 'Are you sure you want to delete scanner with id ' + scanner[0].scannerId +'?'
-
     }   
 }
 
@@ -27,11 +26,12 @@ async function submitDeleteScannerForm(){
     const ul = document.getElementById('delete-error-ul')
     ul.innerText = ""
     var error = ""
+
     if(typeof ACCESS_TOKEN == 'undefined'){
         error = 'unauthorized'
         const li = document.createElement('li')
-            li.innerText = error
-            ul.appendChild(li)    
+        li.innerText = error
+        ul.appendChild(li)    
     }
     else{
         const response = await fetch("http://localhost:3000/api/scanners/" + id, {
@@ -55,6 +55,7 @@ async function submitDeleteScannerForm(){
 
 function getValidationErrorsCreateScannerInput(input){
     const errors = []
+
     if(isNaN(input)){
         errors.push('invalidInput')
     }

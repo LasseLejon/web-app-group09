@@ -21,6 +21,7 @@ async function submitUpdateScannerForm(){
     const updateErrorUl = document.getElementById('update-error-ul')
     updateErrorUl.innerText = ""
     const errors = getValidationErrorsUpdateScannerInput(inputValue)
+
     if(errors.length > 0){
         for(const error of errors){
             const li = document.createElement('li')
@@ -37,7 +38,6 @@ async function submitUpdateScannerForm(){
             },
             body: JSON.stringify({scannerId: inputValue})
         })
-        console.log(response)
         if(response.status == 204){
             hideCurrentPage()
             window.history.pushState(null, "", '/scanner')
@@ -45,6 +45,7 @@ async function submitUpdateScannerForm(){
         }
         else{
             const errors = await response.json()
+
             for(const error of errors){
                 const li = document.createElement('li')
                 li.innerText = error
@@ -56,6 +57,7 @@ async function submitUpdateScannerForm(){
 
 function getValidationErrorsUpdateScannerInput(input){
     const errors = []
+    
     if(isNaN(input)){
         errors.push('invalidInput')
     }
