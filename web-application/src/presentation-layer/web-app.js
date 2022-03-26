@@ -7,7 +7,6 @@ module.exports = function({}){
 			const path = require('path')
 			const bodyParser = require('body-parser')
 			const variousRouter = require('./routers/various-router')
-		//	const csrf = require('csurf')
 			const session = require('express-session')
 			const RedisStore = require("connect-redis")(session)
 			const { createClient } = require("redis")
@@ -20,7 +19,7 @@ module.exports = function({}){
 			const accountRouter = routers.accountRouter
 
 			const app = express()
-	
+
 			app.use(bodyParser.urlencoded({extended:false}));
 
 			app.use(express.urlencoded({

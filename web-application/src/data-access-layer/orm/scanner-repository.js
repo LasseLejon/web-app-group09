@@ -4,7 +4,6 @@ const Scanner = sequelize.Scanner
 const ScannerBorrowSession = sequelize.ScannerBorrowSession
 const seql = sequelize.sequelize
 
-
 module.exports = function(){
     return{
         getAllScanners: function(callback){
@@ -55,7 +54,6 @@ module.exports = function(){
             Scanner.destroy({where: {scannerId: scannerId}}).then(function(){
                 callback([])
             }).catch(function(error){
-                console.log(error)
                 callback(['databaseError'])
             })
         },
@@ -152,7 +150,6 @@ module.exports = function(){
         getScannerBorrowSessionDetails: function(callback){
 
             ScannerBorrowSession.findAll({raw: true}).then(function(scannerBorrowSessionDetails){
-                console.log(scannerBorrowSessionDetails)
                 callback([], scannerBorrowSessionDetails)
             }).catch(function(error){
                 callback(error)

@@ -6,11 +6,9 @@ module.exports = function({accountManager}){
     router.get("/", function(request, response){
 
         accountManager.getAllAccounts(function(errors, accounts){
-
             const model = {
                 errors: errors,
-                accounts: accounts,
-                
+                accounts: accounts, 
             }
             response.render("account.hbs", model)
         })
@@ -22,6 +20,7 @@ module.exports = function({accountManager}){
     
     router.get('/update/:id', function(request, response){
         const id = request.params.id
+
         accountManager.getAccountById(id, function(errors, account){
             const model = {
                 errors: errors,
@@ -47,16 +46,13 @@ module.exports = function({accountManager}){
         const username = request.body.username
         const password = request.body.password
         const shouldBeAdmin = request.body.admin
-
         const hashedPassword = accountManager.hashPassword(password)
-
         const account = {
             username: username,
             password: hashedPassword,
             shouldBeAdmin: shouldBeAdmin
         }
-    
-        
+       
         accountManager.createAccount(account,function(errors,id){
             if(errors.length > 0){
                 const model = {
@@ -65,8 +61,7 @@ module.exports = function({accountManager}){
                     errors: errors,
                     id: id
                 }
-                console.log("går in i fel jävla sats")
-                response.render('create-account.hbs',model)
+                response.render('create-account.hbs', model)
             }
             else{
                 response.redirect('/account')
@@ -90,6 +85,7 @@ module.exports = function({accountManager}){
             loggedInAccount: loggedInAccount,
             shouldBeAdmin: shouldBeAdmin
         }
+
         accountManager.updateAccountById(account, function(errors, id){
             if(errors.length > 0){
                 const model = {
@@ -98,7 +94,8 @@ module.exports = function({accountManager}){
                     id: id
                 }
                 response.render('update-account.hbs', model)
-            }else{
+            }
+            else{
                 response.redirect('/account')
             }
             
@@ -114,6 +111,7 @@ module.exports = function({accountManager}){
             loggedInAccount: loggedInAccount,
             isAdmin: isAdmin
         }
+
         accountManager.deleteAccountById(account, function(errors){
             if(errors.length > 0){
                 const model = {
@@ -121,7 +119,8 @@ module.exports = function({accountManager}){
                     account: account
                 }
                 response.render('delete-account.hbs', model)
-            }else{
+            }
+            else{
                 response.redirect('/account')
             }
         })

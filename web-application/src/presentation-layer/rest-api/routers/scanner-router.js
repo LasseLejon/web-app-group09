@@ -11,14 +11,6 @@ module.exports = function({scannerManager}){
         extended: false
     }))
 
-    router.use(function(request, response, next){
-        response.setHeader("Access-Control-Allow-Origin", "*")
-        response.setHeader("Access-Control-Allow-Methods", "*")
-        response.setHeader("Access-Control-Allow-Headers", "*")
-        response.setHeader("Access-Control-Expose-Headers", "*")
-        next()
-    })
-
     router.get("/scanners", function(request, response){
         scannerManager.getAllScanners(function(errors, scanners){
             if(errors.length > 0){
@@ -66,13 +58,12 @@ module.exports = function({scannerManager}){
                 }
                 scannerManager.createScanner(requestData, function(errors, id){
                     if(errors.length > 0){
-                        console.log("error",errors)
                         response.status(400).json(errors)
-                    }else{
+                    }
+                    else{
                         response.status(201).end()
                     }
                 })
-
             }
         })    
     })
@@ -105,8 +96,7 @@ module.exports = function({scannerManager}){
                     }                   
                 })
             }
-        })
-        
+        })    
     })
 
     router.delete('/scanners/:id', function(request, response){

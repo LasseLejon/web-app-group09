@@ -2,42 +2,28 @@ const express = require('express')
 
 const { response } = require('express')
 
-
-
-
-
-
-
 module.exports = function({authManager}){
 
     const router = express.Router()  
    
-
     router.get('/login', function(request, response){
-       
         response.render('login-auth.hbs')
 })
 
-    router.get('/logout', function(request, response){
-               
+    router.get('/logout', function(request, response){     
         response.render('logout-auth.hbs')
     })
 
     router.post('/logout', function(request,response){
-        
         request.session.isLoggedIn = false
         request.session.isAdmin = false
         request.session.accountId = null
         response.redirect('/auth/login')
-
-
     })
 
     router.post('/login', function(request,response){
         const username = request.body.username
         const inputPassword = request.body.pass
-        
-
         const account = {
             username: username,
             password: inputPassword
@@ -53,7 +39,6 @@ module.exports = function({authManager}){
             }           
             else{               
                 request.session.isLoggedIn = true 
-                console.log(storedAccount.isAdmin)
                 request.session.accountId = storedAccount.accountId
                 if(authManager.checkIfAdmin(storedAccount.isAdmin)){
                     request.session.isAdmin = true

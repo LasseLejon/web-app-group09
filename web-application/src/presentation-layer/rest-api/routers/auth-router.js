@@ -1,8 +1,5 @@
 const ACCESS_TOKEN_SECRET = "adksfjdsfdsfsdf"
 
-
-
-
 module.exports = function({authManager}){
 
     const express = require('express')
@@ -19,10 +16,7 @@ module.exports = function({authManager}){
         const grant_type = request.body.grant_type
         const username = request.body.username
         const password = request.body.password
-
-        var payload = {
-
-        }
+        var payload = {}
 
         const account = {
             username: username,
@@ -43,17 +37,16 @@ module.exports = function({authManager}){
                 if(authManager.checkIfAdmin(storedAccount.isAdmin)){
                     payload = {
                         isLoggedIn:true,
-                        isAdmin:true
+                        isAdmin: true
                     }
                 }
                 else{
                     payload = {
                         isLoggedIn: true,
-                        isAdmin:false
+                        isAdmin: false
                     } 
                 }          
                 jwt.sign(payload,ACCESS_TOKEN_SECRET,function(err, token) {
-                    console.log("else", token)
                     response.status(200).json({access_token: token})
                 })          
             }

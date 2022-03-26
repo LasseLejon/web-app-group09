@@ -1,7 +1,6 @@
 <h1>Update scanner</h1>
 {{#if scanner}}
-    <form action="/scanner/update/{{scanner.scannerId}}" method="post">
-        
+    <form action="/scanner/update/{{scanner.scannerId}}" method="post">     
         <div>
             Scanner Number<br>
             <input type="text" name="scannerId" value="{{scanner.scannerId}}">

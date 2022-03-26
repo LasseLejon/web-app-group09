@@ -44,6 +44,7 @@ module.exports = function({scannerManager}){
 
     router.get('/borrow/:id', function(request, response){
         const id = request.params.id
+
         scannerManager.getScannerById(id, function(errors, scanner){
             const model = {
                 errors: errors,
@@ -71,7 +72,7 @@ module.exports = function({scannerManager}){
 
     router.get('/active', function(request, response){
         const accountId = request.session.accountId
-        console.log(accountId)
+
         scannerManager.getActiveScannerByAccountId(accountId, function(errors, activeScanner){
             const model = {
                 errors: errors,
@@ -88,6 +89,7 @@ module.exports = function({scannerManager}){
             scannerId: scannerId,
             isAdmin: isAdmin
         }
+
         scannerManager.createScanner(requestData, function(errors, id){
             if(errors.length > 0){
                 const model = {
@@ -95,7 +97,8 @@ module.exports = function({scannerManager}){
                     id: id
                 }
                 response.render('create-scanner.hbs', model)
-            }else{
+            }
+            else{
                 response.redirect('/scanner')
             }
         })
@@ -110,6 +113,7 @@ module.exports = function({scannerManager}){
             newScannerId: newScannerId,
             isAdmin: isAdmin
         }
+
         scannerManager.updateScannerById(requestData, function(errors){
             if(errors.length > 0){
                 const scanner = {
@@ -120,7 +124,8 @@ module.exports = function({scannerManager}){
                     scanner: scanner
                 }
                 response.render('update-scanner.hbs', model)
-            }else{
+            }
+            else{
                 response.redirect('/scanner')
             }           
         })
@@ -132,6 +137,7 @@ module.exports = function({scannerManager}){
             scannerId: scannerId,
             isAdmin: isAdmin
         }
+
         scannerManager.deleteScannerById(requestData, function(errors){
             if(errors.length > 0){
                 const model = {
@@ -141,7 +147,8 @@ module.exports = function({scannerManager}){
                     }
                 }
                 response.render('delete-scanner.hbs', model)
-            }else{
+            }
+            else{
                 response.redirect('/scanner')
             }
         })
@@ -158,6 +165,7 @@ module.exports = function({scannerManager}){
             isLoggedIn: isLoggedIn,
             date: date
         }
+
         scannerManager.borrowScannerById(scannerBorrowDetails, function(errors){
             if(errors.length > 0){
                 const scanner = {
@@ -168,7 +176,8 @@ module.exports = function({scannerManager}){
                     scanner
                 }
                 response.render('borrow-scanner.hbs', model)
-            }else{
+            }
+            else{
                 response.redirect('/scanner')
             }
         })
@@ -184,6 +193,7 @@ module.exports = function({scannerManager}){
             isLoggedIn: isLoggedIn,
             returnDate: new Date().toISOString().slice(0, 19).replace('T', ' ')
         }
+
         scannerManager.returnScannerByScannerId(scannerReturnDetails, function(errors){
             if(errors.length > 0){
                 const scanner = {
@@ -194,7 +204,8 @@ module.exports = function({scannerManager}){
                     scanner
                 }
                 response.render('return-scanner.hbs', model)
-            }else{
+            }
+            else{
                 response.redirect('/scanner')
             }
         })
@@ -210,7 +221,6 @@ module.exports = function({scannerManager}){
                     errors: errors,
                     scannerBorrowSessionDetails: scannerBorrowSessionDetails
                 }
-
             response.render('scanner-history.hbs', model)
         })
     })
