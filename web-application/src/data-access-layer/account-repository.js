@@ -50,7 +50,6 @@ module.exports = function({}){
 		createAccount: function(account, callback){
 			const query = `INSERT INTO Accounts (username, password, isAdmin) VALUES (?, ?, ?)`
 			const values = [account.username, account.hashedPassword, account.shouldBeAdmin]
-			
 			db.query(query, values, function(error, results){
 				if(error){
 					if(error.code == 'ER_DUP_ENTRY'){

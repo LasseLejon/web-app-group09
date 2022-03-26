@@ -37,7 +37,7 @@ module.exports = function(){
         createAccount: function(account, callback){
 			Account.create({
                 username: account.username,
-                password: account.password,
+                password: account.hashedPassword,
                 isAdmin: account.shouldBeAdmin
             })
             .then(function(results){
@@ -54,7 +54,7 @@ module.exports = function(){
 		},
 
         updateAccountById: function(account, callback){
-            Account.update({username: account.username, password: account.password, isAdmin: account.shouldBeAdmin}, {where: {accountId: account.accountId}})
+            Account.update({username: account.username, password: account.hashedPassword, isAdmin: account.shouldBeAdmin}, {where: {accountId: account.accountId}})
             .then(function(result){
                 callback([], result.insertId)
             })
