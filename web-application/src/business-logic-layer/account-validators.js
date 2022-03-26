@@ -1,5 +1,7 @@
 const MIN_USERNAME_LENGTH = 2
 const MAX_USERNAME_LENGTH = 10
+const MIN_PASSWORD_LENGTH = 2  
+const MAX_PASSWORD_LENGTH = 20
 
 
 exports.getErrorsNewAccount = function(account){	
@@ -17,6 +19,12 @@ exports.getErrorsNewAccount = function(account){
     if(account.username.length > MAX_USERNAME_LENGTH){
         errors.push("The username can maximum be "+MAX_USERNAME_LENGTH+" characters.")
     } 
+    if(account.password.length < MIN_PASSWORD_LENGTH){
+        errors.push("The password needs to be atleast "+MIN_PASSWORD_LENGTH+" characters")
+    }
+    if(account.password.length > MAX_PASSWORD_LENGTH){
+        errors.push("The password can maximum be "+MAX_PASSWORD_LENGTH+" characters")
+    }
 	return errors	
 }
 exports.getErrorsNewAccountRestApi = function(account){	
@@ -34,6 +42,12 @@ exports.getErrorsNewAccountRestApi = function(account){
     if(account.username.length > MAX_USERNAME_LENGTH){
         errors.push("The username can maximum be "+MAX_USERNAME_LENGTH+" characters.")
     } 
+    if(account.password.length < MIN_PASSWORD_LENGTH){
+        errors.push("The password needs to be atleast "+MIN_PASSWORD_LENGTH+" characters")
+    }
+    if(account.password.length > MAX_PASSWORD_LENGTH){
+        errors.push("The password can maximum be "+MAX_PASSWORD_LENGTH+" characters")
+    }
 	return errors	
 }
 

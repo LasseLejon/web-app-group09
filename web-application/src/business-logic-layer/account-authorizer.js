@@ -8,7 +8,7 @@ exports.getAuthorizationErrorsUpdateAccount = function(errors, account){
 
 exports.getAuthorizationErrorsDeleteAccount = function(account){
     const errors = []
-    
+
     if(!account.isAdmin){
         if(account.accountId != account.loggedInAccount){
             errors.push('accountsNotMatching')
